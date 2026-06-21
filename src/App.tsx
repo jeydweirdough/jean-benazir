@@ -22,12 +22,15 @@ function ScrollToTop() {
   return null;
 }
 
-function App() {
+function AppShell() {
+  const { pathname } = useLocation();
+  const isHome = pathname === '/';
+
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
-      <Navbar />
-      <main style={{ flexGrow: 1 }}>
+      {!isHome && <Navbar />}
+      <main style={{ flexGrow: 1, paddingTop: isHome ? 0 : '80px' }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -36,6 +39,14 @@ function App() {
         </Routes>
       </main>
       <Footer />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
     </BrowserRouter>
   );
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
   /* Color Palette - Navy & Gold */
@@ -6,20 +6,20 @@
   --bg-dark: #0a1122;
   --bg-medium: #121c33;
   --bg-light: #1b2848;
-  
-  --gold: #e5b13a;
-  --gold-hover: #f3c65c;
-  --gold-alpha: rgba(229, 177, 58, 0.15);
-  --gold-alpha-heavy: rgba(229, 177, 58, 0.35);
-  
+
+  --gold: #F4E11B;
+  --gold-hover: #f7e84a;
+  --gold-alpha: rgba(244, 225, 27, 0.15);
+  --gold-alpha-heavy: rgba(244, 225, 27, 0.35);
+
   --text-primary: #ffffff;
   --text-secondary: #a3b3d1;
   --text-muted: #627293;
-  --border: rgba(229, 177, 58, 0.15);
+  --border: rgba(244, 225, 27, 0.15);
   --border-light: rgba(255, 255, 255, 0.08);
-  
-  --sans: 'Montserrat', sans-serif;
-  --serif: 'Playfair Display', serif;
+
+  --sans: 'Inter', sans-serif;
+  --serif: 'Inter', sans-serif;
   
   --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
   --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -53,7 +53,7 @@ body {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--serif);
+  font-family: var(--sans);
   color: var(--text-primary);
   font-weight: 600;
   line-height: 1.25;
@@ -84,21 +84,6 @@ button, input, textarea, select {
   position: relative;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-darker);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--bg-light);
-  border: 2px solid var(--bg-darker);
-  border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
-}
 
 /* Layout Helper utilities */
 .container {
