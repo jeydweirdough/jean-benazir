@@ -1496,9 +1496,9 @@ textarea.form-control {
   color: #ffffff;
 }
 .calc-tab-btn.active {
-  background: #ffffff;
-  border-color: #ffffff;
-  color: #1340b8;
+  background: #F4E11B;
+  border-color: #F4E11B;
+  color: #1a1a2e;
   font-weight: 700;
 }
 .calc-panel {
@@ -1545,37 +1545,37 @@ textarea.form-control {
 }
 .calc-desc {
   font-size: 0.88rem;
-  color: #667085;
+  color: rgba(255,255,255,0.9);
   margin-bottom: 1.5rem;
   line-height: 1.7;
   text-align: left;
 }
 .calc-desc strong {
-  color: #1a1a2e;
+  color: #ffffff;
 }
 .calc-calculator-box {
-  background: #f8f9fc;
-  border: 1px solid #e8eaed;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
   border-radius: 12px;
   padding: 2rem;
   max-width: 600px;
   margin: 0 auto;
 }
 .calc-input-group {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   margin-bottom: 1.25rem;
-  align-items: center;
 }
 .calc-input-group label {
   font-size: 0.85rem;
-  color: #444c5e;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
   text-align: left;
 }
 .calc-input-group input, .calc-input-group select {
-  background: #ffffff;
-  border: 1px solid #d0d5dd;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(255,255,255,0.3);
   border-radius: 8px;
   color: #1a1a2e;
   padding: 0.5rem 0.75rem;
@@ -1584,18 +1584,18 @@ textarea.form-control {
 }
 .calc-input-group input:focus, .calc-input-group select:focus {
   outline: none;
-  border-color: #1340b8;
+  border-color: #F4E11B;
 }
 .calc-result-box {
-  border-top: 1px solid #e8eaed;
+  border-top: 1px solid rgba(255,255,255,0.25);
   padding-top: 1.25rem;
   margin-top: 1.25rem;
   text-align: center;
 }
 .calc-result-box p {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #1340b8;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a2e;
   font-family: var(--sans);
 }
 

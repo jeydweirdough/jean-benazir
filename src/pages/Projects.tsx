@@ -251,6 +251,33 @@ export default function Projects() {
     ? PROJECTS_DATA
     : PROJECTS_DATA.filter(p => p.category === currentFilter);
 
+  // Scroll reveal — re-observe whenever filter changes (new cards rendered)
+  useEffect(() => {
+    const els = document.querySelectorAll<HTMLElement>('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            el.style.transitionDelay = el.dataset.delay ?? '0s';
+            el.classList.add('is-visible');
+            el.classList.remove('is-exit');
+          } else if (entry.boundingClientRect.top < 0) {
+            el.style.transitionDelay = '0s';
+            el.classList.remove('is-visible');
+            el.classList.add('is-exit');
+          } else {
+            el.style.transitionDelay = '0s';
+            el.classList.remove('is-visible', 'is-exit');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [filteredProjects]);
+
   // Close lightbox on escape keypress and toggle body scrolling lock
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -311,14 +338,14 @@ export default function Projects() {
     <div className="animate-fade-in section-padding" style={{ backgroundImage: 'linear-gradient(rgba(10,15,30,0.72), rgba(10,15,30,0.72)), url(/background.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', minHeight: '100vh' }}>
       <div className="container">
         {/* Header */}
-        <div className="section-header">
+        <div className="section-header reveal" data-dir="down">
           <span className="section-subtitle" style={{ color: '#a8cce8', fontWeight: 700 }}>Project Logbook</span>
           <h1 className="section-title" style={{ color: '#ffffff' }}>Solar & Electrical Engineering</h1>
           <div className="section-divider"></div>
         </div>
 
         {/* Filters */}
-        <div className="project-filters">
+        <div className="project-filters reveal" data-delay="0.2s">
           <button onClick={() => setFilter('all')} className={`filter-btn ${currentFilter === 'all' ? 'active' : ''}`}>All</button>
           <button onClick={() => setFilter('rooftop')} className={`filter-btn ${currentFilter === 'rooftop' ? 'active' : ''}`}>Rooftop Solar</button>
           <button onClick={() => setFilter('ground')} className={`filter-btn ${currentFilter === 'ground' ? 'active' : ''}`}>Ground Mounted</button>
@@ -327,8 +354,8 @@ export default function Projects() {
 
         {/* Grid */}
         <div className="projects-grid">
-          {filteredProjects.map((project) => (
-            <div key={project.id} className="pcard-v2" onClick={() => setSelectedProject(project)}>
+          {filteredProjects.map((project, index) => (
+            <div key={project.id} className="pcard-v2 reveal" data-delay={`${(index % 3) * 0.12}s`} onClick={() => setSelectedProject(project)}>
               <img className="pcard-v2-bg" src={project.image} alt={project.title} />
               <div className="pcard-v2-overlay" />
               <div className="pcard-v2-content">
@@ -351,7 +378,7 @@ export default function Projects() {
         </div>
 
         {/* Calculations Section */}
-        <div className="calculations-section">
+        <div className="calculations-section reveal" data-dir="scale">
           <div className="section-header" style={{ marginBottom: '2.5rem', textAlign: 'left', maxWidth: '100%' }}>
             <span className="section-subtitle" style={{ color: 'rgba(255,255,255,0.8)', fontWeight: 700 }}>Calculations & Verification</span>
             <h2 className="section-title" style={{ fontSize: '2rem', color: '#ffffff' }}>Engineering Studies & Samples</h2>
@@ -509,9 +536,9 @@ export default function Projects() {
 
               <div className="calc-result-box">
                 <p>Voltage Drop: {vdResult.drop} V</p>
-                <p style={{ color: vdResult.pct > 3 ? '#e74c3c' : 'var(--gold)', marginTop: '0.5rem' }}>
-                  Percentage Drop: {vdResult.pct}% 
-                  {vdResult.pct > 3 ? ' (Exceeds PEC 3% recommended limit)' : ' (Complies with PEC guidelines)'}
+                <p style={{ color: vdResult.pct > 3 ? '#c0392b' : '#1a7a3a', marginTop: '0.5rem' }}>
+                  Percentage Drop: {vdResult.pct}%<br/>
+                  {vdResult.pct > 3 ? 'Exceeds PEC 3% recommended limit' : 'Complies with PEC guidelines'}
                 </p>
               </div>
             </div>
@@ -553,8 +580,8 @@ export default function Projects() {
 
               <div className="calc-result-box">
                 <p>Base Full Load Current: {scResult.iBase} A</p>
-                <p style={{ marginTop: '0.5rem' }}>Prospective Fault Current: {scResult.iSc} A ({ (scResult.iSc / 1000).toFixed(2) } kA)</p>
-                <p style={{ color: 'var(--gold)', marginTop: '0.5rem', fontWeight: 700 }}>
+                <p style={{ marginTop: '0.5rem' }}>Prospective Fault Current: {scResult.iSc} A<br/>({ (scResult.iSc / 1000).toFixed(2) } kA)</p>
+                <p style={{ color: '#1a1a2e', marginTop: '0.5rem', fontWeight: 600 }}>
                   Recommended Breaker Capacity: &ge; {scResult.kaic} KAIC
                 </p>
               </div>
