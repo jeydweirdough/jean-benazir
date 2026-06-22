@@ -1,12 +1,12 @@
 export default function About() {
   return (
-    <div className="animate-fade-in section-padding" style={{ position: 'relative' }}>
+    <div className="animate-fade-in section-padding about-page" style={{ position: 'relative', background: '#ffffff', minHeight: '100vh' }}>
       {/* Background decoration wires */}
       <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 1, opacity: 0.05 }}>
         <svg width="100%" height="100%">
-          <path d="M 0,100 H 600 V 500 H 1200" fill="none" stroke="#e5b13a" strokeWidth="2" strokeDasharray="4 4" />
-          <circle cx="600" cy="100" r="5" fill="#e5b13a" />
-          <circle cx="600" cy="500" r="5" fill="#e5b13a" />
+          <path d="M 0,100 H 600 V 500 H 1200" fill="none" stroke="#F4E11B" strokeWidth="2" strokeDasharray="4 4" />
+          <circle cx="600" cy="100" r="5" fill="#F4E11B" />
+          <circle cx="600" cy="500" r="5" fill="#F4E11B" />
         </svg>
       </div>
 

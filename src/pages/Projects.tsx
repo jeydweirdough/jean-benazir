@@ -251,6 +251,33 @@ export default function Projects() {
     ? PROJECTS_DATA
     : PROJECTS_DATA.filter(p => p.category === currentFilter);
 
+  // Scroll reveal — re-observe whenever filter changes (new cards rendered)
+  useEffect(() => {
+    const els = document.querySelectorAll<HTMLElement>('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            el.style.transitionDelay = el.dataset.delay ?? '0s';
+            el.classList.add('is-visible');
+            el.classList.remove('is-exit');
+          } else if (entry.boundingClientRect.top < 0) {
+            el.style.transitionDelay = '0s';
+            el.classList.remove('is-visible');
+            el.classList.add('is-exit');
+          } else {
+            el.style.transitionDelay = '0s';
+            el.classList.remove('is-visible', 'is-exit');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [filteredProjects]);
+
   // Close lightbox on escape keypress and toggle body scrolling lock
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -308,102 +335,60 @@ export default function Projects() {
   }, [scKva, scImpedance, scSecVolt]);
 
   return (
-    <div className="animate-fade-in section-padding">
+    <div className="animate-fade-in section-padding" style={{ backgroundImage: 'linear-gradient(rgba(10,15,30,0.72), rgba(10,15,30,0.72)), url(/background.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', minHeight: '100vh' }}>
       <div className="container">
         {/* Header */}
-        <div className="section-header">
-          <span className="section-subtitle">Project Logbook</span>
-          <h1 className="section-title">Solar & Electrical Engineering</h1>
+        <div className="section-header reveal" data-dir="down">
+          <span className="section-subtitle" style={{ color: '#a8cce8', fontWeight: 700 }}>Project Logbook</span>
+          <h1 className="section-title" style={{ color: '#ffffff' }}>Solar & Electrical Engineering</h1>
           <div className="section-divider"></div>
         </div>
 
         {/* Filters */}
-        <div className="project-filters">
-          <button
-            onClick={() => setFilter('all')}
-            className={`filter-btn ${currentFilter === 'all' ? 'active' : ''}`}
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginRight: '6px', verticalAlign: 'middle' }}><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-            All
-          </button>
-          <button
-            onClick={() => setFilter('rooftop')}
-            className={`filter-btn ${currentFilter === 'rooftop' ? 'active' : ''}`}
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginRight: '6px', verticalAlign: 'middle' }}><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            Rooftop Solar
-          </button>
-          <button
-            onClick={() => setFilter('ground')}
-            className={`filter-btn ${currentFilter === 'ground' ? 'active' : ''}`}
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginRight: '6px', verticalAlign: 'middle' }}><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-            Ground Mounted
-          </button>
-          <button
-            onClick={() => setFilter('planning')}
-            className={`filter-btn ${currentFilter === 'planning' ? 'active' : ''}`}
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginRight: '6px', verticalAlign: 'middle' }}><path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
-            MEPF & Cabling
-          </button>
+        <div className="project-filters reveal" data-delay="0.2s">
+          <button onClick={() => setFilter('all')} className={`filter-btn ${currentFilter === 'all' ? 'active' : ''}`}>All</button>
+          <button onClick={() => setFilter('rooftop')} className={`filter-btn ${currentFilter === 'rooftop' ? 'active' : ''}`}>Rooftop Solar</button>
+          <button onClick={() => setFilter('ground')} className={`filter-btn ${currentFilter === 'ground' ? 'active' : ''}`}>Ground Mounted</button>
+          <button onClick={() => setFilter('planning')} className={`filter-btn ${currentFilter === 'planning' ? 'active' : ''}`}>MEPF & Cabling</button>
         </div>
 
         {/* Grid */}
         <div className="projects-grid">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="project-item brochure-card offset-border-frame"
-              onClick={() => setSelectedProject(project)}
-              style={{ padding: '1rem' }}
-            >
-              <div className="project-thumbnail-frame">
-                <img src={project.image} alt={project.title} />
-                <div className="project-overlay">
-                  <div className="project-overlay-content">
-                    <span>Inspect Specs & Details</span>
+          {filteredProjects.map((project, index) => (
+            <div key={project.id} className="pcard-v2 reveal" data-delay={`${(index % 3) * 0.12}s`} onClick={() => setSelectedProject(project)}>
+              <img className="pcard-v2-bg" src={project.image} alt={project.title} />
+              <div className="pcard-v2-overlay" />
+              <div className="pcard-v2-content">
+                <span className="pcard-v2-category">{project.category}</span>
+                <div className="pcard-v2-bottom">
+                  <h3 className="pcard-v2-title">{project.title}</h3>
+                  <p className="pcard-v2-meta">{project.location} · {project.year}</p>
+                  <div className="pcard-v2-footer">
+                    <span className="pcard-v2-cta">View Details</span>
+                    <span className="pcard-v2-arrow">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                      </svg>
+                    </span>
                   </div>
                 </div>
-              </div>
-              <div className="project-title-bar">
-                <h3 style={{ textTransform: 'capitalize' }}>{project.title}</h3>
-                <span className="project-category" style={{ fontSize: '0.75rem' }}>{project.category}</span>
               </div>
             </div>
           ))}
         </div>
 
         {/* Calculations Section */}
-        <div className="calculations-section offset-border-frame">
+        <div className="calculations-section reveal" data-dir="scale">
           <div className="section-header" style={{ marginBottom: '2.5rem', textAlign: 'left', maxWidth: '100%' }}>
-            <span className="section-subtitle">Calculations & Verification</span>
-            <h2 className="section-title" style={{ fontSize: '2rem' }}>Engineering Studies & Samples</h2>
+            <span className="section-subtitle" style={{ color: 'rgba(255,255,255,0.8)', fontWeight: 700 }}>Calculations & Verification</span>
+            <h2 className="section-title" style={{ fontSize: '2rem', color: '#ffffff' }}>Engineering Studies & Samples</h2>
             <div className="section-divider" style={{ margin: '0' }}></div>
           </div>
           
           <div className="calc-tabs">
-            <button 
-              className={`calc-tab-btn ${activeTab === 'load' ? 'active' : ''}`}
-              onClick={() => setActiveTab('load')}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginRight: '6px', verticalAlign: 'middle' }}><line x1="9" y1="6" x2="20" y2="6"></line><line x1="9" y1="12" x2="20" y2="12"></line><line x1="9" y1="18" x2="20" y2="18"></line><line x1="5" y1="6" x2="5.01" y2="6"></line><line x1="5" y1="12" x2="5.01" y2="12"></line><line x1="5" y1="18" x2="5.01" y2="18"></line></svg>
-              Sample Load Schedule
-            </button>
-            <button 
-              className={`calc-tab-btn ${activeTab === 'vd' ? 'active' : ''}`}
-              onClick={() => setActiveTab('vd')}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginRight: '6px', verticalAlign: 'middle' }}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-              Voltage Drop Calculator
-            </button>
-            <button 
-              className={`calc-tab-btn ${activeTab === 'sc' ? 'active' : ''}`}
-              onClick={() => setActiveTab('sc')}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginRight: '6px', verticalAlign: 'middle' }}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-              Short Circuit Analysis
-            </button>
+            <button className={`calc-tab-btn ${activeTab === 'load' ? 'active' : ''}`} onClick={() => setActiveTab('load')}>Sample Load Schedule</button>
+            <button className={`calc-tab-btn ${activeTab === 'vd' ? 'active' : ''}`} onClick={() => setActiveTab('vd')}>Voltage Drop Calculator</button>
+            <button className={`calc-tab-btn ${activeTab === 'sc' ? 'active' : ''}`} onClick={() => setActiveTab('sc')}>Short Circuit Analysis</button>
           </div>
 
           {/* Panel Load Schedule */}
@@ -551,9 +536,9 @@ export default function Projects() {
 
               <div className="calc-result-box">
                 <p>Voltage Drop: {vdResult.drop} V</p>
-                <p style={{ color: vdResult.pct > 3 ? '#e74c3c' : 'var(--gold)', marginTop: '0.5rem' }}>
-                  Percentage Drop: {vdResult.pct}% 
-                  {vdResult.pct > 3 ? ' (Exceeds PEC 3% recommended limit)' : ' (Complies with PEC guidelines)'}
+                <p style={{ color: vdResult.pct > 3 ? '#c0392b' : '#1a7a3a', marginTop: '0.5rem' }}>
+                  Percentage Drop: {vdResult.pct}%<br/>
+                  {vdResult.pct > 3 ? 'Exceeds PEC 3% recommended limit' : 'Complies with PEC guidelines'}
                 </p>
               </div>
             </div>
@@ -595,8 +580,8 @@ export default function Projects() {
 
               <div className="calc-result-box">
                 <p>Base Full Load Current: {scResult.iBase} A</p>
-                <p style={{ marginTop: '0.5rem' }}>Prospective Fault Current: {scResult.iSc} A ({ (scResult.iSc / 1000).toFixed(2) } kA)</p>
-                <p style={{ color: 'var(--gold)', marginTop: '0.5rem', fontWeight: 700 }}>
+                <p style={{ marginTop: '0.5rem' }}>Prospective Fault Current: {scResult.iSc} A<br/>({ (scResult.iSc / 1000).toFixed(2) } kA)</p>
+                <p style={{ color: '#1a1a2e', marginTop: '0.5rem', fontWeight: 600 }}>
                   Recommended Breaker Capacity: &ge; {scResult.kaic} KAIC
                 </p>
               </div>

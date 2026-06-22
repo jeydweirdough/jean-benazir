@@ -42,7 +42,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="animate-fade-in section-padding">
+    <div className="animate-fade-in section-padding" style={{ background: '#ffffff', minHeight: '100vh' }}>
       <div className="container">
         {/* Header */}
         <div className="section-header">
