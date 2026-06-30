@@ -189,9 +189,6 @@ export default function Home() {
                 Specializing in <span className="hcard-desc-gold">Power Systems</span>, Building Wiring, and <span className="hcard-desc-gold">Solar PV Systems Design</span>. Over <span className="hcard-desc-gold">6 years</span> in utility-scale ground-mounted solar up to <span className="hcard-desc-gold">3,500 MWp</span> and commercial rooftop installations up to <span className="hcard-desc-gold">528 kWp</span>.
               </p>
 
-              {/* Tagline */}
-              <p className="hcard-tagline-bottom hanim-up" style={{ animationDelay: '0.9s' }}>Precision. Compliance. Measurable yield.</p>
-
             </div>
           </div>
         </div>
