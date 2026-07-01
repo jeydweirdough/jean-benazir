@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import jeanPortrait from '../assets/jean_portrait_no_bg.png';
 
 interface Project {
   id: string;
@@ -524,7 +525,7 @@ export default function Home() {
 
             {/* Portrait image — centered, sits above all floaters */}
             <img
-              src="/src/assets/jean_portrait_no_bg.png"
+              src={jeanPortrait}
               alt="Jean Benazir T. Buaya — Registered Electrical Engineer"
               style={{
                 position: 'relative',
