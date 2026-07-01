@@ -1,30 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Color Palette - Navy & Gold */
-  --bg-darker: #070d19;
-  --bg-dark: #0a1122;
-  --bg-medium: #121c33;
-  --bg-light: #1b2848;
+  /* Color Palette - Blue-Ice Pattern (Light Mode) */
+  --bg-darker: #ffffff;       /* Pure White Background */
+  --bg-dark: #ffffff;
+  --bg-medium: #F6FAFD;       /* Very Light Gray-Blue for alternate sections */
+  --bg-light: #F6FAFD;
+  --panel-bg: #ffffff;
 
-  --gold: #F4E11B;
-  --gold-hover: #f7e84a;
-  --gold-alpha: rgba(244, 225, 27, 0.15);
-  --gold-alpha-heavy: rgba(244, 225, 27, 0.35);
+  --gold: #4A7FA7;            /* Steel Blue (Accent) */
+  --gold-hover: #1A3D63;      /* Dark Navy (Hover Accent) */
+  --gold-alpha: rgba(74, 127, 167, 0.08);
+  --gold-alpha-heavy: rgba(74, 127, 167, 0.2);
 
-  --text-primary: #ffffff;
-  --text-secondary: #a3b3d1;
-  --text-muted: #627293;
-  --border: rgba(244, 225, 27, 0.15);
-  --border-light: rgba(255, 255, 255, 0.08);
+  --text-primary: #0A1931;     /* Deep Navy Primary Text */
+  --text-secondary: #334155;   /* Slate Gray Body Text */
+  --text-muted: #64748B;       /* Muted Slate Label/Meta Text */
+  --border: rgba(74, 127, 167, 0.18); /* Soft Steel Blue Border */
+  --border-light: rgba(179, 207, 229, 0.25); /* Soft Ice Blue Border */
+  --border-radius: 4px;        /* Consistent Minimal Rounded Corners */
 
-  --sans: 'Inter', sans-serif;
-  --serif: 'Inter', sans-serif;
+  --sans: 'Poppins', sans-serif;
+  --serif: 'Poppins', sans-serif;
   
   --transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 5px rgba(10, 25, 49, 0.05);
+  --shadow-md: 0 4px 12px rgba(10, 25, 49, 0.08);
+  --shadow-lg: 0 10px 25px rgba(10, 25, 49, 0.1);
   
   font-family: var(--sans);
   color: var(--text-secondary);
@@ -32,6 +34,7 @@
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 * {
@@ -47,7 +50,7 @@ html, body {
 
 body {
   color: var(--text-secondary);
-  background: radial-gradient(circle at 50% 0%, var(--bg-medium) 0%, var(--bg-darker) 70%);
+  background: var(--bg-darker);
   min-height: 100vh;
 }
 

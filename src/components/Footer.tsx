@@ -1,67 +1,27 @@
-import { Link } from 'react-router-dom';
-
 export default function Footer() {
   return (
-    <footer className="footer">
-      <div className="container">
-        <div className="footer-grid">
-          <div className="footer-brand">
-            <h3>JEAN <span className="text-gold">BENAZIR</span></h3>
-            <p>
-              Registered Electrical Engineer specializing in complex photovoltaic solar systems design, Single Line Diagrams, and renewable energy compliance audits.
-            </p>
-            <div className="social-links">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="LinkedIn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                  <rect x="2" y="9" width="4" height="12"></rect>
-                  <circle cx="4" cy="4" r="2"></circle>
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          <div className="footer-links-col">
-            <h4>Navigations</h4>
-            <ul className="footer-links">
-              <li><Link to="/" className="footer-link">Home</Link></li>
-              <li><Link to="/about" className="footer-link">About Engineer</Link></li>
-              <li><Link to="/projects" className="footer-link">Solar Projects</Link></li>
-              <li><Link to="/contact" className="footer-link">Get In Touch</Link></li>
-            </ul>
-          </div>
-
-          <div className="footer-links-col">
-            <h4>Projects</h4>
-            <ul className="footer-links">
-              <li><Link to="/projects?filter=rooftop" className="footer-link">Rooftop Solar</Link></li>
-              <li><Link to="/projects?filter=ground" className="footer-link">Ground Mounted</Link></li>
-              <li><Link to="/projects?filter=planning" className="footer-link">MEPF Coordination</Link></li>
-              <li><Link to="/projects?filter=planning" className="footer-link">Structured Cabling</Link></li>
-            </ul>
-          </div>
-
-          <div className="footer-links-col">
-            <h4>Contact Info</h4>
-            <ul className="footer-links">
-              <li className="footer-link" style={{ pointerEvents: 'none' }}>
-                Las Piñas City,<br />
-                Metro Manila, Philippines
-              </li>
-              <li className="footer-link" style={{ pointerEvents: 'none' }}>
-                M: +63 997 364 7886
-              </li>
-              <li className="footer-link" style={{ pointerEvents: 'none' }}>
-                E: jeanbenazirb@gmail.com
-              </li>
-            </ul>
-          </div>
+    <footer className="footer" style={{ background: '#0A1931', color: '#ffffff', padding: '4rem 0 3rem', borderTop: 'none' }}>
+      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '2rem' }}>
+        
+        {/* Left column: Brand & License */}
+        <div>
+          <h3 style={{ fontSize: '1.6rem', fontWeight: 700, margin: '0 0 1rem', color: '#ffffff' }}>Jean</h3>
+          <p style={{ color: '#a8cce8', fontSize: '0.85rem', margin: '0 0 0.25rem' }}>
+            © {new Date().getFullYear()} Jean Benazir T. Buaya. All rights reserved.
+          </p>
+          <p style={{ color: '#a8cce8', fontSize: '0.85rem', margin: 0 }}>
+            Registered Electrical Engineer.
+          </p>
         </div>
 
-        <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Jean Benazir T. Buaya. All rights reserved.</p>
-          <p>Registered Electrical Engineer (REE) Board Exam Passer – 2019</p>
+        {/* Right column: Links */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', minWidth: '150px' }}>
+          <h4 style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', color: '#ffffff', margin: '0 0 0.5rem' }}>Links</h4>
+          <a href="#" style={{ color: '#a8cce8', fontSize: '0.85rem', textDecoration: 'none' }}>Privacy Policy</a>
+          <a href="#" style={{ color: '#a8cce8', fontSize: '0.85rem', textDecoration: 'none' }}>Terms of Service</a>
+          <a href="https://linkedin.com/in/jean-benazir" target="_blank" rel="noopener noreferrer" style={{ color: '#a8cce8', fontSize: '0.85rem', textDecoration: 'none' }}>LinkedIn</a>
         </div>
+
       </div>
     </footer>
   );
