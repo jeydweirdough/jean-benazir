@@ -382,7 +382,7 @@ export default function Home() {
             </p>
 
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <a href="#projects" className="btn" style={{ background: '#0A1931', color: '#ffffff', border: 'none', padding: '0.8rem 1.8rem', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+              <a href="#projects" className="btn" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', border: 'none', padding: '0.8rem 1.8rem', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
                 View Projects
               </a>
               <a href="#journey" className="btn" style={{ background: 'transparent', color: '#1d4ed8', border: '1px solid #1d4ed8', padding: '0.8rem 1.8rem', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
@@ -545,24 +545,24 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="stats-bar" style={{ background: '#0A1931', borderTop: 'none', borderBottom: 'none', padding: '3.5rem 0' }}>
+      <section className="stats-bar" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderTop: 'none', borderBottom: 'none', padding: '3.5rem 0' }}>
         <div className="container">
           <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem', textAlign: 'center' }}>
             <div className="reveal" data-dir="scale" data-delay="0s">
-              <div className="stat-number" style={{ color: '#ffffff', fontSize: '3.5rem', fontWeight: 700 }}>2019</div>
-              <div className="stat-label" style={{ color: '#a8cce8', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '0.25rem' }}>Registered EE Board Exam</div>
+              <div className="stat-number" style={{ color: '#ffffff', fontSize: '2.2rem', fontWeight: 700 }}>2019</div>
+              <div className="stat-label" style={{ color: '#a8cce8', fontSize: '0.75rem', letterSpacing: '0.5px', marginTop: '0.25rem' }}>Registered EE Board Exam</div>
             </div>
             <div className="reveal" data-dir="scale" data-delay="0.1s">
-              <div className="stat-number" style={{ color: '#ffffff', fontSize: '3.5rem', fontWeight: 700 }}>6+ Years</div>
-              <div className="stat-label" style={{ color: '#a8cce8', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '0.25rem' }}>Electrical & Solar Experience</div>
+              <div className="stat-number" style={{ color: '#ffffff', fontSize: '2.2rem', fontWeight: 700 }}>6+ Years</div>
+              <div className="stat-label" style={{ color: '#a8cce8', fontSize: '0.75rem', letterSpacing: '0.5px', marginTop: '0.25rem' }}>Electrical & Solar Experience</div>
             </div>
             <div className="reveal" data-dir="scale" data-delay="0.2s">
-              <div className="stat-number" style={{ color: '#ffffff', fontSize: '3.5rem', fontWeight: 700 }}>10+</div>
-              <div className="stat-label" style={{ color: '#a8cce8', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '0.25rem' }}>Utility-Scale Projects</div>
+              <div className="stat-number" style={{ color: '#ffffff', fontSize: '2.2rem', fontWeight: 700 }}>10+</div>
+              <div className="stat-label" style={{ color: '#a8cce8', fontSize: '0.75rem', letterSpacing: '0.5px', marginTop: '0.25rem' }}>Utility-Scale Projects</div>
             </div>
             <div className="reveal" data-dir="scale" data-delay="0.3s">
-              <div className="stat-number" style={{ color: '#ffffff', fontSize: '3.5rem', fontWeight: 700 }}>500MW+</div>
-              <div className="stat-label" style={{ color: '#a8cce8', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '0.25rem' }}>Total Capacity Designed</div>
+              <div className="stat-number" style={{ color: '#ffffff', fontSize: '2.2rem', fontWeight: 700 }}>500MW+</div>
+              <div className="stat-label" style={{ color: '#a8cce8', fontSize: '0.75rem', letterSpacing: '0.5px', marginTop: '0.25rem' }}>Total Capacity Designed</div>
             </div>
           </div>
         </div>
