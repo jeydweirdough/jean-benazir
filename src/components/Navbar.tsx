@@ -111,7 +111,7 @@ export default function Navbar() {
             </a>
           </li>
           <li style={{ marginLeft: '1rem', display: 'flex', alignItems: 'center' }}>
-            <a href="#contact" className="navbar-cta-btn" onClick={closeMobileMenu} style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', border: 'none' }}>
+            <a href="#contact" className="navbar-cta-btn" onClick={closeMobileMenu} style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', border: 'none', borderRadius: '9999px' }}>
               Consult Now
             </a>
           </li>

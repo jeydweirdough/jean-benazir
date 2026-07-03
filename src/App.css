@@ -99,7 +99,7 @@
   padding: 0.55rem 1.4rem;
   background: linear-gradient(to right, #1A3D63, #4A7FA7);
   color: #ffffff;
-  border-radius: 50px;
+  border-radius: 9999px !important;
   font-size: 0.82rem;
   font-weight: 700;
   text-decoration: none;
@@ -109,8 +109,9 @@
 }
 
 .navbar-cta-btn:hover {
-  opacity: 0.85;
-  transform: translateY(-1px);
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(26, 61, 99, 0.35);
 }
 
 /* Mobile Toggle Hamburger */
@@ -594,24 +595,26 @@
 }
 
 .pillars-v2-card {
-  background: var(--bg-darker);
-  border-radius: 14px;
-  padding: 2rem 1.75rem;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  background: #ffffff;
+  border-radius: 15px;
+  border: 1px solid var(--border);
+  padding: 1.4rem 1.5rem;
+  box-shadow: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
 .pillars-v2-card:hover {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13);
-  transform: translateY(-4px);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 28px rgba(26, 61, 99, 0.12);
+  border-color: #4A7FA7;
 }
 
 .pillars-v2-icon {
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -621,15 +624,15 @@
 }
 
 .pillars-v2-card-title {
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: 1.05rem;
+  font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.65rem;
   line-height: 1.3;
 }
 
 .pillars-v2-card-desc {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   color: var(--text-secondary);
   line-height: 1.65;
   font-weight: 400;
@@ -829,9 +832,9 @@
 /* Stats Counter Section */
 .stats-bar {
   background: var(--bg-dark);
-  border-block: 1px solid var(--border);
+  border: none;
   padding: 4rem 0;
-  margin-bottom: 6rem;
+  margin-bottom: 0;
 }
 
 .stats-grid {
@@ -927,6 +930,7 @@
   border: 1px solid rgba(255,255,255,0.5);
   color: #ffffff;
   padding: 0.55rem 1.4rem;
+  border-radius: 9999px !important;
   font-size: 0.85rem;
   font-weight: 500;
   border-radius: 50px;
@@ -1333,7 +1337,7 @@ textarea.form-control {
 }
 
 .lightbox-content {
-  background: var(--bg-darker);
+  background: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 15px;
   color: var(--text-primary);
@@ -1529,7 +1533,8 @@ textarea.form-control {
   width: 94%;
   max-height: 88vh;
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 15px !important;
+  background: #ffffff !important;
 }
 
 .lb-modal-header {
@@ -2985,7 +2990,7 @@ textarea.form-control {
 .journey-timeline-section {
   position: relative;
   background: var(--bg-darker);
-  padding: 6rem 0;
+  padding: 8rem 0 6rem;
   overflow: hidden;
 }
 
@@ -3049,37 +3054,37 @@ textarea.form-control {
 /* Timeline nodes */
 .journey-node {
   position: absolute;
-  right: -20px;
-  top: 2.5rem;
-  width: 40px;
-  height: 40px;
+  right: -26px;
+  top: 2rem;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: var(--bg-darker);
-  border: 3px solid var(--gold);
-  box-shadow: 0 0 15px var(--gold-alpha-heavy);
+  background: #4A7FA7;
+  border: 2px solid #ffffff;
+  box-shadow: none;
   z-index: 3;
   transition: var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gold);
+  color: #ffffff;
 }
 
 .journey-milestone:nth-child(even) .journey-node {
-  left: -20px;
+  left: -26px;
   right: auto;
 }
 
 .journey-node svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
 }
 
 .journey-milestone:hover .journey-node {
-  background: var(--gold);
-  box-shadow: 0 0 20px var(--gold);
-  transform: scale(1.2);
+  background: #1A3D63;
+  box-shadow: 0 6px 24px rgba(74,127,167,0.6);
+  transform: scale(1.1);
 }
 
 /* Card details */
@@ -3130,6 +3135,7 @@ textarea.form-control {
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.25rem;
+  font-weight: 600;
 }
 
 .journey-company {
@@ -3164,14 +3170,14 @@ textarea.form-control {
 .journey-scope-item {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 0.75rem;
   font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.55;
 }
 
-.journey-scope-item::after {
+.journey-scope-item::before {
   content: '';
   display: inline-flex;
   align-items: center;
@@ -3234,7 +3240,7 @@ textarea.form-control {
 
 .journey-role {
   font-size: 1.15rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.25rem;
 }
@@ -3275,11 +3281,13 @@ textarea.form-control {
   display: grid;
   grid-template-columns: 1fr 1.6fr;
   gap: 2.5rem;
-  background: var(--panel-bg);
+  background: #ffffff;
   border: 1px solid var(--border);
   padding: 2.25rem;
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .news-project-card:hover {
@@ -3296,24 +3304,20 @@ textarea.form-control {
 }
 
 /* ── Standardize container edges globally ── */
-.btn, 
-.navbar-cta-btn, 
-.scroll-nav-cta, 
+.btn,
+.scroll-nav-cta,
 .hsplit-btn-primary, 
 .hsplit-btn-outline, 
 .quote-btn-primary, 
 .quote-btn-outline, 
-.calc-tab-btn, 
-.filter-btn, 
+.calc-tab-btn,
 .pcard-v2, 
 .brochure-card, 
 .calc-panel, 
 .form-control, 
 .skill-badge, 
-.contact-form-col, 
-.journey-card, 
-.pillars-v2-card,
-.news-project-card,
+.contact-form-col,
+.journey-card,
 .lb-specs-table,
 .hsplit-logo-area div,
 .hsplit-center-img img,
@@ -3327,32 +3331,31 @@ textarea {
 
 .hsplit-social-btn,
 .social-btn,
-.contact-icon,
-.pillars-v2-icon {
+.contact-icon {
   border-radius: 4px !important; /* standardize icons/nodes to 4px instead of circles */
 }
 
 /* Journey nodes — round SVG icon badges on the busbar */
 .journey-node {
   position: absolute;
-  right: -18px;
+  right: -26px;
   top: 2rem;
-  width: 36px;
-  height: 36px;
+  width: 52px;
+  height: 52px;
   border-radius: 50% !important;
-  background: var(--panel-bg);
-  border: 2px solid var(--gold);
-  box-shadow: 0 0 12px var(--gold-alpha-heavy);
+  background: #4A7FA7;
+  border: 2px solid #ffffff;
+  box-shadow: none;
   z-index: 3;
   transition: var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gold);
+  color: #ffffff;
 }
 
 .journey-milestone:nth-child(even) .journey-node {
-  left: -18px;
+  left: -26px;
   right: auto;
 }
 
@@ -3391,17 +3394,24 @@ textarea {
 }
 
 .journey-node {
-  left: 14px !important;
+  left: -2px !important;
   right: auto !important;
-  top: 1.6rem !important;
-  width: 14px !important;
-  height: 14px !important;
-  border-width: 3px !important;
+  top: 1.4rem !important;
+  width: 34px !important;
+  height: 34px !important;
+  background: #4A7FA7 !important;
+  border: 2px solid #ffffff !important;
   box-shadow: none !important;
+  color: #ffffff !important;
 }
 
 .journey-milestone:nth-child(even) .journey-node {
-  left: 14px !important;
+  left: -2px !important;
+}
+
+.journey-node svg {
+  width: 16px !important;
+  height: 16px !important;
 }
 
 .journey-card {
@@ -3434,17 +3444,13 @@ textarea {
 .journey-scope-item {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 0.75rem;
   font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.55;
   padding-left: 0;
   position: static;
-}
-
-.journey-scope-item::before {
-  display: none;
 }
 
 @media (max-width: 640px) {
@@ -3456,15 +3462,15 @@ textarea {
 
 .journey-date {
   display: inline-block !important;
-  margin-right: 0.75rem !important;
+  margin-left: 1rem !important;
   margin-bottom: 0.25rem !important;
+  vertical-align: baseline !important;
 }
 
 .journey-role {
-  display: inline-block !important;
-  vertical-align: baseline !important;
+  display: inline !important;
   font-size: 1.2rem !important;
-  margin-bottom: 0.25rem !important;
+  font-weight: 600 !important;
 }
 
 @media (max-width: 820px) {
