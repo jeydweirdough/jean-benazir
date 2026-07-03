@@ -337,10 +337,10 @@ export default function Home() {
       setSubmitStatus('error');
       return;
     }
-    
+
     setIsSubmitting(true);
     setSubmitStatus(null);
-    
+
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitStatus('success');
@@ -372,24 +372,24 @@ export default function Home() {
         {/* Dashed concentric circles — left mid */}
         <div style={{ position: 'absolute', top: '50%', left: '4%', transform: 'translateY(-50%)', zIndex: 0, opacity: 0.13, pointerEvents: 'none' }}>
           <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
-            <circle cx="55" cy="55" r="50" stroke="#4A7FA7" strokeWidth="1.5" strokeDasharray="7 5"/>
-            <circle cx="55" cy="55" r="34" stroke="#1A3D63" strokeWidth="1" strokeDasharray="4 6"/>
-            <circle cx="55" cy="55" r="14" stroke="#4A7FA7" strokeWidth="1.5" fill="rgba(74,127,167,0.1)"/>
+            <circle cx="55" cy="55" r="50" stroke="#4A7FA7" strokeWidth="1.5" strokeDasharray="7 5" />
+            <circle cx="55" cy="55" r="34" stroke="#1A3D63" strokeWidth="1" strokeDasharray="4 6" />
+            <circle cx="55" cy="55" r="14" stroke="#4A7FA7" strokeWidth="1.5" fill="rgba(74,127,167,0.1)" />
           </svg>
         </div>
         {/* Dot grid — top center-left area */}
         <div style={{ position: 'absolute', top: '8%', left: '20%', zIndex: 0, opacity: 0.13, pointerEvents: 'none' }}>
           <svg width="110" height="55" viewBox="0 0 110 55" fill="#4A7FA7">
-            <circle cx="5" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/>
-            <circle cx="5" cy="25" r="2.5"/><circle cx="25" cy="25" r="2.5"/><circle cx="45" cy="25" r="2.5"/><circle cx="65" cy="25" r="2.5"/><circle cx="85" cy="25" r="2.5"/><circle cx="105" cy="25" r="2.5"/>
-            <circle cx="5" cy="45" r="2.5"/><circle cx="25" cy="45" r="2.5"/><circle cx="45" cy="45" r="2.5"/><circle cx="65" cy="45" r="2.5"/><circle cx="85" cy="45" r="2.5"/><circle cx="105" cy="45" r="2.5"/>
+            <circle cx="5" cy="5" r="2.5" /><circle cx="25" cy="5" r="2.5" /><circle cx="45" cy="5" r="2.5" /><circle cx="65" cy="5" r="2.5" /><circle cx="85" cy="5" r="2.5" /><circle cx="105" cy="5" r="2.5" />
+            <circle cx="5" cy="25" r="2.5" /><circle cx="25" cy="25" r="2.5" /><circle cx="45" cy="25" r="2.5" /><circle cx="65" cy="25" r="2.5" /><circle cx="85" cy="25" r="2.5" /><circle cx="105" cy="25" r="2.5" />
+            <circle cx="5" cy="45" r="2.5" /><circle cx="25" cy="45" r="2.5" /><circle cx="45" cy="45" r="2.5" /><circle cx="65" cy="45" r="2.5" /><circle cx="85" cy="45" r="2.5" /><circle cx="105" cy="45" r="2.5" />
           </svg>
         </div>
         {/* Plus cross — center area */}
         <div style={{ position: 'absolute', top: '18%', left: '44%', zIndex: 0, opacity: 0.09, pointerEvents: 'none' }}>
           <svg width="54" height="54" viewBox="0 0 54 54" fill="none" stroke="#1A3D63" strokeWidth="2" strokeLinecap="round">
-            <line x1="27" y1="4" x2="27" y2="50"/>
-            <line x1="4" y1="27" x2="50" y2="27"/>
+            <line x1="27" y1="4" x2="27" y2="50" />
+            <line x1="4" y1="27" x2="50" y2="27" />
           </svg>
         </div>
         {/* Hexagon outline — center-left */}
@@ -397,11 +397,11 @@ export default function Home() {
           <svg width="70" height="80" viewBox="0 0 70 80" fill="none" stroke="url(#hexGrad)" strokeWidth="1.5">
             <defs>
               <linearGradient id="hexGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#1A3D63"/>
-                <stop offset="100%" stopColor="#4A7FA7"/>
+                <stop offset="0%" stopColor="#1A3D63" />
+                <stop offset="100%" stopColor="#4A7FA7" />
               </linearGradient>
             </defs>
-            <polygon points="35 4 66 21 66 59 35 76 4 59 4 21"/>
+            <polygon points="35 4 66 21 66 59 35 76 4 59 4 21" />
           </svg>
         </div>
 
@@ -431,16 +431,16 @@ export default function Home() {
 
             <div style={{ display: 'flex', gap: '1rem' }}>
               <a href="#projects"
+                className="hero-btn"
                 style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', border: 'none', padding: '0.8rem 1.8rem', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', borderRadius: '9999px', letterSpacing: '0.3px', cursor: 'pointer', transition: 'all 0.25s ease' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 6px 20px rgba(26,61,99,0.45)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.transform = ''; (e.currentTarget as HTMLAnchorElement).style.boxShadow = ''; }}
               >
                 View Projects
               </a>
               <a href="#journey"
+                className="hero-btn"
                 style={{ background: 'transparent', color: '#ffffff', border: '1px solid rgba(255,255,255,0.6)', padding: '0.8rem 1.8rem', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', borderRadius: '9999px', letterSpacing: '0.3px', cursor: 'pointer', transition: 'all 0.25s ease' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.15)'; (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.9)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.transform = ''; (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.6)'; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.15)'; (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.9)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.6)'; }}
               >
                 My Journey
               </a>
@@ -493,11 +493,11 @@ export default function Home() {
               animation: 'floatC 8s ease-in-out infinite',
             }}>
               <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                <circle cx="28" cy="28" r="6" fill="rgba(29,78,216,0.18)" stroke="rgba(29,78,216,0.35)" strokeWidth="1.5"/>
-                <line x1="28" y1="0" x2="28" y2="18" stroke="rgba(29,78,216,0.25)" strokeWidth="1.5"/>
-                <line x1="28" y1="38" x2="28" y2="56" stroke="rgba(29,78,216,0.25)" strokeWidth="1.5"/>
-                <line x1="0" y1="28" x2="18" y2="28" stroke="rgba(29,78,216,0.25)" strokeWidth="1.5"/>
-                <line x1="38" y1="28" x2="56" y2="28" stroke="rgba(29,78,216,0.25)" strokeWidth="1.5"/>
+                <circle cx="28" cy="28" r="6" fill="rgba(29,78,216,0.18)" stroke="rgba(29,78,216,0.35)" strokeWidth="1.5" />
+                <line x1="28" y1="0" x2="28" y2="18" stroke="rgba(29,78,216,0.25)" strokeWidth="1.5" />
+                <line x1="28" y1="38" x2="28" y2="56" stroke="rgba(29,78,216,0.25)" strokeWidth="1.5" />
+                <line x1="0" y1="28" x2="18" y2="28" stroke="rgba(29,78,216,0.25)" strokeWidth="1.5" />
+                <line x1="38" y1="28" x2="56" y2="28" stroke="rgba(29,78,216,0.25)" strokeWidth="1.5" />
               </svg>
             </div>
 
@@ -508,7 +508,7 @@ export default function Home() {
               opacity: 0.55,
             }}>
               <svg width="32" height="48" viewBox="0 0 32 48" fill="none" stroke="rgba(10,25,49,0.45)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="24 4 8 24 24 44"/>
+                <polyline points="24 4 8 24 24 44" />
               </svg>
             </div>
 
@@ -540,13 +540,13 @@ export default function Home() {
               animation: 'floatC 6s ease-in-out infinite 2s',
             }}>
               <svg width="22" height="16" viewBox="0 0 24 18" fill="none" stroke="rgba(29,78,216,0.6)" strokeWidth="1.5" strokeLinecap="round">
-                <rect x="1" y="1" width="10" height="8" rx="1"/>
-                <rect x="13" y="1" width="10" height="8" rx="1"/>
-                <line x1="1" y1="5" x2="11" y2="5"/>
-                <line x1="13" y1="5" x2="23" y2="5"/>
-                <line x1="6" y1="9" x2="6" y2="14"/>
-                <line x1="18" y1="9" x2="18" y2="14"/>
-                <line x1="3" y1="14" x2="21" y2="14"/>
+                <rect x="1" y="1" width="10" height="8" rx="1" />
+                <rect x="13" y="1" width="10" height="8" rx="1" />
+                <line x1="1" y1="5" x2="11" y2="5" />
+                <line x1="13" y1="5" x2="23" y2="5" />
+                <line x1="6" y1="9" x2="6" y2="14" />
+                <line x1="18" y1="9" x2="18" y2="14" />
+                <line x1="3" y1="14" x2="21" y2="14" />
               </svg>
             </div>
 
@@ -557,9 +557,9 @@ export default function Home() {
               animation: 'floatA 11s ease-in-out infinite 3s',
             }}>
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#1d4ed8" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="4 4">
-                <line x1="4" y1="4" x2="36" y2="36"/>
-                <line x1="14" y1="4" x2="36" y2="26"/>
-                <line x1="4" y1="14" x2="26" y2="36"/>
+                <line x1="4" y1="4" x2="36" y2="36" />
+                <line x1="14" y1="4" x2="36" y2="26" />
+                <line x1="4" y1="14" x2="26" y2="36" />
               </svg>
             </div>
 
@@ -570,12 +570,12 @@ export default function Home() {
               <svg width="220" height="220" viewBox="0 0 220 220" fill="none">
                 <defs>
                   <linearGradient id="arcGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#1A3D63"/>
-                    <stop offset="100%" stopColor="#4A7FA7"/>
+                    <stop offset="0%" stopColor="#1A3D63" />
+                    <stop offset="100%" stopColor="#4A7FA7" />
                   </linearGradient>
                 </defs>
-                <circle cx="110" cy="110" r="100" stroke="url(#arcGrad)" strokeWidth="1.5" strokeDasharray="12 8" fill="none"/>
-                <circle cx="110" cy="110" r="70" stroke="url(#arcGrad)" strokeWidth="1" strokeDasharray="6 10" fill="none"/>
+                <circle cx="110" cy="110" r="100" stroke="url(#arcGrad)" strokeWidth="1.5" strokeDasharray="12 8" fill="none" />
+                <circle cx="110" cy="110" r="70" stroke="url(#arcGrad)" strokeWidth="1" strokeDasharray="6 10" fill="none" />
               </svg>
             </div>
 
@@ -643,7 +643,7 @@ export default function Home() {
             {/* Scroll-tracking bolt icon — LEFT side reading marker */}
             <div className="journey-tracker" style={{ top: `calc(${trackerPos * 100}% - 20px)` }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--gold)" stroke="none">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
               </svg>
             </div>
 
@@ -651,14 +651,14 @@ export default function Home() {
             <div className="journey-milestone reveal" data-dir="left" data-delay="0s">
               {/* Sun icon — energy/solar company */}
               <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
               </div>
               <div className="journey-card">
                 <h3 className="journey-role">Senior Solar Design Engineer</h3>
                 <time className="journey-date">Nov 2025 – Present</time>
                 {/* Company */}
                 <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
                   TotalEnergies (Total Distributed PH)
                 </div>
                 {/* Body */}
@@ -674,13 +674,13 @@ export default function Home() {
             <div className="journey-milestone reveal" data-dir="right" data-delay="0.05s">
               {/* Government building icon — DOE */}
               <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="10" width="18" height="11" rx="1"/><polyline points="3 10 12 3 21 10"/><line x1="12" y1="10" x2="12" y2="21"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="10" width="18" height="11" rx="1" /><polyline points="3 10 12 3 21 10" /><line x1="12" y1="10" x2="12" y2="21" /></svg>
               </div>
               <div className="journey-card">
                 <h3 className="journey-role">Science Research Specialist II</h3>
                 <time className="journey-date">Dec 2024 – Nov 2025</time>
                 <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="10" width="18" height="11" rx="1"/><polyline points="3 10 12 3 21 10"/><line x1="12" y1="10" x2="12" y2="21"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="10" width="18" height="11" rx="1" /><polyline points="3 10 12 3 21 10" /><line x1="12" y1="10" x2="12" y2="21" /></svg>
                   Department of Energy (Solar Management Group)
                 </div>
                 <p className="journey-body">Evaluated grid interconnection capabilities, financial metrics of solar energy developer contracts, and formulated resource policies.</p>
@@ -695,13 +695,13 @@ export default function Home() {
             <div className="journey-milestone reveal" data-dir="left" data-delay="0.05s">
               {/* Solar panel grid icon — Solar Philippines */}
               <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="1"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="8" y1="6" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="18"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="1" /><line x1="2" y1="12" x2="22" y2="12" /><line x1="8" y1="6" x2="8" y2="18" /><line x1="16" y1="6" x2="16" y2="18" /></svg>
               </div>
               <div className="journey-card">
                 <h3 className="journey-role">Electrical & Solar Design Engineer</h3>
                 <time className="journey-date">Jul 2023 – Dec 2024</time>
                 <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="1"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="8" y1="6" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="18"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="1" /><line x1="2" y1="12" x2="22" y2="12" /><line x1="8" y1="6" x2="8" y2="18" /><line x1="16" y1="6" x2="16" y2="18" /></svg>
                   Solar Philippines
                 </div>
                 <p className="journey-body">Drafted array layout blueprints and utility connection grids for utility-scale parks up to 3,500 MWp and commercial systems.</p>
@@ -716,13 +716,13 @@ export default function Home() {
             <div className="journey-milestone reveal" data-dir="right" data-delay="0.05s">
               {/* Hard hat / construction icon — M. Verano */}
               <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20h20"/><path d="M5 20V8.5A7 7 0 0 1 12 2a7 7 0 0 1 7 6.5V20"/><line x1="12" y1="2" x2="12" y2="8"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20h20" /><path d="M5 20V8.5A7 7 0 0 1 12 2a7 7 0 0 1 7 6.5V20" /><line x1="12" y1="2" x2="12" y2="8" /></svg>
               </div>
               <div className="journey-card">
                 <h3 className="journey-role">Electrical Engineer</h3>
                 <time className="journey-date">Aug 2022 – Jul 2023</time>
                 <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20h20"/><path d="M5 20V8.5A7 7 0 0 1 12 2a7 7 0 0 1 7 6.5V20"/><line x1="12" y1="2" x2="12" y2="8"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20h20" /><path d="M5 20V8.5A7 7 0 0 1 12 2a7 7 0 0 1 7 6.5V20" /><line x1="12" y1="2" x2="12" y2="8" /></svg>
                   M. Verano Construction Corp.
                 </div>
                 <p className="journey-body">Managed site electrical deliverables, structural wiring pathways, and subcontractor compliance schedules.</p>
@@ -737,13 +737,13 @@ export default function Home() {
             <div className="journey-milestone reveal" data-dir="left" data-delay="0.05s">
               {/* High-rise building icon — DMCI */}
               <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="1"/><line x1="9" y1="2" x2="9" y2="22"/><line x1="15" y1="2" x2="15" y2="22"/><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="1" /><line x1="9" y1="2" x2="9" y2="22" /><line x1="15" y1="2" x2="15" y2="22" /><line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="17" x2="20" y2="17" /></svg>
               </div>
               <div className="journey-card">
                 <h3 className="journey-role">Electrical Engineer</h3>
                 <time className="journey-date">Nov 2021 – Aug 2022</time>
                 <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="1"/><line x1="9" y1="2" x2="9" y2="22"/><line x1="15" y1="2" x2="15" y2="22"/><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="1" /><line x1="9" y1="2" x2="9" y2="22" /><line x1="15" y1="2" x2="15" y2="22" /><line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="17" x2="20" y2="17" /></svg>
                   DMCI Homes Inc. (Prisma Residences Project)
                 </div>
                 <p className="journey-body">Coordinated high-rise MEPF subcontractors, reviewed riser layouts, panel schedules, and resolved conduit collisions.</p>
@@ -754,13 +754,13 @@ export default function Home() {
             <div className="journey-milestone reveal" data-dir="right" data-delay="0.05s">
               {/* Network / cabling icon — Cornersteel */}
               <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="17" y="2" width="5" height="5" rx="1"/><rect x="9.5" y="17" width="5" height="5" rx="1"/><line x1="7" y1="4.5" x2="17" y2="4.5"/><line x1="12" y1="7" x2="12" y2="17"/><line x1="4.5" y1="7" x2="11.5" y2="17"/><line x1="19.5" y1="7" x2="12.5" y2="17"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5" height="5" rx="1" /><rect x="17" y="2" width="5" height="5" rx="1" /><rect x="9.5" y="17" width="5" height="5" rx="1" /><line x1="7" y1="4.5" x2="17" y2="4.5" /><line x1="12" y1="7" x2="12" y2="17" /><line x1="4.5" y1="7" x2="11.5" y2="17" /><line x1="19.5" y1="7" x2="12.5" y2="17" /></svg>
               </div>
               <div className="journey-card">
                 <h3 className="journey-role">Electrical Design Engineer</h3>
                 <time className="journey-date">Jan 2020 – Jun 2021</time>
                 <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="17" y="2" width="5" height="5" rx="1"/><rect x="9.5" y="17" width="5" height="5" rx="1"/><line x1="7" y1="4.5" x2="17" y2="4.5"/><line x1="12" y1="7" x2="12" y2="17"/><line x1="4.5" y1="7" x2="11.5" y2="17"/><line x1="19.5" y1="7" x2="12.5" y2="17"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5" height="5" rx="1" /><rect x="17" y="2" width="5" height="5" rx="1" /><rect x="9.5" y="17" width="5" height="5" rx="1" /><line x1="7" y1="4.5" x2="17" y2="4.5" /><line x1="12" y1="7" x2="12" y2="17" /><line x1="4.5" y1="7" x2="11.5" y2="17" /><line x1="19.5" y1="7" x2="12.5" y2="17" /></svg>
                   Cornersteel Systems Corp.
                 </div>
                 <p className="journey-body">Conducted office fit-out site surveys, electrical panel specifications, and structured cabling blueprints.</p>
@@ -771,7 +771,7 @@ export default function Home() {
             <div className="journey-milestone journey-milestone--gold reveal" data-dir="scale" data-delay="0.05s">
               {/* Award / star icon — REE board exam milestone */}
               <div className="journey-node journey-node--gold">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
               </div>
               <div className="journey-card journey-card--gold">
                 <h3 className="journey-role" style={{ color: 'var(--gold)' }}>Registered Electrical Engineer</h3>
@@ -804,7 +804,7 @@ export default function Home() {
           <div className="projects-feed" style={{ display: 'flex', flexDirection: 'column', gap: '3rem', marginTop: '3rem' }}>
             {filteredProjects.map((project, idx) => (
               <div key={project.id} className="news-project-card reveal" data-delay={`${idx * 0.08}s`} style={{ background: '#ffffff', border: '1px solid var(--border)', padding: '2rem', boxShadow: 'var(--shadow-sm)', transition: 'var(--transition)', borderRadius: '15px', overflow: 'hidden' }}>
-                
+
                 {/* Column 1: Image & Technical specs */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   <div style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden', border: '1px solid var(--border-light)', borderRadius: '10px', position: 'relative', cursor: project.image ? 'zoom-in' : 'default' }} onClick={() => project.image && setPreviewImage(project.image)}>
@@ -813,15 +813,15 @@ export default function Home() {
                     ) : (
                       <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #f0f6ff, #e8f0fa)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(74,127,167,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="3" y="3" width="18" height="18" rx="2"/>
-                          <circle cx="8.5" cy="8.5" r="1.5"/>
-                          <polyline points="21 15 16 10 5 21"/>
+                          <rect x="3" y="3" width="18" height="18" rx="2" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <polyline points="21 15 16 10 5 21" />
                         </svg>
                         <span style={{ fontSize: '0.75rem', color: 'rgba(74,127,167,0.6)', fontWeight: 500 }}>No Image Available</span>
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Technical specifications table */}
                   <div style={{ background: '#ffffff', padding: '1.25rem' }}>
                     <h5 style={{ color: 'var(--text-primary)', marginBottom: '0.75rem', fontSize: '0.85rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>Technical Parameters</h5>
@@ -873,7 +873,7 @@ export default function Home() {
 
                     {/* Description */}
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem', lineHeight: '1.6' }}>{project.desc}</p>
-                    
+
                     {/* Scope Bullets */}
                     <div style={{ marginBottom: '1.5rem' }}>
                       <h4 style={{ fontSize: '0.85rem', color: 'var(--text-primary)', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Scope of Work</h4>
@@ -907,7 +907,7 @@ export default function Home() {
           <div className="pillars-v2-layout">
             <div className="pillars-v2-left reveal" data-dir="left">
               <span className="pillars-v2-subtitle" style={{ color: 'var(--gold)' }}>Our Services</span>
-              <h2 className="pillars-v2-heading" style={{ color: 'var(--text-primary)' }}>Engineering solutions<br/>of every kind</h2>
+              <h2 className="pillars-v2-heading" style={{ color: 'var(--text-primary)' }}>Engineering solutions<br />of every kind</h2>
               <p className="pillars-v2-desc" style={{ color: 'var(--text-secondary)' }}>
                 From solar PV design to on-site supervision, delivering precision-engineered solutions for residential and commercial power systems across the Philippines.
               </p>
@@ -918,15 +918,15 @@ export default function Home() {
               <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
                 {/* Solar panel array icon */}
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="5" width="9" height="7" rx="1"/>
-                  <rect x="13" y="5" width="9" height="7" rx="1"/>
-                  <line x1="6" y1="5" x2="6" y2="12"/>
-                  <line x1="10" y1="5" x2="10" y2="12"/>
-                  <line x1="17" y1="5" x2="17" y2="12"/>
-                  <line x1="21" y1="5" x2="21" y2="12"/>
-                  <line x1="8" y1="19" x2="8" y2="12"/>
-                  <line x1="16" y1="19" x2="16" y2="12"/>
-                  <line x1="5" y1="19" x2="19" y2="19"/>
+                  <rect x="2" y="5" width="9" height="7" rx="1" />
+                  <rect x="13" y="5" width="9" height="7" rx="1" />
+                  <line x1="6" y1="5" x2="6" y2="12" />
+                  <line x1="10" y1="5" x2="10" y2="12" />
+                  <line x1="17" y1="5" x2="17" y2="12" />
+                  <line x1="21" y1="5" x2="21" y2="12" />
+                  <line x1="8" y1="19" x2="8" y2="12" />
+                  <line x1="16" y1="19" x2="16" y2="12" />
+                  <line x1="5" y1="19" x2="19" y2="19" />
                 </svg>
               </div>
               <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>Solar PV Design</h3>
@@ -938,13 +938,13 @@ export default function Home() {
               <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
                 {/* SLD / schematic diagram icon */}
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="6" height="6" rx="1"/>
-                  <rect x="15" y="3" width="6" height="6" rx="1"/>
-                  <rect x="9" y="15" width="6" height="6" rx="1"/>
-                  <line x1="9" y1="6" x2="15" y2="6"/>
-                  <line x1="12" y1="6" x2="12" y2="15"/>
-                  <line x1="6" y1="9" x2="12" y2="15"/>
-                  <line x1="18" y1="9" x2="12" y2="15"/>
+                  <rect x="3" y="3" width="6" height="6" rx="1" />
+                  <rect x="15" y="3" width="6" height="6" rx="1" />
+                  <rect x="9" y="15" width="6" height="6" rx="1" />
+                  <line x1="9" y1="6" x2="15" y2="6" />
+                  <line x1="12" y1="6" x2="12" y2="15" />
+                  <line x1="6" y1="9" x2="12" y2="15" />
+                  <line x1="18" y1="9" x2="12" y2="15" />
                 </svg>
               </div>
               <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>Electrical Planning</h3>
@@ -956,11 +956,11 @@ export default function Home() {
               <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
                 {/* Clipboard / audit checklist icon */}
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
-                  <rect x="9" y="3" width="6" height="4" rx="1"/>
-                  <line x1="9" y1="12" x2="15" y2="12"/>
-                  <line x1="9" y1="16" x2="13" y2="16"/>
-                  <polyline points="9 9 10 10 12 8"/>
+                  <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+                  <rect x="9" y="3" width="6" height="4" rx="1" />
+                  <line x1="9" y1="12" x2="15" y2="12" />
+                  <line x1="9" y1="16" x2="13" y2="16" />
+                  <polyline points="9 9 10 10 12 8" />
                 </svg>
               </div>
               <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>Site Assessment & Audit</h3>
@@ -972,11 +972,11 @@ export default function Home() {
               <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
                 {/* Document / policy icon */}
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                  <line x1="8" y1="13" x2="16" y2="13"/>
-                  <line x1="8" y1="17" x2="16" y2="17"/>
-                  <line x1="8" y1="9" x2="10" y2="9"/>
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="8" y1="13" x2="16" y2="13" />
+                  <line x1="8" y1="17" x2="16" y2="17" />
+                  <line x1="8" y1="9" x2="10" y2="9" />
                 </svg>
               </div>
               <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>DOE Resource Policy</h3>
@@ -988,7 +988,7 @@ export default function Home() {
               <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
                 {/* Wrench & gear / tools icon */}
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
                 </svg>
               </div>
               <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>MEPF Supervision</h3>
@@ -1010,59 +1010,59 @@ export default function Home() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.7rem' }}>
 
                 {/* PVSyst */}
-                <div style={{ background: '#fff', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: '1px solid rgba(74,127,167,0.12)' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#e8eef5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
-                    <span style={{ fontSize: '0.58rem', fontWeight: 800, color: '#1A3D63', textAlign: 'center', lineHeight: 1.1 }}>PV<br/>SYST</span>
+                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
+                    <img src="/logos/pvsyst.svg" alt="PVSyst" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: 'var(--text-primary)' }}>PVSyst</span>
+                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>PVSyst</span>
                 </div>
 
                 {/* PVCase */}
-                <div style={{ background: '#fff', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: '1px solid rgba(74,127,167,0.12)' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#e8eef5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
-                    <span style={{ fontSize: '0.58rem', fontWeight: 800, color: '#1A3D63', textAlign: 'center', lineHeight: 1.1 }}>PV<br/>CASE</span>
+                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
+                    <img src="/logos/pvcase.png" alt="PVCase" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: 'var(--text-primary)' }}>PVCase</span>
+                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>PVCase</span>
                 </div>
 
                 {/* Helioscope */}
-                <div style={{ background: '#fff', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: '1px solid rgba(74,127,167,0.12)' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#e8eef5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
-                    <span style={{ fontSize: '0.58rem', fontWeight: 800, color: '#1A3D63', textAlign: 'center', lineHeight: 1.1 }}>HELIO<br/>SCOPE</span>
+                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
+                    <img src="/logos/helioscope.svg" alt="Helioscope" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: 'var(--text-primary)' }}>Helioscope</span>
+                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>Helioscope</span>
                 </div>
 
                 {/* AutoCAD */}
-                <div style={{ background: '#fff', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: '1px solid rgba(74,127,167,0.12)' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#e8eef5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
-                    <span style={{ fontSize: '0.58rem', fontWeight: 800, color: '#1A3D63', textAlign: 'center', lineHeight: 1.1 }}>AUTO<br/>CAD</span>
+                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
+                    <img src="/logos/autocad.png" alt="AutoCAD" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: 'var(--text-primary)' }}>AutoCAD</span>
+                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>AutoCAD</span>
                 </div>
 
                 {/* Revit MEP */}
-                <div style={{ background: '#fff', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: '1px solid rgba(74,127,167,0.12)' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#e8eef5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
-                    <span style={{ fontSize: '0.58rem', fontWeight: 800, color: '#1A3D63', textAlign: 'center', lineHeight: 1.1 }}>REVIT<br/>MEP</span>
+                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
+                    <img src="/logos/revit.png" alt="Revit MEP" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: 'var(--text-primary)' }}>Revit MEP</span>
+                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>Revit MEP</span>
                 </div>
 
                 {/* ETAP */}
-                <div style={{ background: '#fff', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: '1px solid rgba(74,127,167,0.12)' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#e8eef5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
-                    <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#1A3D63', textAlign: 'center', lineHeight: 1.1 }}>ETAP</span>
+                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
+                    <img src="/logos/etap.svg" alt="ETAP" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: 'var(--text-primary)' }}>ETAP</span>
+                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>ETAP</span>
                 </div>
 
                 {/* SKM Tools */}
-                <div style={{ background: '#fff', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: '1px solid rgba(74,127,167,0.12)' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#e8eef5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
-                    <span style={{ fontSize: '0.58rem', fontWeight: 800, color: '#1A3D63', textAlign: 'center', lineHeight: 1.1 }}>SKM<br/>TOOLS</span>
+                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
+                    <img src="/logos/skm.png" alt="SKM Tools" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: 'var(--text-primary)' }}>SKM Tools</span>
+                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>SKM Tools</span>
                 </div>
 
               </div>
@@ -1076,26 +1076,25 @@ export default function Home() {
                 {/* Screen overlay — pixel-precise based on 969×682 original scaled to 750×528
                     Screen white area in original: x=95 to x=874, y=30 to y=378
                     Scaled: left=73px top=23px width=603px height=269px */}
-                <div style={{ position: 'absolute', top: '23px', left: '127px', width: '490px', height: '308px', overflow: 'hidden', zIndex: 1, clipPath: 'polygon(2% 0%, 98% 0%, 100% 100%, 0% 100%)' }}>
-                  {/* ↓ Replace src with your screenshot, e.g. src="/screenshots/pvsyst.png" */}
-                  <img
-                    src=""
-                    alt="Screen content"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                  />
-                  {/* Placeholder shown when src is empty */}
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(160deg, #0d1f38, #1A3D63 60%, #2d5f8a)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                    <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.6rem', textAlign: 'center', lineHeight: 1.5 }}>Add screenshot here<br/><span style={{ fontWeight: 600 }}>src="/screenshots/name.png"</span></span>
-                  </div>
-                </div>
-
-                {/* Laptop mockup — multiply makes white areas transparent */}
+                {/* Laptop mockup */}
                 <img
                   src="/laptopmockup.png"
                   alt="Laptop mockup"
-                  style={{ width: '750px', height: '528px', objectFit: 'fill', display: 'block', position: 'absolute', top: 0, left: 0, zIndex: 2, mixBlendMode: 'multiply' }}
+                  style={{ width: '750px', height: '528px', objectFit: 'fill', display: 'block', position: 'absolute', top: 0, left: 0, zIndex: 1 }}
                 />
+
+                {/* Screen overlay — sits in front of the laptop frame */}
+                {/* Outer div: rounded top corners via overflow+border-radius */}
+                <div style={{ position: 'absolute', top: '23px', left: '129px', width: '490px', height: '308px', zIndex: 2, borderRadius: '15px 15px 0 0', overflow: 'hidden' }}>
+                  {/* Inner div: slant via clip-path */}
+                  <div style={{ width: '100%', height: '100%', clipPath: 'polygon(2% 0%, 98% 0%, 100% 100%, 0% 100%)' }}>
+                    <img
+                      src="/autocad.png"
+                      alt="Screen content"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    />
+                  </div>
+                </div>
 
               </div>
             </div>
@@ -1105,7 +1104,7 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="section-padding contact-section" style={{ background: 'var(--bg-darker)', borderTop: '1px solid var(--border)' }}>
+      <section id="contact" className="section-padding contact-section" style={{ background: 'var(--bg-darker)' }}>
         <div className="container">
           <div className="contact-panel reveal" data-dir="down">
             <div className="contact-info-col">
@@ -1123,9 +1122,18 @@ export default function Home() {
               </div>
 
               <div className="contact-socials" aria-label="Social links">
-                <a href="https://linkedin.com/in/jean-benazir" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
-                <a href="mailto:jeanbenazirb@gmail.com" aria-label="Email">@</a>
-                <a href="tel:+639973647886" aria-label="Phone">ph</a>
+                {/* LinkedIn */}
+                <a href="https://linkedin.com/in/jean-benazir" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                {/* Email */}
+                <a href="mailto:jeanbenazirb@gmail.com" aria-label="Email">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+                {/* Phone */}
+                <a href="tel:+639973647886" aria-label="Phone">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                </a>
               </div>
 
               <div className="contact-details">
@@ -1255,8 +1263,8 @@ export default function Home() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn btn-primary"
-                  style={{ background: 'var(--gold)', color: 'var(--bg-darker)', border: 'none' }}
+                  className="hero-btn"
+                  style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', border: 'none', padding: '0.8rem 1.8rem', fontWeight: 600, fontSize: '0.875rem', borderRadius: '9999px', letterSpacing: '0.3px', cursor: 'pointer', transition: 'all 0.25s ease' }}
                 >
                   {isSubmitting ? 'Submitting...' : 'Submit'}
                 </button>
@@ -1292,8 +1300,8 @@ export default function Home() {
           width: '48px',
           height: '48px',
           borderRadius: '50%',
-          background: '#0A1931',
-          border: '2px solid rgba(74,127,167,0.5)',
+          background: 'linear-gradient(to right, #1A3D63, #4A7FA7)',
+          border: 'none',
           boxShadow: '0 4px 20px rgba(10,25,49,0.3)',
           cursor: 'pointer',
           display: 'flex',
@@ -1314,8 +1322,8 @@ export default function Home() {
         }}
       >
         {/* Up chevron arrow */}
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f0c040" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="18 15 12 9 6 15"/>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="18 15 12 9 6 15" />
         </svg>
       </button>
 
