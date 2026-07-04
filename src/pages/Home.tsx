@@ -438,9 +438,9 @@ export default function Home() {
               </a>
               <a href="#journey"
                 className="hero-btn"
-                style={{ background: 'transparent', color: '#ffffff', border: '1px solid rgba(255,255,255,0.6)', padding: '0.8rem 1.8rem', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', borderRadius: '9999px', letterSpacing: '0.3px', cursor: 'pointer', transition: 'all 0.25s ease' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.15)'; (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.9)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.6)'; }}
+                style={{ background: 'transparent', color: '#1A3D63', border: '1.5px solid #1A3D63', padding: '0.8rem 1.8rem', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', borderRadius: '9999px', letterSpacing: '0.3px', cursor: 'pointer', transition: 'all 0.25s ease' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(26,61,99,0.08)'; (e.currentTarget as HTMLAnchorElement).style.borderColor = '#1A3D63'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.borderColor = '#1A3D63'; }}
               >
                 My Journey
               </a>
@@ -997,16 +997,55 @@ export default function Home() {
           </div>
 
           {/* Core Technical Skills — Hero-card style */}
-          <div style={{ marginTop: '4rem', background: 'linear-gradient(145deg, #f2f4f7 0%, #eaf0f7 38%, #4A7FA7 70%, #1A3D63 100%)', borderRadius: '20px', padding: '2.5rem', overflow: 'hidden', display: 'flex', gap: '2.5rem', alignItems: 'stretch', minHeight: '400px', position: 'relative' }}>
+          <div className="tools-hero-card" style={{ marginTop: '4rem', background: 'linear-gradient(145deg, #f2f4f7 0%, #eaf0f7 38%, #4A7FA7 70%, #1A3D63 100%)', borderRadius: '20px', padding: '2.5rem', overflow: 'hidden', display: 'flex', gap: '2.5rem', alignItems: 'stretch', minHeight: '400px', position: 'relative' }}>
+
+            {/* Abstract glassy spheres — clipped to right/blue gradient area only */}
+            <svg aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }} viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                {/* Clip strictly to safe blue area — inset from all edges */}
+                <clipPath id="rightHalf">
+                  <rect x="600" y="40" width="370" height="440" />
+                </clipPath>
+                <radialGradient id="sg1" cx="38%" cy="32%" r="50%">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+                  <stop offset="45%" stopColor="#dbeafe" stopOpacity="0.85" />
+                  <stop offset="100%" stopColor="#93c5fd" stopOpacity="0.1" />
+                </radialGradient>
+                <radialGradient id="sg2" cx="32%" cy="28%" r="50%">
+                  <stop offset="0%" stopColor="#e0f4ff" stopOpacity="1" />
+                  <stop offset="50%" stopColor="#60b8f0" stopOpacity="0.85" />
+                  <stop offset="100%" stopColor="#2a7fc4" stopOpacity="0.1" />
+                </radialGradient>
+                <radialGradient id="sg3" cx="35%" cy="30%" r="50%">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+                  <stop offset="50%" stopColor="#bfdbfe" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.05" />
+                </radialGradient>
+              </defs>
+              {/* Large glassy sphere — center of blue area */}
+              <circle cx="785" cy="260" r="170" fill="url(#sg1)" clipPath="url(#rightHalf)" />
+              {/* Medium glassy sphere — lower right */}
+              <circle cx="900" cy="370" r="100" fill="url(#sg2)" clipPath="url(#rightHalf)" />
+              {/* Small glassy sphere — upper area */}
+              <circle cx="665" cy="130" r="65" fill="url(#sg3)" clipPath="url(#rightHalf)" />
+              {/* Small accent circles */}
+              <circle cx="850" cy="130" r="48" fill="url(#sg1)" clipPath="url(#rightHalf)" />
+              <circle cx="940" cy="230" r="36" fill="url(#sg2)" clipPath="url(#rightHalf)" />
+              <circle cx="635" cy="290" r="32" fill="url(#sg1)" clipPath="url(#rightHalf)" />
+              <circle cx="700" cy="400" r="45" fill="url(#sg3)" clipPath="url(#rightHalf)" />
+              <circle cx="810" cy="430" r="28" fill="url(#sg2)" clipPath="url(#rightHalf)" />
+              <circle cx="940" cy="390" r="32" fill="url(#sg3)" clipPath="url(#rightHalf)" />
+              <circle cx="660" cy="430" r="24" fill="url(#sg1)" clipPath="url(#rightHalf)" />
+            </svg>
 
             {/* LEFT — label + skill logo cards */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <div className="tools-left-col" style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 2 }}>
               <span style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--gold)', letterSpacing: '2px', marginBottom: '0.6rem' }}>
                 Core Technical Skills & Software
               </span>
               <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.3 }}>Tools I Work With</h3>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+              <div className="tools-cards-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
 
                 {/* PVSyst */}
                 <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
@@ -1097,9 +1136,9 @@ export default function Home() {
             </div>
 
             {/* RIGHT — real laptop mockup image */}
-            <div style={{ flex: 1 }}>
+            <div className="tools-right-col" style={{ flex: 1 }}>
               {/* Parent fixed to exact rendered size: 750px wide, 750×(682/969)=528px tall */}
-              <div style={{ position: 'absolute', top: '11rem', right: '-3rem', width: '750px', height: '528px' }}>
+              <div className="tools-laptop-wrapper" style={{ position: 'absolute', top: '11rem', right: '-3rem', width: '750px', height: '528px' }}>
 
                 {/* Screen overlay — pixel-precise based on 969×682 original scaled to 750×528
                     Screen white area in original: x=95 to x=874, y=30 to y=378
@@ -1134,7 +1173,7 @@ export default function Home() {
       {/* Education & Achievements */}
       <section id="education" className="section-padding" style={{ background: 'var(--bg-primary)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'start' }}>
+          <div className="edu-achieve-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'start' }}>
 
             {/* Education */}
             <div>
