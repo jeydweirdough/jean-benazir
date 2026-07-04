@@ -9,8 +9,14 @@ export default function Footer() {
           <p style={{ color: '#a8cce8', fontSize: '0.85rem', margin: '0 0 0.25rem' }}>
             © {new Date().getFullYear()} Jean Benazir T. Buaya. All rights reserved.
           </p>
-          <p style={{ color: '#a8cce8', fontSize: '0.85rem', margin: 0 }}>
+          <p style={{ color: '#a8cce8', fontSize: '0.85rem', margin: '0 0 0.75rem' }}>
             Registered Electrical Engineer.
+          </p>
+          <p style={{ color: '#a8cce8', fontSize: '0.82rem', margin: '0 0 0.2rem' }}>
+            Las Piñas City, Metro Manila, Philippines
+          </p>
+          <p style={{ color: '#a8cce8', fontSize: '0.82rem', margin: 0 }}>
+            jeanbenazirb@gmail.com
           </p>
         </div>
 

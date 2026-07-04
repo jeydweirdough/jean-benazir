@@ -997,7 +997,7 @@ export default function Home() {
           </div>
 
           {/* Core Technical Skills — Hero-card style */}
-          <div style={{ marginTop: '4rem', background: '#f0f4f8', borderRadius: '20px', padding: '2.5rem', overflow: 'hidden', display: 'flex', gap: '2.5rem', alignItems: 'stretch', minHeight: '400px', position: 'relative' }}>
+          <div style={{ marginTop: '4rem', background: 'linear-gradient(145deg, #f2f4f7 0%, #eaf0f7 38%, #4A7FA7 70%, #1A3D63 100%)', borderRadius: '20px', padding: '2.5rem', overflow: 'hidden', display: 'flex', gap: '2.5rem', alignItems: 'stretch', minHeight: '400px', position: 'relative' }}>
 
             {/* LEFT — label + skill logo cards */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -1006,63 +1006,91 @@ export default function Home() {
               </span>
               <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.3 }}>Tools I Work With</h3>
 
-              {/* 2-column skill card grid — replace each logo div with <img src="/logos/name.png" /> */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.7rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
 
                 {/* PVSyst */}
-                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
-                    <img src="/logos/pvsyst.svg" alt="PVSyst" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
+                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>PVSyst</p>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Industry-standard simulation software for PV system energy yield and performance ratio analysis.</p>
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>PVSyst</span>
+                  <img src="/logos/pvsyst.svg" alt="PVSyst" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* PVCase */}
-                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
-                    <img src="/logos/pvcase.png" alt="PVCase" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
+                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>PVCase</p>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Advanced PV layout and string design tool for optimizing utility-scale solar array configurations.</p>
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>PVCase</span>
+                  <img src="/logos/pvcase.png" alt="PVCase" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* Helioscope */}
-                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
-                    <img src="/logos/helioscope.svg" alt="Helioscope" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
+                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>Helioscope</p>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Web-based solar design platform for detailed shading analysis and system performance modeling.</p>
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>Helioscope</span>
+                  <img src="/logos/helioscope.svg" alt="Helioscope" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* AutoCAD */}
-                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
-                    <img src="/logos/autocad.png" alt="AutoCAD" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
+                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>AutoCAD</p>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Industry-leading 2D/3D drafting tool used for precise electrical and structural engineering drawings.</p>
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>AutoCAD</span>
+                  <img src="/logos/autocad.png" alt="AutoCAD" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* Revit MEP */}
-                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
-                    <img src="/logos/revit.png" alt="Revit MEP" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
+                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>Revit MEP</p>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>BIM software for designing and coordinating mechanical, electrical, and plumbing building systems.</p>
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>Revit MEP</span>
+                  <img src="/logos/revit.png" alt="Revit MEP" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* ETAP */}
-                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
-                    <img src="/logos/etap.svg" alt="ETAP" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
+                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>ETAP</p>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Power system analysis platform for load flow, short circuit, and protection coordination studies.</p>
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>ETAP</span>
+                  <img src="/logos/etap.svg" alt="ETAP" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* SKM Tools */}
-                <div className="skill-card" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', borderRadius: '15px', padding: '0.9rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', border: 'none' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden', border: '1px solid rgba(74,127,167,0.1)' }}>
-                    <img src="/logos/skm.png" alt="SKM Tools" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
+                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>SKM Tools</p>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Electrical power system analysis suite used for fault studies, arc flash, and equipment sizing.</p>
                   </div>
-                  <span style={{ fontWeight: 600, fontSize: '0.83rem', color: '#ffffff' }}>SKM Tools</span>
+                  <img src="/logos/skm.png" alt="SKM Tools" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
+                </div>
+
+                {/* Planswift */}
+                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>Planswift</p>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Digital takeoff and estimating software for accurate material quantity calculations from plans.</p>
+                  </div>
+                  <div style={{ width: '60px', height: '60px', borderRadius: '10px', background: 'linear-gradient(135deg, #e8f0fe, #d2e3fc)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" fill="#1A3D63"/><path d="M7 12h10M7 8h6M7 16h8" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  </div>
+                </div>
+
+                {/* MS Office */}
+                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
+                  <div style={{ flex: 1 }}>
+                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>MS Office</p>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Proficient in Excel, Word, and PowerPoint for documentation, reporting, and project presentations.</p>
+                  </div>
+                  <div style={{ width: '60px', height: '60px', borderRadius: '10px', background: 'linear-gradient(135deg, #e8f5e9, #c8e6c9)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="9" height="9" rx="1.5" fill="#D83B01"/><rect x="13" y="2" width="9" height="9" rx="1.5" fill="#217346"/><rect x="2" y="13" width="9" height="9" rx="1.5" fill="#2B7CD3"/><rect x="13" y="13" width="9" height="9" rx="1.5" fill="#FFB900"/></svg>
+                  </div>
                 </div>
 
               </div>
@@ -1071,7 +1099,7 @@ export default function Home() {
             {/* RIGHT — real laptop mockup image */}
             <div style={{ flex: 1 }}>
               {/* Parent fixed to exact rendered size: 750px wide, 750×(682/969)=528px tall */}
-              <div style={{ position: 'absolute', top: '4rem', right: '-3rem', width: '750px', height: '528px' }}>
+              <div style={{ position: 'absolute', top: '11rem', right: '-3rem', width: '750px', height: '528px' }}>
 
                 {/* Screen overlay — pixel-precise based on 969×682 original scaled to 750×528
                     Screen white area in original: x=95 to x=874, y=30 to y=378
@@ -1103,6 +1131,112 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Education & Achievements */}
+      <section id="education" className="section-padding" style={{ background: 'var(--bg-primary)' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'start' }}>
+
+            {/* Education */}
+            <div>
+              <div className="reveal" data-dir="up" style={{ marginBottom: '1.75rem' }}>
+                <span style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '4px', color: 'var(--gold)', marginBottom: '0.75rem' }}>Academic Background</span>
+                <h2 style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', fontWeight: 600, color: 'var(--text-primary)', margin: '0 0 1rem' }}>Education</h2>
+                <div className="section-divider" style={{ margin: '0' }}></div>
+              </div>
+              <div className="reveal edu-achievement-card" data-dir="up" style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border)', minHeight: '160px' }}>
+                {/* College background image */}
+                <img src="/college.jpg" alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
+                {/* Blue gradient overlay — left heavy so text is readable */}
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.82) 0%, rgba(74,127,167,0.72) 55%, rgba(74,127,167,0.35) 100%)' }} />
+                {/* Content */}
+                <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'flex-start', gap: '1.5rem', padding: '1.75rem 2rem' }}>
+                  <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', margin: '0 0 0.3rem', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>Bachelor of Science in Electrical Engineering</h3>
+                    <p style={{ fontSize: '0.88rem', color: '#93c5fd', fontWeight: 600, margin: '0 0 0.3rem' }}>Camarines Norte State College</p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+                      <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.75)', margin: 0 }}>Graduated 2019</p>
+                      <span style={{ display: 'inline-block', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.35)', color: '#ffffff', fontSize: '0.68rem', fontWeight: 700, padding: '0.3rem 0.85rem', borderRadius: '9999px', letterSpacing: '0.5px' }}>
+                        REE — Board Passer 2019
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Achievements */}
+            <div id="achievements">
+              <div className="reveal" data-dir="up" style={{ marginBottom: '1.75rem' }}>
+                <span style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '4px', color: 'var(--gold)', marginBottom: '0.75rem' }}>Recognition</span>
+                <h2 style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', fontWeight: 600, color: 'var(--text-primary)', margin: '0 0 1rem' }}>Achievements</h2>
+                <div className="section-divider" style={{ margin: '0' }}></div>
+              </div>
+              <div className="reveal edu-achievement-card" data-dir="up" style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border)', minHeight: '160px', display: 'flex', alignItems: 'stretch' }}>
+                {/* Blue gradient overlay on left */}
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.82) 0%, rgba(74,127,167,0.72) 55%, rgba(74,127,167,0.35) 100%)' }} />
+                {/* Scholar image on right — smaller, fades into blue overlay */}
+                <img src="/scholar.png" alt="" aria-hidden="true" style={{ position: 'absolute', right: '-10px', bottom: 0, height: '85%', width: 'auto', objectFit: 'contain', objectPosition: 'right bottom' }} />
+                {/* Extra right-fade so image blends with gradient */}
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(26,61,99,0.95) 30%, rgba(26,61,99,0.5) 60%, transparent 100%)' }} />
+                {/* Content */}
+                <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'flex-start', gap: '1.5rem', padding: '1.75rem 2rem', width: '100%' }}>
+                  <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', margin: '0 0 0.3rem', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>Iskolar ng Bayan Grantee</h3>
+                    <p style={{ fontSize: '0.88rem', color: '#93c5fd', fontWeight: 600, margin: '0 0 0.3rem' }}>LGU Mercedes</p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+                      <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.75)', margin: 0 }}>Academic Excellence</p>
+                      <span style={{ display: 'inline-block', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.35)', color: '#ffffff', fontSize: '0.68rem', fontWeight: 700, padding: '0.3rem 0.85rem', borderRadius: '9999px', letterSpacing: '0.5px' }}>
+                        Scholarship Grantee
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Trainings & Seminars */}
+      <section id="trainings" className="section-padding" style={{ background: 'var(--bg-primary)', paddingTop: '3rem' }}>
+        <div className="container">
+          <div className="reveal" data-dir="up" style={{ marginBottom: '2.5rem' }}>
+            <span style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '4px', color: 'var(--gold)', marginBottom: '0.75rem' }}>Professional Development</span>
+            <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', fontWeight: 600, color: 'var(--text-primary)', margin: '0 0 1rem' }}>Trainings & Seminars</h2>
+            <div className="section-divider" style={{ margin: '0' }}></div>
+          </div>
+          <div className="reveal" data-dir="up" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }}>
+            {[
+              { title: 'CS201: Huawei SmartLogger Configuration Procedure', org: 'Solar Philippines', date: 'February 2024' },
+              { title: 'PV117: Introduction to Net Metering Application', org: 'Solar Philippines', date: 'January 2024' },
+              { title: 'PV108: Basic Engineering Design for Commercial Rooftop Solar', org: 'Solar Philippines', date: 'January 2024' },
+              { title: 'SF101: Electrical Safety in the Workplace', org: 'Solar Philippines', date: 'March 2024' },
+              { title: 'RA 11285: Compliance Energy Audit Case Studies', org: 'IIEE Mini Conference, Worldbex', date: '2023' },
+              { title: 'Energy Efficiency & Conservation Act on Building Design', org: 'IIEE Mini Conference, Worldbex', date: '2023' },
+              { title: 'Energy Management & Energy Audit: Best Global Practice in PH', org: 'IIEE Mini Conference, Worldbex', date: '2023' },
+              { title: '2-Day Solar PV Installation & Training — Rooftop Solar PV Design', org: 'PHL Solar Industries, Quezon City', date: 'July 9–10, 2022' },
+              { title: 'Standard Electrical Installation & Simplified Fault Calculation', org: 'IIEE Metro South Chapter / IIEE-CSC Region V', date: 'Aug 2020 · Sep 2017' },
+            ].map((item, i) => (
+              <div key={i} style={{ background: 'var(--bg-card)', borderRadius: '14px', padding: '1.2rem 1.4rem', border: '1px solid var(--border)', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', flexShrink: 0, marginTop: '5px' }}></div>
+                <div>
+                  <p style={{ fontWeight: 600, fontSize: '0.85rem', color: 'var(--text-primary)', margin: '0 0 0.25rem', lineHeight: 1.4 }}>{item.title}</p>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--gold)', fontWeight: 600, margin: '0 0 0.1rem' }}>{item.org}</p>
+                  <p style={{ fontSize: '0.73rem', color: 'var(--text-muted)', margin: 0 }}>{item.date}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact */}
       <section id="contact" className="section-padding contact-section" style={{ background: 'var(--bg-darker)' }}>
         <div className="container">
@@ -1112,14 +1246,6 @@ export default function Home() {
               <p style={{ color: 'var(--text-secondary)' }}>
                 Have a question or want to discuss a project? Reach out using the form below. I am here to help.
               </p>
-
-              <div className="contact-plain-details">
-                <p style={{ color: 'var(--text-secondary)' }}>
-                  Las Pinas City,<br />
-                  Metro Manila, Philippines
-                </p>
-                <p style={{ color: 'var(--text-secondary)' }}>jeanbenazirb@gmail.com</p>
-              </div>
 
               <div className="contact-socials" aria-label="Social links">
                 {/* LinkedIn */}
@@ -1179,30 +1305,40 @@ export default function Home() {
               {/* Reference Check */}
               <div className="contact-references">
                 <h3 style={{ color: 'var(--gold)' }}>Professional References</h3>
-                <div className="contact-reference-list" style={{ display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '1rem' }}>
-                    <h5 style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-primary)' }}>Engr. Jennylene Baluyot</h5>
-                    <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>Plant Manager, BulacanSol &middot; MGen Renewable Energy</p>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.1rem' }}>Contact: 0927 895 5849</p>
-                  </div>
-                  <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '1rem' }}>
-                    <h5 style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-primary)' }}>Engr. Carlito Derije</h5>
-                    <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>EDD Manager, Cornersteel Systems Corp.</p>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.1rem' }}>Contact: 0998 557 8490</p>
-                  </div>
+                <div className="contact-reference-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {[
+                    { name: 'Engr. Jennylene Baluyot', role: 'Plant Manager', org: 'BulacanSol · MGen Renewable Energy', contact: '0927 895 5849' },
+                    { name: 'Engr. Carlito Derije', role: 'EDD Manager', org: 'Cornersteel Systems Corp.', contact: '0998 557 8490' },
+                    { name: 'Engr. Marrion M. Marteja', role: 'Lead MEPF', org: 'DMCI Homes', contact: '0935 428 6844' },
+                  ].map((ref, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.9rem', borderLeft: '2px solid var(--gold)', paddingLeft: '1rem' }}>
+                      <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                          <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <h5 style={{ margin: '0 0 0.2rem', fontSize: '1rem', color: 'var(--text-primary)', fontWeight: 600 }}>{ref.name}</h5>
+                        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: '0 0 0.15rem' }}>{ref.role}, {ref.org}</p>
+                        <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: 0 }}>Contact: {ref.contact}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            <div className="contact-form-col">
+            <div className="contact-form-col" style={{ background: '#ffffff', borderRadius: '15px', padding: '3rem', boxShadow: '0 2px 20px rgba(0,0,0,0.07)' }}>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label htmlFor="name" style={{ color: 'var(--text-primary)' }}>Full Name*</label>
+                  <label htmlFor="name">Name</label>
                   <input
                     type="text"
                     id="name"
                     name="name"
                     required
+                    placeholder="Your name"
                     className="form-control"
                     value={formData.name}
                     onChange={handleInputChange}
@@ -1210,38 +1346,13 @@ export default function Home() {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="email" style={{ color: 'var(--text-primary)' }}>E-mail ID*</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="form-control"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="company" style={{ color: 'var(--text-primary)' }}>Company Name*</label>
-                  <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    required
-                    className="form-control"
-                    value={formData.company}
-                    onChange={handleInputChange}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="mobile" style={{ color: 'var(--text-primary)' }}>Mobile No.*</label>
+                  <label htmlFor="mobile">Phone Number</label>
                   <input
                     type="tel"
                     id="mobile"
                     name="mobile"
                     required
+                    placeholder="Your phone number"
                     className="form-control"
                     value={formData.mobile}
                     onChange={handleInputChange}
@@ -1249,11 +1360,39 @@ export default function Home() {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="message" style={{ color: 'var(--text-primary)' }}>Message*</label>
+                  <label htmlFor="email">Email address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="Your email address"
+                    className="form-control"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="company">Company Name</label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    placeholder="Your company (optional)"
+                    className="form-control"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="message">Message</label>
                   <textarea
                     id="message"
                     name="message"
                     required
+                    placeholder="Type something here..."
                     className="form-control"
                     value={formData.message}
                     onChange={handleInputChange}
@@ -1264,9 +1403,9 @@ export default function Home() {
                   type="submit"
                   disabled={isSubmitting}
                   className="hero-btn"
-                  style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', border: 'none', padding: '0.8rem 1.8rem', fontWeight: 600, fontSize: '0.875rem', borderRadius: '9999px', letterSpacing: '0.3px', cursor: 'pointer', transition: 'all 0.25s ease' }}
+                  style={{ width: '100%', background: '#0f172a', color: '#ffffff', border: 'none', padding: '0.9rem 1.8rem', fontWeight: 600, fontSize: '0.95rem', borderRadius: '15px', letterSpacing: '0.3px', cursor: 'pointer', transition: 'all 0.25s ease', marginTop: '0.5rem' }}
                 >
-                  {isSubmitting ? 'Submitting...' : 'Submit'}
+                  {isSubmitting ? 'Sending...' : 'Send a message'}
                 </button>
 
                 {submitStatus === 'success' && (

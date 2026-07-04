@@ -693,7 +693,16 @@
 }
 .skill-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 28px rgba(26, 61, 99, 0.4);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+}
+
+.edu-achievement-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+.edu-achievement-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(26, 61, 99, 0.45);
 }
 
 .pillars-v2-learn-more {
@@ -1207,8 +1216,7 @@
   margin-bottom: 1.5rem;
 }
 
-.contact-panel .contact-details,
-.contact-panel .contact-references {
+.contact-panel .contact-details {
   display: none;
 }
 
@@ -1295,9 +1303,10 @@
 }
 
 .contact-form-col {
-  background: transparent;
+  background: #ffffff !important;
   border: 0;
   padding: 0;
+  border-radius: 15px !important;
 }
 
 .contact-form-col h3 {
@@ -1306,39 +1315,47 @@
 }
 
 .form-group {
-  margin-bottom: 1.35rem;
+  margin-bottom: 1.1rem;
   text-align: left;
 }
 
 .form-group label {
   display: block;
-  font-size: 0.78rem;
-  font-weight: 400;
+  font-size: 0.82rem;
+  font-weight: 600;
   text-transform: none;
   letter-spacing: 0;
-  color: var(--text-muted);
-  margin-bottom: 0.55rem;
+  color: var(--text-primary);
+  margin-bottom: 0.45rem;
 }
 
 .form-control {
   width: 100%;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid var(--border);
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 50px !important;
   color: var(--text-primary);
-  padding: 0 0 0.85rem;
-  transition: var(--transition);
+  padding: 0.75rem 1.2rem;
+  font-size: 0.88rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-control::placeholder {
+  color: #a0aec0;
+  font-size: 0.85rem;
 }
 
 .form-control:focus {
   outline: none;
-  border-color: var(--gold);
-  box-shadow: 0 0 10px rgba(244, 225, 27, 0.1);
+  border-color: #4A7FA7;
+  box-shadow: 0 0 0 3px rgba(74, 127, 167, 0.12);
 }
 
 textarea.form-control {
   resize: vertical;
-  min-height: 70px;
+  min-height: 100px;
+  border-radius: 20px !important;
 }
 
 .form-status-message {
@@ -3369,20 +3386,24 @@ textarea.form-control {
 .calc-tab-btn,
 .pcard-v2, 
 .brochure-card, 
-.calc-panel, 
-.form-control, 
-.skill-badge, 
-.contact-form-col,
+.calc-panel,
+.skill-badge,
 .journey-card,
 .lb-specs-table,
 .hsplit-logo-area div,
 .hsplit-center-img img,
 .offset-border-frame,
-.offset-border-frame::after,
-input,
-select,
-textarea {
+.offset-border-frame::after {
   border-radius: var(--border-radius, 4px) !important;
+}
+
+input,
+select {
+  border-radius: 50px !important;
+}
+
+textarea {
+  border-radius: 20px !important;
 }
 
 .hsplit-social-btn,
