@@ -3368,6 +3368,15 @@ textarea.form-control {
   border-color: var(--gold);
 }
 
+.news-project-card.reveal {
+  transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.news-project-card.reveal.is-exit {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
 @media (max-width: 820px) {
   .news-project-card {
     grid-template-columns: 1fr;
