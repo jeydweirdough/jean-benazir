@@ -3649,6 +3649,11 @@ textarea {
     gap: 2rem !important;
   }
 
+  /* Project card title — smaller on mobile */
+  .proj-card-title {
+    font-size: 1.1rem !important;
+  }
+
   /* Journey timeline — attach icons to the line */
   .journey-container {
     padding-left: 0 !important;

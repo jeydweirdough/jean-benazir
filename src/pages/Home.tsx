@@ -903,7 +903,7 @@ export default function Home() {
           {/* Projects News Feed List */}
           <div className="projects-feed" style={{ display: 'flex', flexDirection: 'column', gap: '3rem', marginTop: '3rem' }}>
             {filteredProjects.map((project, idx) => (
-              <div key={project.id} className="news-project-card reveal" data-delay={`${idx * 0.04}s`} style={{ background: '#ffffff', border: '1px solid var(--border)', padding: '2rem', boxShadow: 'var(--shadow-sm)', transition: 'var(--transition)', borderRadius: '15px', overflow: 'hidden' }}>
+              <div key={project.id} className="news-project-card" style={{ background: '#ffffff', border: '1px solid var(--border)', padding: '2rem', boxShadow: 'var(--shadow-sm)', transition: 'var(--transition)', borderRadius: '15px', overflow: 'hidden' }}>
 
                 {/* Column 1: Project Image */}
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: '320px' }}>
@@ -927,13 +927,13 @@ export default function Home() {
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between', gap: '1.5rem' }}>
                   <div>
                     {/* Header info */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border)', paddingBottom: '0.75rem', marginBottom: '1rem' }}>
-                      <div>
-                        <span style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', padding: '0.25rem 0.75rem', fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginRight: '0.5rem', border: 'none', borderRadius: '9999px', display: 'inline-block' }}>{project.category}</span>
-                        <h3 style={{ display: 'inline', color: 'var(--text-primary)', fontSize: '1.4rem', fontWeight: 600 }}>{project.title}</h3>
-                      </div>
-                      <div style={{ textAlign: 'right', fontSize: '0.8rem', color: 'var(--text-muted)', flexShrink: 0 }}>
-                        <strong>{project.location}</strong> · {project.year}
+                    <div className="proj-card-header" style={{ borderBottom: '1px solid var(--border)', paddingBottom: '0.75rem', marginBottom: '1rem' }}>
+                      <h3 className="proj-card-title" style={{ color: 'var(--text-primary)', fontSize: '1.4rem', fontWeight: 600, margin: '0 0 0.5rem' }}>{project.title}</h3>
+                      <div className="proj-card-sub-row" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span className="proj-card-pill" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', padding: '0.25rem 0.75rem', fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', border: 'none', borderRadius: '9999px', whiteSpace: 'nowrap' }}>{project.category}</span>
+                        <div className="proj-card-meta" style={{ fontSize: '0.8rem', color: 'var(--text-muted)', flexShrink: 0 }}>
+                          <strong>{project.location}</strong> · {project.year}
+                        </div>
                       </div>
                     </div>
 
