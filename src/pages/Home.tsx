@@ -1,6 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import jeanPortrait from '../assets/jean_portrait_no_bg.png';
+import pvsystLogo from '../assets/logos/pvsyst.svg';
+import pvcaseLogo from '../assets/logos/pvcase.png';
+import helioscopeLogo from '../assets/logos/helioscope.svg';
+import autocadLogo from '../assets/logos/autocad.png';
+import revitLogo from '../assets/logos/revit.png';
+import etapLogo from '../assets/logos/etap.svg';
+import skmLogo from '../assets/logos/skm.png';
+import laptopMockup from '../assets/laptopmockup.png';
+import screenContent from '../assets/autocad.png';
+import collegeBg from '../assets/college.jpg';
+import scholarImg from '../assets/scholar.png';
 
 interface Project {
   id: string;
@@ -583,6 +594,9 @@ export default function Home() {
             <img
               src={jeanPortrait}
               alt="Jean Benazir T. Buaya — Registered Electrical Engineer"
+              fetchPriority="high"
+              loading="eager"
+              decoding="async"
               style={{
                 position: 'relative',
                 zIndex: 2,
@@ -803,13 +817,13 @@ export default function Home() {
           {/* Projects News Feed List */}
           <div className="projects-feed" style={{ display: 'flex', flexDirection: 'column', gap: '3rem', marginTop: '3rem' }}>
             {filteredProjects.map((project, idx) => (
-              <div key={project.id} className="news-project-card reveal" data-delay={`${idx * 0.08}s`} style={{ background: '#ffffff', border: '1px solid var(--border)', padding: '2rem', boxShadow: 'var(--shadow-sm)', transition: 'var(--transition)', borderRadius: '15px', overflow: 'hidden' }}>
+              <div key={project.id} className="news-project-card reveal" data-delay={`${idx * 0.04}s`} style={{ background: '#ffffff', border: '1px solid var(--border)', padding: '2rem', boxShadow: 'var(--shadow-sm)', transition: 'var(--transition)', borderRadius: '15px', overflow: 'hidden' }}>
 
                 {/* Column 1: Image & Technical specs */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   <div style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden', border: '1px solid var(--border-light)', borderRadius: '10px', position: 'relative', cursor: project.image ? 'zoom-in' : 'default' }} onClick={() => project.image && setPreviewImage(project.image)}>
                     {project.image ? (
-                      <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.04)')} onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')} />
+                      <img src={project.image} alt={project.title} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.04)')} onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')} />
                     ) : (
                       <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #f0f6ff, #e8f0fa)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(74,127,167,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -1000,7 +1014,7 @@ export default function Home() {
           <div style={{ marginTop: '4rem', background: 'linear-gradient(145deg, #f2f4f7 0%, #eaf0f7 38%, #4A7FA7 70%, #1A3D63 100%)', borderRadius: '20px', padding: '2.5rem', overflow: 'hidden', display: 'flex', gap: '2.5rem', alignItems: 'stretch', minHeight: '400px', position: 'relative' }}>
 
             {/* LEFT — label + skill logo cards */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 2 }}>
               <span style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--gold)', letterSpacing: '2px', marginBottom: '0.6rem' }}>
                 Core Technical Skills & Software
               </span>
@@ -1014,7 +1028,7 @@ export default function Home() {
                     <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>PVSyst</p>
                     <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Industry-standard simulation software for PV system energy yield and performance ratio analysis.</p>
                   </div>
-                  <img src="/logos/pvsyst.svg" alt="PVSyst" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
+                  <img src={pvsystLogo} alt="PVSyst" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* PVCase */}
@@ -1023,7 +1037,7 @@ export default function Home() {
                     <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>PVCase</p>
                     <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Advanced PV layout and string design tool for optimizing utility-scale solar array configurations.</p>
                   </div>
-                  <img src="/logos/pvcase.png" alt="PVCase" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
+                  <img src={pvcaseLogo} alt="PVCase" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* Helioscope */}
@@ -1032,7 +1046,7 @@ export default function Home() {
                     <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>Helioscope</p>
                     <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Web-based solar design platform for detailed shading analysis and system performance modeling.</p>
                   </div>
-                  <img src="/logos/helioscope.svg" alt="Helioscope" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
+                  <img src={helioscopeLogo} alt="Helioscope" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* AutoCAD */}
@@ -1041,7 +1055,7 @@ export default function Home() {
                     <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>AutoCAD</p>
                     <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Industry-leading 2D/3D drafting tool used for precise electrical and structural engineering drawings.</p>
                   </div>
-                  <img src="/logos/autocad.png" alt="AutoCAD" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
+                  <img src={autocadLogo} alt="AutoCAD" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* Revit MEP */}
@@ -1050,7 +1064,7 @@ export default function Home() {
                     <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>Revit MEP</p>
                     <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>BIM software for designing and coordinating mechanical, electrical, and plumbing building systems.</p>
                   </div>
-                  <img src="/logos/revit.png" alt="Revit MEP" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
+                  <img src={revitLogo} alt="Revit MEP" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* ETAP */}
@@ -1059,7 +1073,7 @@ export default function Home() {
                     <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>ETAP</p>
                     <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Power system analysis platform for load flow, short circuit, and protection coordination studies.</p>
                   </div>
-                  <img src="/logos/etap.svg" alt="ETAP" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
+                  <img src={etapLogo} alt="ETAP" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* SKM Tools */}
@@ -1068,7 +1082,7 @@ export default function Home() {
                     <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>SKM Tools</p>
                     <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Electrical power system analysis suite used for fault studies, arc flash, and equipment sizing.</p>
                   </div>
-                  <img src="/logos/skm.png" alt="SKM Tools" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
+                  <img src={skmLogo} alt="SKM Tools" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
                 </div>
 
                 {/* Planswift */}
@@ -1099,15 +1113,17 @@ export default function Home() {
             {/* RIGHT — real laptop mockup image */}
             <div style={{ flex: 1 }}>
               {/* Parent fixed to exact rendered size: 750px wide, 750×(682/969)=528px tall */}
-              <div style={{ position: 'absolute', top: '11rem', right: '-3rem', width: '750px', height: '528px' }}>
+              <div style={{ position: 'absolute', top: '11rem', right: '-3rem', width: '750px', height: '528px', zIndex: 1 }}>
 
                 {/* Screen overlay — pixel-precise based on 969×682 original scaled to 750×528
                     Screen white area in original: x=95 to x=874, y=30 to y=378
                     Scaled: left=73px top=23px width=603px height=269px */}
                 {/* Laptop mockup */}
                 <img
-                  src="/laptopmockup.png"
+                  src={laptopMockup}
                   alt="Laptop mockup"
+                  loading="lazy"
+                  decoding="async"
                   style={{ width: '750px', height: '528px', objectFit: 'fill', display: 'block', position: 'absolute', top: 0, left: 0, zIndex: 1 }}
                 />
 
@@ -1117,8 +1133,10 @@ export default function Home() {
                   {/* Inner div: slant via clip-path */}
                   <div style={{ width: '100%', height: '100%', clipPath: 'polygon(2% 0%, 98% 0%, 100% 100%, 0% 100%)' }}>
                     <img
-                      src="/autocad.png"
+                      src={screenContent}
                       alt="Screen content"
+                      loading="lazy"
+                      decoding="async"
                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                     />
                   </div>
@@ -1145,7 +1163,7 @@ export default function Home() {
               </div>
               <div className="reveal edu-achievement-card" data-dir="up" style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border)', minHeight: '160px' }}>
                 {/* College background image */}
-                <img src="/college.jpg" alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
+                <img src={collegeBg} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
                 {/* Blue gradient overlay — left heavy so text is readable */}
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.82) 0%, rgba(74,127,167,0.72) 55%, rgba(74,127,167,0.35) 100%)' }} />
                 {/* Content */}
@@ -1178,7 +1196,7 @@ export default function Home() {
                 {/* Blue gradient overlay on left */}
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.82) 0%, rgba(74,127,167,0.72) 55%, rgba(74,127,167,0.35) 100%)' }} />
                 {/* Scholar image on right — smaller, fades into blue overlay */}
-                <img src="/scholar.png" alt="" aria-hidden="true" style={{ position: 'absolute', right: '-10px', bottom: 0, height: '85%', width: 'auto', objectFit: 'contain', objectPosition: 'right bottom' }} />
+                <img src={scholarImg} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', right: '-10px', bottom: 0, height: '85%', width: 'auto', objectFit: 'contain', objectPosition: 'right bottom' }} />
                 {/* Extra right-fade so image blends with gradient */}
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(26,61,99,0.95) 30%, rgba(26,61,99,0.5) 60%, transparent 100%)' }} />
                 {/* Content */}
