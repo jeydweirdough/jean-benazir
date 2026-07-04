@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Footer() {
   return (
     <footer className="footer" style={{ background: '#0A1931', color: '#ffffff', padding: '4rem 0 2.5rem', borderTop: 'none' }}>
@@ -88,49 +90,49 @@ export default function Footer() {
             <h4 style={{ color: '#ffffff', fontSize: '0.95rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1.2rem' }}>Navigation</h4>
             <ul className="footer-links" style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
               <li>
-                <a 
-                  href="#hero" 
+                <Link 
+                  to="/" 
                   className="footer-link" 
                   style={{ textDecoration: 'none', color: '#a8cce8', fontSize: '0.82rem', transition: 'all 0.2s ease' }}
                   onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
                   onMouseLeave={e => e.currentTarget.style.color = '#a8cce8'}
-                >Home</a>
+                >Home</Link>
               </li>
               <li>
-                <a 
-                  href="#journey" 
+                <Link 
+                  to="/journey" 
                   className="footer-link" 
                   style={{ textDecoration: 'none', color: '#a8cce8', fontSize: '0.82rem', transition: 'all 0.2s ease' }}
                   onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
                   onMouseLeave={e => e.currentTarget.style.color = '#a8cce8'}
-                >Journey</a>
+                >Journey</Link>
               </li>
               <li>
-                <a 
-                  href="#projects" 
+                <Link 
+                  to="/projects" 
                   className="footer-link" 
                   style={{ textDecoration: 'none', color: '#a8cce8', fontSize: '0.82rem', transition: 'all 0.2s ease' }}
                   onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
                   onMouseLeave={e => e.currentTarget.style.color = '#a8cce8'}
-                >Projects</a>
+                >Projects</Link>
               </li>
               <li>
-                <a 
-                  href="#services" 
+                <Link 
+                  to="/services" 
                   className="footer-link" 
                   style={{ textDecoration: 'none', color: '#a8cce8', fontSize: '0.82rem', transition: 'all 0.2s ease' }}
                   onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
                   onMouseLeave={e => e.currentTarget.style.color = '#a8cce8'}
-                >Service</a>
+                >Service</Link>
               </li>
               <li>
-                <a 
-                  href="#contact" 
+                <Link 
+                  to="/contact" 
                   className="footer-link" 
                   style={{ textDecoration: 'none', color: '#a8cce8', fontSize: '0.82rem', transition: 'all 0.2s ease' }}
                   onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
                   onMouseLeave={e => e.currentTarget.style.color = '#a8cce8'}
-                >Contact</a>
+                >Contact</Link>
               </li>
             </ul>
           </div>
@@ -162,8 +164,8 @@ export default function Footer() {
             <p style={{ color: '#a8cce8', fontSize: '0.8rem', marginBottom: '1rem', lineHeight: 1.5 }}>
               Ready to design your next PV installation or coordinate electrical systems?
             </p>
-            <a 
-              href="#contact" 
+            <Link 
+              to="/contact" 
               className="navbar-cta-btn" 
               style={{ 
                 background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', 
@@ -179,7 +181,7 @@ export default function Footer() {
               }}
             >
               Consult Now
-            </a>
+            </Link>
           </div>
 
         </div>

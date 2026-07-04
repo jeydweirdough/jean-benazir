@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import jeanPortrait from '../assets/jean_portrait_no_bg.png';
 import pvsystLogo from '../assets/logos/pvsyst.svg';
 import pvcaseLogo from '../assets/logos/pvcase.png';
@@ -30,6 +30,50 @@ interface Project {
   client: string;
   result: string;
 }
+
+interface EducationItem {
+  id: string;
+  degree: string;
+  institution: string;
+  year: string;
+  badge?: string;
+  image?: string;
+  type: 'cover' | 'contain' | 'none';
+}
+
+interface AchievementItem {
+  id: string;
+  title: string;
+  organization: string;
+  criteria: string;
+  badge?: string;
+  image?: string;
+  type: 'cover' | 'contain' | 'none';
+}
+
+const EDUCATION_DATA: EducationItem[] = [
+  {
+    id: '1',
+    degree: 'Bachelor of Science in Electrical Engineering',
+    institution: 'Camarines Norte State College',
+    year: 'Graduated 2019',
+    badge: 'REE — Board Passer 2019',
+    image: collegeBg,
+    type: 'cover'
+  },
+];
+
+const ACHIEVEMENTS_DATA: AchievementItem[] = [
+  {
+    id: '1',
+    title: 'Iskolar ng Bayan Grantee',
+    organization: 'LGU Mercedes',
+    criteria: 'Academic Excellence',
+    badge: 'Scholarship Grantee',
+    image: scholarImg,
+    type: 'contain'
+  }
+];
 
 const PROJECTS_DATA: Project[] = [
   {
@@ -204,6 +248,48 @@ const PROJECTS_DATA: Project[] = [
     standards_code: 'PEC / National Building Code PH',
     client: 'DMCI Homes Inc.',
     result: 'Reduced project delay by 15% through preemptive collision checking between duct banks and structural beams.'
+  },
+  {
+    id: '9',
+    title: 'Cornersteel Structured Cabling',
+    category: 'planning',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
+    desc: 'Site survey and drafting single line diagrams for proposed electrical, structured voice/data, and auxiliary cabling systems.',
+    year: '2021',
+    location: 'Makati City, PH',
+    role: 'Electrical Design Engineer',
+    scope: [
+      'Conducted site surveys for corporate commercial fit-out projects.',
+      'Drafted power and lighting layout drawings, single line diagrams (SLDs).',
+      'Calculated load schedules and estimated materials for structured cabling (voice/data).'
+    ],
+    inverter_rating: '150kVA Connected Load',
+    design_drawings: 'Power/Lighting & Cabling Layout',
+    capacity_yield: '4,200 sq.m Corporate Fit-out',
+    standards_code: 'PEC / EIA/TIA 568',
+    client: 'Cornersteel Systems Corp.',
+    result: 'Completed drawings and BOM approved on first submission, enabling on-time site fit-out execution.'
+  },
+  {
+    id: '9',
+    title: 'Cornersteel Structured Cabling',
+    category: 'planning',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
+    desc: 'Site survey and drafting single line diagrams for proposed electrical, structured voice/data, and auxiliary cabling systems.',
+    year: '2021',
+    location: 'Makati City, PH',
+    role: 'Electrical Design Engineer',
+    scope: [
+      'Conducted site surveys for corporate commercial fit-out projects.',
+      'Drafted power and lighting layout drawings, single line diagrams (SLDs).',
+      'Calculated load schedules and estimated materials for structured cabling (voice/data).'
+    ],
+    inverter_rating: '150kVA Connected Load',
+    design_drawings: 'Power/Lighting & Cabling Layout',
+    capacity_yield: '4,200 sq.m Corporate Fit-out',
+    standards_code: 'PEC / EIA/TIA 568',
+    client: 'Cornersteel Systems Corp.',
+    result: 'Completed drawings and BOM approved on first submission, enabling on-time site fit-out execution.'
   },
   {
     id: '9',
@@ -441,20 +527,20 @@ export default function Home() {
             </p>
 
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <a href="#projects"
+              <Link to="/projects"
                 className="hero-btn"
                 style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', border: 'none', padding: '0.8rem 1.8rem', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', borderRadius: '9999px', letterSpacing: '0.3px', cursor: 'pointer', transition: 'all 0.25s ease' }}
               >
                 View Projects
-              </a>
-              <a href="#journey"
+              </Link>
+              <Link to="/journey"
                 className="hero-btn"
                 style={{ background: 'transparent', color: '#ffffff', border: '1px solid rgba(255,255,255,0.6)', padding: '0.8rem 1.8rem', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', borderRadius: '9999px', letterSpacing: '0.3px', cursor: 'pointer', transition: 'all 0.25s ease' }}
                 onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.15)'; (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.9)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.6)'; }}
               >
                 My Journey
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -819,13 +905,13 @@ export default function Home() {
             {filteredProjects.map((project, idx) => (
               <div key={project.id} className="news-project-card reveal" data-delay={`${idx * 0.04}s`} style={{ background: '#ffffff', border: '1px solid var(--border)', padding: '2rem', boxShadow: 'var(--shadow-sm)', transition: 'var(--transition)', borderRadius: '15px', overflow: 'hidden' }}>
 
-                {/* Column 1: Image & Technical specs */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                  <div style={{ width: '100%', aspectRatio: '16/10', overflow: 'hidden', border: '1px solid var(--border-light)', borderRadius: '10px', position: 'relative', cursor: project.image ? 'zoom-in' : 'default' }} onClick={() => project.image && setPreviewImage(project.image)}>
+                {/* Column 1: Project Image */}
+                <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: '320px' }}>
+                  <div style={{ width: '100%', height: '100%', overflow: 'hidden', border: '1px solid var(--border-light)', borderRadius: '10px', position: 'relative', cursor: project.image ? 'zoom-in' : 'default' }} onClick={() => project.image && setPreviewImage(project.image)}>
                     {project.image ? (
                       <img src={project.image} alt={project.title} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.04)')} onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')} />
                     ) : (
-                      <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #f0f6ff, #e8f0fa)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
+                      <div style={{ width: '100%', height: '100%', minHeight: '320px', background: 'linear-gradient(135deg, #f0f6ff, #e8f0fa)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(74,127,167,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                           <rect x="3" y="3" width="18" height="18" rx="2" />
                           <circle cx="8.5" cy="8.5" r="1.5" />
@@ -835,33 +921,10 @@ export default function Home() {
                       </div>
                     )}
                   </div>
-
-                  {/* Technical specifications table */}
-                  <div style={{ background: '#ffffff', padding: '1.25rem' }}>
-                    <h5 style={{ color: 'var(--text-primary)', marginBottom: '0.75rem', fontSize: '0.85rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>Technical Parameters</h5>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.8rem' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.25rem' }}>
-                        <strong style={{ color: 'var(--text-primary)' }}>Capacity / Sizing</strong>
-                        <span style={{ color: 'var(--text-muted)' }}>{project.capacity_yield}</span>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.25rem' }}>
-                        <strong style={{ color: 'var(--text-primary)' }}>Inverters / Aux</strong>
-                        <span style={{ color: 'var(--text-muted)' }}>{project.inverter_rating}</span>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.25rem' }}>
-                        <strong style={{ color: 'var(--text-primary)' }}>Drawings</strong>
-                        <span style={{ color: 'var(--text-muted)' }}>{project.design_drawings}</span>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.25rem' }}>
-                        <strong style={{ color: 'var(--text-primary)' }}>Standards</strong>
-                        <span style={{ color: 'var(--text-muted)' }}>{project.standards_code}</span>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
-                {/* Column 2: Content & Scope */}
-                <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
+                {/* Column 2: Content & Specifications Grid */}
+                <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between', gap: '1.5rem' }}>
                   <div>
                     {/* Header info */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border)', paddingBottom: '0.75rem', marginBottom: '1rem' }}>
@@ -869,19 +932,8 @@ export default function Home() {
                         <span style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', padding: '0.25rem 0.75rem', fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginRight: '0.5rem', border: 'none', borderRadius: '9999px', display: 'inline-block' }}>{project.category}</span>
                         <h3 style={{ display: 'inline', color: 'var(--text-primary)', fontSize: '1.4rem', fontWeight: 600 }}>{project.title}</h3>
                       </div>
-                      <div style={{ textAlign: 'right', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                      <div style={{ textAlign: 'right', fontSize: '0.8rem', color: 'var(--text-muted)', flexShrink: 0 }}>
                         <strong>{project.location}</strong> · {project.year}
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.25rem', fontSize: '0.82rem' }}>
-                      <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.5rem' }}>
-                        <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase' }}>Role</span>
-                        <strong style={{ color: 'var(--text-primary)' }}>{project.role}</strong>
-                      </div>
-                      <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.5rem' }}>
-                        <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase' }}>Client Type</span>
-                        <strong style={{ color: 'var(--text-primary)' }}>{project.client}</strong>
                       </div>
                     </div>
 
@@ -889,7 +941,7 @@ export default function Home() {
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem', lineHeight: '1.6' }}>{project.desc}</p>
 
                     {/* Scope Bullets */}
-                    <div style={{ marginBottom: '1.5rem' }}>
+                    <div style={{ marginBottom: '1.75rem' }}>
                       <h4 style={{ fontSize: '0.85rem', color: 'var(--text-primary)', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Scope of Work</h4>
                       <ul style={{ paddingLeft: '0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         {project.scope.map((item, idx) => (
@@ -900,13 +952,38 @@ export default function Home() {
                         ))}
                       </ul>
                     </div>
-                  </div>
 
-                  {/* Highlighted Result */}
-                  <div style={{ background: 'var(--gold-alpha)', borderLeft: '3px solid var(--gold)', padding: '1rem', fontSize: '0.85rem', fontStyle: 'italic', color: 'var(--text-primary)' }}>
-                    <strong>Impact & Result:</strong> "{project.result}"
+                    {/* Specifications Grid */}
+                    <div style={{ borderTop: '1px solid var(--border)', paddingTop: '1.5rem' }}>
+                      <h4 style={{ fontSize: '0.85rem', color: 'var(--text-primary)', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Project Specifications</h4>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem' }}>
+                        <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.65rem' }}>
+                          <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.15rem' }}>Role</span>
+                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.role}</strong>
+                        </div>
+                        <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.65rem' }}>
+                          <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.15rem' }}>Client Type</span>
+                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.client}</strong>
+                        </div>
+                        <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.65rem' }}>
+                          <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.15rem' }}>Capacity / Sizing</span>
+                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.capacity_yield}</strong>
+                        </div>
+                        <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.65rem' }}>
+                          <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.15rem' }}>Inverters / Aux</span>
+                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.inverter_rating}</strong>
+                        </div>
+                        <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.65rem' }}>
+                          <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.15rem' }}>Drawings</span>
+                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.design_drawings}</strong>
+                        </div>
+                        <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.65rem' }}>
+                          <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.15rem' }}>Standards</span>
+                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.standards_code}</strong>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-
                 </div>
 
               </div>
@@ -1161,27 +1238,70 @@ export default function Home() {
                 <h2 style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', fontWeight: 600, color: 'var(--text-primary)', margin: '0 0 1rem' }}>Education</h2>
                 <div className="section-divider" style={{ margin: '0' }}></div>
               </div>
-              <div className="reveal edu-achievement-card" data-dir="up" style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border)', minHeight: '160px' }}>
-                {/* College background image */}
-                <img src={collegeBg} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
-                {/* Blue gradient overlay — left heavy so text is readable */}
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.82) 0%, rgba(74,127,167,0.72) 55%, rgba(74,127,167,0.35) 100%)' }} />
-                {/* Content */}
-                <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'flex-start', gap: '1.5rem', padding: '1.75rem 2rem' }}>
-                  <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', margin: '0 0 0.3rem', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>Bachelor of Science in Electrical Engineering</h3>
-                    <p style={{ fontSize: '0.88rem', color: '#93c5fd', fontWeight: 600, margin: '0 0 0.3rem' }}>Camarines Norte State College</p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
-                      <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.75)', margin: 0 }}>Graduated 2019</p>
-                      <span style={{ display: 'inline-block', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.35)', color: '#ffffff', fontSize: '0.68rem', fontWeight: 700, padding: '0.3rem 0.85rem', borderRadius: '9999px', letterSpacing: '0.5px' }}>
-                        REE — Board Passer 2019
-                      </span>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'stretch',
+                  gap: '1rem',
+                  width: '100%',
+                }}
+              >
+                {EDUCATION_DATA.map((edu, idx) => (
+                  <div 
+                    key={edu.id} 
+                    className="reveal edu-achievement-card" 
+                    data-dir="up" 
+                    data-delay={`${idx * 0.08}s`} 
+                    style={{ 
+                      position: 'relative', 
+                      borderRadius: '16px', 
+                      overflow: 'hidden', 
+                      border: '1px solid var(--border)', 
+                      minHeight: '160px',
+                      background: edu.type === 'none' ? 'linear-gradient(135deg, #1A3D63 0%, #2A5D8A 100%)' : 'transparent'
+                    }}
+                  >
+                    {/* Background image if type is cover */}
+                    {edu.type === 'cover' && edu.image && (
+                      <>
+                        <img src={edu.image} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
+                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.85) 0%, rgba(74,127,167,0.75) 55%, rgba(74,127,167,0.35) 100%)' }} />
+                      </>
+                    )}
+                    {/* Background if type is contain */}
+                    {edu.type === 'contain' && edu.image && (
+                      <>
+                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.85) 0%, rgba(74,127,167,0.75) 55%, rgba(74,127,167,0.35) 100%)' }} />
+                        <img src={edu.image} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', right: '-10px', bottom: 0, height: '85%', width: 'auto', objectFit: 'contain', objectPosition: 'right bottom' }} />
+                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(26,61,99,0.95) 30%, rgba(26,61,99,0.5) 60%, transparent 100%)' }} />
+                      </>
+                    )}
+                    {/* Dynamic background overlay for fallback 'none' */}
+                    {edu.type === 'none' && (
+                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.95) 0%, rgba(74,127,167,0.85) 100%)' }} />
+                    )}
+                    
+                    {/* Content */}
+                    <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'flex-start', gap: '1.5rem', padding: '1.75rem 2rem' }}>
+                      <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                      </div>
+                      <div>
+                        <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', margin: '0 0 0.3rem', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>{edu.degree}</h3>
+                        <p style={{ fontSize: '0.88rem', color: '#93c5fd', fontWeight: 600, margin: '0 0 0.3rem' }}>{edu.institution}</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+                          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.75)', margin: 0 }}>{edu.year}</p>
+                          {edu.badge && (
+                            <span style={{ display: 'inline-block', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.35)', color: '#ffffff', fontSize: '0.68rem', fontWeight: 700, padding: '0.3rem 0.85rem', borderRadius: '9999px', letterSpacing: '0.5px' }}>
+                              {edu.badge}
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
 
@@ -1192,29 +1312,72 @@ export default function Home() {
                 <h2 style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', fontWeight: 600, color: 'var(--text-primary)', margin: '0 0 1rem' }}>Achievements</h2>
                 <div className="section-divider" style={{ margin: '0' }}></div>
               </div>
-              <div className="reveal edu-achievement-card" data-dir="up" style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border)', minHeight: '160px', display: 'flex', alignItems: 'stretch' }}>
-                {/* Blue gradient overlay on left */}
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.82) 0%, rgba(74,127,167,0.72) 55%, rgba(74,127,167,0.35) 100%)' }} />
-                {/* Scholar image on right — smaller, fades into blue overlay */}
-                <img src={scholarImg} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', right: '-10px', bottom: 0, height: '85%', width: 'auto', objectFit: 'contain', objectPosition: 'right bottom' }} />
-                {/* Extra right-fade so image blends with gradient */}
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(26,61,99,0.95) 30%, rgba(26,61,99,0.5) 60%, transparent 100%)' }} />
-                {/* Content */}
-                <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'flex-start', gap: '1.5rem', padding: '1.75rem 2rem', width: '100%' }}>
-                  <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', margin: '0 0 0.3rem', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>Iskolar ng Bayan Grantee</h3>
-                    <p style={{ fontSize: '0.88rem', color: '#93c5fd', fontWeight: 600, margin: '0 0 0.3rem' }}>LGU Mercedes</p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
-                      <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.75)', margin: 0 }}>Academic Excellence</p>
-                      <span style={{ display: 'inline-block', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.35)', color: '#ffffff', fontSize: '0.68rem', fontWeight: 700, padding: '0.3rem 0.85rem', borderRadius: '9999px', letterSpacing: '0.5px' }}>
-                        Scholarship Grantee
-                      </span>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'stretch',
+                  gap: '1rem',
+                  width: '100%',
+                }}
+              >
+                {ACHIEVEMENTS_DATA.map((ach, idx) => (
+                  <div 
+                    key={ach.id} 
+                    className="reveal edu-achievement-card" 
+                    data-dir="up" 
+                    data-delay={`${idx * 0.08}s`} 
+                    style={{ 
+                      position: 'relative', 
+                      borderRadius: '16px', 
+                      overflow: 'hidden', 
+                      border: '1px solid var(--border)', 
+                      minHeight: '160px', 
+                      display: 'flex', 
+                      alignItems: 'stretch',
+                      background: ach.type === 'none' ? 'linear-gradient(135deg, #1A3D63 0%, #2A5D8A 100%)' : 'transparent'
+                    }}
+                  >
+                    {/* Background image if type is cover */}
+                    {ach.type === 'cover' && ach.image && (
+                      <>
+                        <img src={ach.image} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
+                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.85) 0%, rgba(74,127,167,0.75) 55%, rgba(74,127,167,0.35) 100%)' }} />
+                      </>
+                    )}
+                    {/* Background image if type is contain (like Mercedes seal) */}
+                    {ach.type === 'contain' && ach.image && (
+                      <>
+                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.85) 0%, rgba(74,127,167,0.72) 55%, rgba(74,127,167,0.35) 100%)' }} />
+                        <img src={ach.image} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', right: '-10px', bottom: 0, height: '85%', width: 'auto', objectFit: 'contain', objectPosition: 'right bottom' }} />
+                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(26,61,99,0.95) 30%, rgba(26,61,99,0.5) 60%, transparent 100%)' }} />
+                      </>
+                    )}
+                    {/* Dynamic background overlay for fallback 'none' */}
+                    {ach.type === 'none' && (
+                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.95) 0%, rgba(74,127,167,0.85) 100%)' }} />
+                    )}
+
+                    {/* Content */}
+                    <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'flex-start', gap: '1.5rem', padding: '1.75rem 2rem', width: '100%' }}>
+                      <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                      </div>
+                      <div>
+                        <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', margin: '0 0 0.3rem', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>{ach.title}</h3>
+                        <p style={{ fontSize: '0.88rem', color: '#93c5fd', fontWeight: 600, margin: '0 0 0.3rem' }}>{ach.organization}</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+                          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.75)', margin: 0 }}>{ach.criteria}</p>
+                          {ach.badge && (
+                            <span style={{ display: 'inline-block', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.35)', color: '#ffffff', fontSize: '0.68rem', fontWeight: 700, padding: '0.3rem 0.85rem', borderRadius: '9999px', letterSpacing: '0.5px' }}>
+                              {ach.badge}
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
 

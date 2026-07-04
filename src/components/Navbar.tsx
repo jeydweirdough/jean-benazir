@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -36,9 +37,9 @@ export default function Navbar() {
   return (
     <nav className="navbar" style={{ background: 'var(--bg-darker)', borderBottom: '1px solid var(--border)' }}>
       <div className="container navbar-container">
-        <a href="#hero" className="nav-logo" onClick={closeMobileMenu} style={{ textDecoration: 'none', color: 'var(--text-primary)', fontSize: '1.4rem', fontWeight: 700, letterSpacing: '0.5px' }}>
+        <Link to="/" className="nav-logo" onClick={closeMobileMenu} style={{ textDecoration: 'none', color: 'var(--text-primary)', fontSize: '1.4rem', fontWeight: 700, letterSpacing: '0.5px' }}>
           Jean
-        </a>
+        </Link>
 
         {/* Mobile Hamburger Icon */}
         <button
@@ -61,59 +62,59 @@ export default function Navbar() {
         {/* Links */}
         <ul className={`nav-links ${isMobileOpen ? 'mobile-active' : ''}`}>
           <li>
-            <a
-              href="#hero"
+            <Link
+              to="/"
               className={`nav-link ${activeSection === 'hero' ? 'active' : ''}`}
               onClick={closeMobileMenu}
               style={{ color: activeSection === 'hero' ? 'var(--gold)' : 'var(--text-secondary)' }}
             >
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="#journey"
+            <Link
+              to="/journey"
               className={`nav-link ${activeSection === 'journey' ? 'active' : ''}`}
               onClick={closeMobileMenu}
               style={{ color: activeSection === 'journey' ? 'var(--gold)' : 'var(--text-secondary)' }}
             >
               Journey
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="#projects"
+            <Link
+              to="/projects"
               className={`nav-link ${activeSection === 'projects' ? 'active' : ''}`}
               onClick={closeMobileMenu}
               style={{ color: activeSection === 'projects' ? 'var(--gold)' : 'var(--text-secondary)' }}
             >
               Projects
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="#services"
+            <Link
+              to="/services"
               className={`nav-link ${activeSection === 'services' ? 'active' : ''}`}
               onClick={closeMobileMenu}
               style={{ color: activeSection === 'services' ? 'var(--gold)' : 'var(--text-secondary)' }}
             >
               Service
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}
               onClick={closeMobileMenu}
               style={{ color: activeSection === 'contact' ? 'var(--gold)' : 'var(--text-secondary)' }}
             >
               Contact
-            </a>
+            </Link>
           </li>
           <li style={{ marginLeft: '1rem', display: 'flex', alignItems: 'center' }}>
-            <a href="#contact" className="navbar-cta-btn" onClick={closeMobileMenu} style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', border: 'none', borderRadius: '9999px' }}>
+            <Link to="/contact" className="navbar-cta-btn" onClick={closeMobileMenu} style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff', border: 'none', borderRadius: '9999px', textDecoration: 'none' }}>
               Consult Now
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
