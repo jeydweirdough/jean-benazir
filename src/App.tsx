@@ -4,6 +4,8 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import { Routes, Route } from "react-router-dom";
+import Studio from "./admin/Studio";
 
 function ScrollToSection() {
   const { pathname } = useLocation();
@@ -24,15 +26,26 @@ function ScrollToSection() {
   return null;
 }
 
-function App() {
+function Portfolio() {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToSection />
       <Navbar />
-      <main style={{ flexGrow: 1, paddingTop: '80px' }}>
+      <main style={{ flexGrow: 1, paddingTop: "80px" }}>
         <Home />
       </main>
       <Footer />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Portfolio />} />
+        <Route path="/admin/*" element={<Studio />} />
+      </Routes>
     </BrowserRouter>
   );
 }

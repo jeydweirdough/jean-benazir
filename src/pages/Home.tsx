@@ -1,332 +1,118 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import jeanPortrait from '../assets/jean_portrait_no_bg.png';
-import pvsystLogo from '../assets/logos/pvsyst.svg';
-import pvcaseLogo from '../assets/logos/pvcase.png';
-import helioscopeLogo from '../assets/logos/helioscope.svg';
-import autocadLogo from '../assets/logos/autocad.png';
-import revitLogo from '../assets/logos/revit.png';
-import etapLogo from '../assets/logos/etap.svg';
-import skmLogo from '../assets/logos/skm.png';
 import laptopMockup from '../assets/laptopmockup.png';
 import screenContent from '../assets/autocad.png';
-import collegeBg from '../assets/college.jpg';
-import scholarImg from '../assets/scholar.png';
+import { useSanityQuery } from '../lib/useSanityQuery';
+import { urlFor } from '../lib/sanity';
+import { PORTFOLIO_QUERY, type PortfolioData } from '../lib/queries';
 
-interface Project {
-  id: string;
-  title: string;
-  category: 'rooftop' | 'ground' | 'planning';
-  image: string;
-  desc: string;
-  year: string;
-  location: string;
-  role: string;
-  scope: string[];
-  inverter_rating: string;
-  design_drawings: string;
-  capacity_yield: string;
-  standards_code: string;
-  client: string;
-  result: string;
-}
+const JOURNEY_ICONS: Record<string, React.ReactNode> = {
+  sun: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
+  ),
+  government: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="10" width="18" height="11" rx="1" /><polyline points="3 10 12 3 21 10" /><line x1="12" y1="10" x2="12" y2="21" /></svg>
+  ),
+  'solar-grid': (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="1" /><line x1="2" y1="12" x2="22" y2="12" /><line x1="8" y1="6" x2="8" y2="18" /><line x1="16" y1="6" x2="16" y2="18" /></svg>
+  ),
+  hardhat: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20h20" /><path d="M5 20V8.5A7 7 0 0 1 12 2a7 7 0 0 1 7 6.5V20" /><line x1="12" y1="2" x2="12" y2="8" /></svg>
+  ),
+  building: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="1" /><line x1="9" y1="2" x2="9" y2="22" /><line x1="15" y1="2" x2="15" y2="22" /><line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="17" x2="20" y2="17" /></svg>
+  ),
+  cabling: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5" height="5" rx="1" /><rect x="17" y="2" width="5" height="5" rx="1" /><rect x="9.5" y="17" width="5" height="5" rx="1" /><line x1="7" y1="4.5" x2="17" y2="4.5" /><line x1="12" y1="7" x2="12" y2="17" /><line x1="4.5" y1="7" x2="11.5" y2="17" /><line x1="19.5" y1="7" x2="12.5" y2="17" /></svg>
+  ),
+  award: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+  ),
+};
 
-interface EducationItem {
-  id: string;
-  degree: string;
-  institution: string;
-  year: string;
-  badge?: string;
-  image?: string;
-  type: 'cover' | 'contain' | 'none';
-}
+const SERVICE_ICONS: Record<string, React.ReactNode> = {
+  'solar-array': (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="5" width="9" height="7" rx="1" />
+      <rect x="13" y="5" width="9" height="7" rx="1" />
+      <line x1="6" y1="5" x2="6" y2="12" />
+      <line x1="10" y1="5" x2="10" y2="12" />
+      <line x1="17" y1="5" x2="17" y2="12" />
+      <line x1="21" y1="5" x2="21" y2="12" />
+      <line x1="8" y1="19" x2="8" y2="12" />
+      <line x1="16" y1="19" x2="16" y2="12" />
+      <line x1="5" y1="19" x2="19" y2="19" />
+    </svg>
+  ),
+  sld: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="6" height="6" rx="1" />
+      <rect x="15" y="3" width="6" height="6" rx="1" />
+      <rect x="9" y="15" width="6" height="6" rx="1" />
+      <line x1="9" y1="6" x2="15" y2="6" />
+      <line x1="12" y1="6" x2="12" y2="15" />
+      <line x1="6" y1="9" x2="12" y2="15" />
+      <line x1="18" y1="9" x2="12" y2="15" />
+    </svg>
+  ),
+  audit: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+      <rect x="9" y="3" width="6" height="4" rx="1" />
+      <line x1="9" y1="12" x2="15" y2="12" />
+      <line x1="9" y1="16" x2="13" y2="16" />
+      <polyline points="9 9 10 10 12 8" />
+    </svg>
+  ),
+  policy: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="8" y1="13" x2="16" y2="13" />
+      <line x1="8" y1="17" x2="16" y2="17" />
+      <line x1="8" y1="9" x2="10" y2="9" />
+    </svg>
+  ),
+  tools: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+    </svg>
+  ),
+};
 
-interface AchievementItem {
-  id: string;
-  title: string;
-  organization: string;
-  criteria: string;
-  badge?: string;
-  image?: string;
-  type: 'cover' | 'contain' | 'none';
-}
-
-const EDUCATION_DATA: EducationItem[] = [
-  {
-    id: '1',
-    degree: 'Bachelor of Science in Electrical Engineering',
-    institution: 'Camarines Norte State College',
-    year: 'Graduated 2019',
-    badge: 'REE — Board Passer 2019',
-    image: collegeBg,
-    type: 'cover'
-  },
-];
-
-const ACHIEVEMENTS_DATA: AchievementItem[] = [
-  {
-    id: '1',
-    title: 'Iskolar ng Bayan Grantee',
-    organization: 'LGU Mercedes',
-    criteria: 'Academic Excellence',
-    badge: 'Scholarship Grantee',
-    image: scholarImg,
-    type: 'contain'
-  }
-];
-
-const PROJECTS_DATA: Project[] = [
-  {
-    id: '1',
-    title: 'Megaworld Festivewalk Mall',
-    category: 'rooftop',
-    image: 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=800&q=80',
-    desc: 'Preparation of preliminary project drawings based on site inspection, shading orientation analysis, and electrical design considerations for a 528kWp Rooftop Solar Project (RSP).',
-    year: '2024',
-    location: 'Iloilo City, PH',
-    role: 'Lead Design Engineer',
-    scope: [
-      'Prepared preliminary PV array layouts and inverter configuration for 528kWp.',
-      'Conducted detailed shading and yield performance assessments using PVSyst.',
-      'Developed DC/AC cable schedules and cable size calculations.',
-      'Created single line diagrams (SLD) in compliance with the Philippine Electrical Code.'
-    ],
-    inverter_rating: '400kWac Inverter Stack',
-    design_drawings: 'PV Layout, Cable Routing, SLD',
-    capacity_yield: '528kWp DC / 400kWac AC',
-    standards_code: 'Philippine Electrical Code (PEC)',
-    client: 'TotalEnergies',
-    result: 'Reduced cabling distribution losses by 2.4% and successfully passed Meralco Net Metering verification on the first inspection.'
-  },
-  {
-    id: '2',
-    title: 'Nueva Ecija 2 Solar Project',
-    category: 'ground',
-    image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80',
-    desc: 'Development of initial project drawings and electrical layout plans for a massive 3,500MWp ground-mounted solar utility project, coordinating master plans and centralized power layout designs.',
-    year: '2024',
-    location: 'Nueva Ecija, PH',
-    role: 'Lead Solar Design Engineer',
-    scope: [
-      'Created master plan block layouts and tracker configurations using PVCase.',
-      'Modeled terrain slopes and calculated shading layouts for utility-scale efficiency.',
-      'Conducted large-scale PVSyst meteorological yield estimations.',
-      'Coordinated layout sizing and spacing for central inverter stations.'
-    ],
-    inverter_rating: 'Central Inverter Blocks (3.125MW)',
-    design_drawings: 'Block Layout, SLD, Substation MV',
-    capacity_yield: '3,500MWp Utility Capacity',
-    standards_code: 'Grid Code Integration Standards',
-    client: 'Solar Philippines',
-    result: 'Optimized array block layouts to reduce DC cable quantities by 12% across Phase 1 development blocks.'
-  },
-  {
-    id: '3',
-    title: 'General Santos City SPP',
-    category: 'ground',
-    image: 'https://images.unsplash.com/photo-1548550022-c3bf507b9a5c?auto=format&fit=crop&w=800&q=80',
-    desc: 'Development of initial project drawings and layout optimization for a 475MWp Ground-Mounted Solar Power Project, conducting shading and yield simulations.',
-    year: '2023',
-    location: 'General Santos City, PH',
-    role: 'Solar Design Engineer',
-    scope: [
-      'Developed 475MWp utility solar array layouts and DC/AC routing plans.',
-      'Conducted PVSyst meteorological shading and performance ratio simulations.',
-      'Prepared detailed Single Line Diagrams (SLD) for inverter station cabinets.',
-      'Drafted MV collection grid routing schematic layouts.'
-    ],
-    inverter_rating: '1500V central / string mix',
-    design_drawings: 'Single Line Diagram, DC Cable Routing',
-    capacity_yield: '475MWp Utility Scale',
-    standards_code: 'PEC / IEC Standards Compliance',
-    client: 'Solar Philippines',
-    result: 'Yield simulations validated by the client technical committee for project financial close.'
-  },
-  {
-    id: '4',
-    title: 'Infinity Resort RSP',
-    category: 'rooftop',
-    image: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80',
-    desc: 'Preparation of preliminary project drawings, shading assessments, and PV-inverter sizing layouts for a 50kWp Net-Metered Rooftop Solar Project.',
-    year: '2024',
-    location: 'Puerto Galera, PH',
-    role: 'Design Engineer',
-    scope: [
-      'Designed 50kWp Net-Metered rooftop array layout and tile spacing.',
-      'Performed PV-inverter matching calculations.',
-      'Developed single line drawings (SLDs) and electrical panels layouts.',
-      'Prepared technical bill of materials (BOM) with cost analysis.'
-    ],
-    inverter_rating: '36kWac String Inverter',
-    design_drawings: 'DC/AC Cable Routing Plan & SLD',
-    capacity_yield: '50kWp DC / 36kWac AC',
-    standards_code: 'Net Metering Application Standards',
-    client: 'Infinity Resort',
-    result: 'Passed local utility net metering inspection, generating 72 MWh of annual clean energy.'
-  },
-  {
-    id: '5',
-    title: 'SM City Puerto Princesa',
-    category: 'rooftop',
-    image: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=800&q=80',
-    desc: 'Development of initial project drawings and electrical plans for SM City Puerto Princesa commercial solar rooftop project.',
-    year: '2024',
-    location: 'Palawan, PH',
-    role: 'Lead Design Engineer',
-    scope: [
-      'Evaluated structural design load constraints for solar panel racks.',
-      'Developed initial layouts and electrical wiring diagrams.',
-      'Performed cable sizing, DC combiners layout, and inverter stack optimization.'
-    ],
-    inverter_rating: '100kW String Inverters Stack',
-    design_drawings: 'Layout Drawings & Block Diagrams',
-    capacity_yield: '1.2MWp Commercial Rooftop',
-    standards_code: 'PEC / Utility Standards',
-    client: 'TotalEnergies',
-    result: 'Completed initial design packages for corporate engineering review and approval.'
-  },
-  {
-    id: '6',
-    title: 'Iba-Palauig SPP',
-    category: 'ground',
-    image: 'https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=800&q=80',
-    desc: 'Development of initial drawings and array layouts for 200MWp ground-mounted solar power plant.',
-    year: '2023',
-    location: 'Zambales, PH',
-    role: 'Design Engineer',
-    scope: [
-      'Developed initial drawings and layout configurations for a 200MWp ground system.',
-      'Drafted cable routing optimization diagrams to minimize voltage drops.',
-      'Assisted in array boundary calculations and tracker configurations.'
-    ],
-    inverter_rating: 'Central Inverter Blocks',
-    design_drawings: 'SLD & Collection Grid Layout',
-    capacity_yield: '200MWp Capacity Scale',
-    standards_code: 'Philippine Grid Code / PEC',
-    client: 'Solar Philippines',
-    result: 'Design drawings integrated into system impact studies (SIS) for grid interconnection.'
-  },
-  {
-    id: '7',
-    title: 'San Ildefonso SPP',
-    category: 'ground',
-    image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80',
-    desc: 'Drafted layout configurations and PV array layouts for 500MWp utility solar project.',
-    year: '2023',
-    location: 'Bulacan, PH',
-    role: 'Design Engineer',
-    scope: [
-      'Drafted array layouts and block structures for 500MWp utility system.',
-      'Assisted in PVSyst performance calculations and cable calculations.',
-      'Coordinated with site surveys to map shading factors from surrounding terrain.'
-    ],
-    inverter_rating: 'Central Inverter Blocks',
-    design_drawings: 'Master Block Plan & Wiring Layout',
-    capacity_yield: '500MWp Utility Capacity',
-    standards_code: 'IEEE 1547 / PEC Standards',
-    client: 'Solar Philippines',
-    result: 'Optimized layout configurations, increasing active collection area by 3% within property bounds.'
-  },
-  {
-    id: '8',
-    title: 'Prisma Residences MEPF',
-    category: 'planning',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
-    desc: 'Supervision and management of construction activities, reviewing MEPF plans/drawings, revisions, and as-builts for DMCI high-rise residential project.',
-    year: '2022',
-    location: 'Pasig City, PH',
-    role: 'Electrical Engineer',
-    scope: [
-      'Supervised subcontractor electrical installations on-site.',
-      'Reviewed MEPF drawings, riser diagrams, panel schedules, and as-builts.',
-      'Evaluated subcontractor billings and variation orders.',
-      'Coordinated weekly site alignment meetings and resolved conduit collisions.'
-    ],
-    inverter_rating: '2x1500kVA Substation Sub',
-    design_drawings: 'Riser Diagrams & Panel Schedules',
-    capacity_yield: '3 High-Rise Residential Towers',
-    standards_code: 'PEC / National Building Code PH',
-    client: 'DMCI Homes Inc.',
-    result: 'Reduced project delay by 15% through preemptive collision checking between duct banks and structural beams.'
-  },
-  {
-    id: '9',
-    title: 'Cornersteel Structured Cabling',
-    category: 'planning',
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
-    desc: 'Site survey and drafting single line diagrams for proposed electrical, structured voice/data, and auxiliary cabling systems.',
-    year: '2021',
-    location: 'Makati City, PH',
-    role: 'Electrical Design Engineer',
-    scope: [
-      'Conducted site surveys for corporate commercial fit-out projects.',
-      'Drafted power and lighting layout drawings, single line diagrams (SLDs).',
-      'Calculated load schedules and estimated materials for structured cabling (voice/data).'
-    ],
-    inverter_rating: '150kVA Connected Load',
-    design_drawings: 'Power/Lighting & Cabling Layout',
-    capacity_yield: '4,200 sq.m Corporate Fit-out',
-    standards_code: 'PEC / EIA/TIA 568',
-    client: 'Cornersteel Systems Corp.',
-    result: 'Completed drawings and BOM approved on first submission, enabling on-time site fit-out execution.'
-  },
-  {
-    id: '9',
-    title: 'Cornersteel Structured Cabling',
-    category: 'planning',
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
-    desc: 'Site survey and drafting single line diagrams for proposed electrical, structured voice/data, and auxiliary cabling systems.',
-    year: '2021',
-    location: 'Makati City, PH',
-    role: 'Electrical Design Engineer',
-    scope: [
-      'Conducted site surveys for corporate commercial fit-out projects.',
-      'Drafted power and lighting layout drawings, single line diagrams (SLDs).',
-      'Calculated load schedules and estimated materials for structured cabling (voice/data).'
-    ],
-    inverter_rating: '150kVA Connected Load',
-    design_drawings: 'Power/Lighting & Cabling Layout',
-    capacity_yield: '4,200 sq.m Corporate Fit-out',
-    standards_code: 'PEC / EIA/TIA 568',
-    client: 'Cornersteel Systems Corp.',
-    result: 'Completed drawings and BOM approved on first submission, enabling on-time site fit-out execution.'
-  },
-  {
-    id: '9',
-    title: 'Cornersteel Structured Cabling',
-    category: 'planning',
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
-    desc: 'Site survey and drafting single line diagrams for proposed electrical, structured voice/data, and auxiliary cabling systems.',
-    year: '2021',
-    location: 'Makati City, PH',
-    role: 'Electrical Design Engineer',
-    scope: [
-      'Conducted site surveys for corporate commercial fit-out projects.',
-      'Drafted power and lighting layout drawings, single line diagrams (SLDs).',
-      'Calculated load schedules and estimated materials for structured cabling (voice/data).'
-    ],
-    inverter_rating: '150kVA Connected Load',
-    design_drawings: 'Power/Lighting & Cabling Layout',
-    capacity_yield: '4,200 sq.m Corporate Fit-out',
-    standards_code: 'PEC / EIA/TIA 568',
-    client: 'Cornersteel Systems Corp.',
-    result: 'Completed drawings and BOM approved on first submission, enabling on-time site fit-out execution.'
-  }
-];
+// Tools with no CMS logo image fall back to one of these hand-drawn marks, keyed by name.
+const TOOL_FALLBACK_ICONS: Record<string, React.ReactNode> = {
+  Planswift: (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" fill="#1A3D63" /><path d="M7 12h10M7 8h6M7 16h8" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" /></svg>
+  ),
+  'MS Office': (
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="9" height="9" rx="1.5" fill="#D83B01" /><rect x="13" y="2" width="9" height="9" rx="1.5" fill="#217346" /><rect x="2" y="13" width="9" height="9" rx="1.5" fill="#2B7CD3" /><rect x="13" y="13" width="9" height="9" rx="1.5" fill="#FFB900" /></svg>
+  ),
+};
 
 export default function Home() {
-  const FULL_NAME = 'Jean Benazir T. Buaya';
+  const { data } = useSanityQuery<PortfolioData>(PORTFOLIO_QUERY);
+  const profile = data?.profile;
+  const journey = data?.journey ?? [];
+  const projects = data?.projects ?? [];
+  const services = data?.services ?? [];
+  const tools = data?.tools ?? [];
+  const trainings = data?.trainings ?? [];
+
   const [typedName, setTypedName] = useState('');
   const [typingDone, setTypingDone] = useState(false);
 
   useEffect(() => {
+    const fullName = profile?.name;
+    if (!fullName) return;
     let i = 0;
     let intervalId: ReturnType<typeof setInterval>;
     const timeoutId = setTimeout(() => {
       intervalId = setInterval(() => {
         i++;
-        if (i <= FULL_NAME.length) {
-          setTypedName(FULL_NAME.slice(0, i));
+        if (i <= fullName.length) {
+          setTypedName(fullName.slice(0, i));
         } else {
           clearInterval(intervalId);
           setTypingDone(true);
@@ -334,7 +120,7 @@ export default function Home() {
       }, 75);
     }, 800);
     return () => { clearTimeout(timeoutId); clearInterval(intervalId); };
-  }, []);
+  }, [profile?.name]);
 
   const showCursor = !typingDone;
 
@@ -405,8 +191,8 @@ export default function Home() {
   };
 
   const filteredProjects = currentFilter === 'all'
-    ? PROJECTS_DATA
-    : PROJECTS_DATA.filter(p => p.category === currentFilter);
+    ? projects
+    : projects.filter(p => p.category === currentFilter);
 
   // (lightbox removed)
 
@@ -518,12 +304,12 @@ export default function Home() {
 
             {/* H2 — title */}
             <h2 style={{ color: '#1d4ed8', fontSize: '1.25rem', fontWeight: 600, margin: '0 0 0.4rem', fontFamily: 'var(--sans)' }}>
-              Registered Electrical Engineer
+              {profile?.designation}
             </h2>
 
             {/* Caption / license */}
             <p style={{ color: '#64748b', fontSize: '0.8rem', fontFamily: 'monospace', marginBottom: '2.5rem', letterSpacing: '0.5px' }}>
-              REE License No. 0084321
+              {profile?.liscence}
             </p>
 
             <div style={{ display: 'flex', gap: '1rem' }}>
@@ -678,8 +464,8 @@ export default function Home() {
 
             {/* Portrait image — centered, sits above all floaters */}
             <img
-              src={jeanPortrait}
-              alt="Jean Benazir T. Buaya — Registered Electrical Engineer"
+              src={profile?.image ? urlFor(profile.image).width(680).url() : jeanPortrait}
+              alt={profile ? `${profile.name} — ${profile.designation}` : 'Portrait'}
               fetchPriority="high"
               loading="eager"
               decoding="async"
@@ -704,22 +490,12 @@ export default function Home() {
       <section className="stats-bar" style={{ background: '#ffffff', padding: '3.5rem 0 0' }}>
         <div className="container">
           <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem', textAlign: 'center' }}>
-            <div className="reveal" data-dir="scale" data-delay="0s">
-              <div className="stat-number" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '2.2rem', fontWeight: 700 }}>2019</div>
-              <div className="stat-label" style={{ color: '#64748b', fontSize: '0.75rem', letterSpacing: '0.5px', marginTop: '0.25rem' }}>Registered EE Board Exam</div>
-            </div>
-            <div className="reveal" data-dir="scale" data-delay="0.1s">
-              <div className="stat-number" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '2.2rem', fontWeight: 700 }}>6+ Years</div>
-              <div className="stat-label" style={{ color: '#64748b', fontSize: '0.75rem', letterSpacing: '0.5px', marginTop: '0.25rem' }}>Electrical & Solar Experience</div>
-            </div>
-            <div className="reveal" data-dir="scale" data-delay="0.2s">
-              <div className="stat-number" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '2.2rem', fontWeight: 700 }}>10+</div>
-              <div className="stat-label" style={{ color: '#64748b', fontSize: '0.75rem', letterSpacing: '0.5px', marginTop: '0.25rem' }}>Utility-Scale Projects</div>
-            </div>
-            <div className="reveal" data-dir="scale" data-delay="0.3s">
-              <div className="stat-number" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '2.2rem', fontWeight: 700 }}>500MW+</div>
-              <div className="stat-label" style={{ color: '#64748b', fontSize: '0.75rem', letterSpacing: '0.5px', marginTop: '0.25rem' }}>Total Capacity Designed</div>
-            </div>
+            {(profile?.stats ?? []).map((stat, idx) => (
+              <div key={stat.label} className="reveal" data-dir="scale" data-delay={`${idx * 0.1}s`}>
+                <div className="stat-number" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontSize: '2.2rem', fontWeight: 700 }}>{stat.value}</div>
+                <div className="stat-label" style={{ color: '#64748b', fontSize: '0.75rem', letterSpacing: '0.5px', marginTop: '0.25rem' }}>{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -747,138 +523,40 @@ export default function Home() {
               </svg>
             </div>
 
-            {/* Entry 1 — LEFT side */}
-            <div className="journey-milestone reveal" data-dir="left" data-delay="0s">
-              {/* Sun icon — energy/solar company */}
-              <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
-              </div>
-              <div className="journey-card">
-                <h3 className="journey-role">Senior Solar Design Engineer</h3>
-                <time className="journey-date">Nov 2025 – Present</time>
-                {/* Company */}
-                <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
-                  TotalEnergies (Total Distributed PH)
+            {journey.map((entry, idx) => {
+              const isMilestone = entry.milestone;
+              const side = isMilestone ? 'scale' : idx % 2 === 0 ? 'left' : 'right';
+              return (
+                <div
+                  key={entry._id}
+                  className={`journey-milestone reveal${isMilestone ? ' journey-milestone--gold' : ''}`}
+                  data-dir={side}
+                  data-delay={`${Math.min(idx, 1) * 0.05}s`}
+                >
+                  <div className={`journey-node${isMilestone ? ' journey-node--gold' : ''}`}>
+                    {JOURNEY_ICONS[entry.icon]}
+                  </div>
+                  <div className={`journey-card${isMilestone ? ' journey-card--gold' : ''}`}>
+                    <h3 className="journey-role" style={isMilestone ? { color: 'var(--gold)' } : undefined}>{entry.role}</h3>
+                    <time className="journey-date" style={isMilestone ? { color: 'var(--text-muted)' } : undefined}>{entry.dateRange}</time>
+                    {entry.company && (
+                      <div className="journey-company">
+                        {JOURNEY_ICONS[entry.icon]}
+                        {entry.company}
+                      </div>
+                    )}
+                    <p className="journey-body">{entry.body}</p>
+                    {entry.scope.length > 0 && (
+                      <ul className="journey-scope-list">
+                        {entry.scope.map((item) => (
+                          <li key={item} className="journey-scope-item">{item}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
-                {/* Body */}
-                <p className="journey-body">Lead designer executing engineering layouts, master plans, shading profiles, and yield simulation models for multi-megawatt solar systems.</p>
-                <ul className="journey-scope-list">
-                  <li className="journey-scope-item">Performs layout designs, shading audits, and capacity matchings using PVSyst & PVCase.</li>
-                  <li className="journey-scope-item">Generates detail bills of materials (BOM) and electrical CAPEX estimations.</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Entry 2 — RIGHT side */}
-            <div className="journey-milestone reveal" data-dir="right" data-delay="0.05s">
-              {/* Government building icon — DOE */}
-              <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="10" width="18" height="11" rx="1" /><polyline points="3 10 12 3 21 10" /><line x1="12" y1="10" x2="12" y2="21" /></svg>
-              </div>
-              <div className="journey-card">
-                <h3 className="journey-role">Science Research Specialist II</h3>
-                <time className="journey-date">Dec 2024 – Nov 2025</time>
-                <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="10" width="18" height="11" rx="1" /><polyline points="3 10 12 3 21 10" /><line x1="12" y1="10" x2="12" y2="21" /></svg>
-                  Department of Energy (Solar Management Group)
-                </div>
-                <p className="journey-body">Evaluated grid interconnection capabilities, financial metrics of solar energy developer contracts, and formulated resource policies.</p>
-                <ul className="journey-scope-list">
-                  <li className="journey-scope-item">Audited developer site reports and project logbooks for compliance checks.</li>
-                  <li className="journey-scope-item">Formulated solar yield resource policy criteria.</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Entry 3 — LEFT side */}
-            <div className="journey-milestone reveal" data-dir="left" data-delay="0.05s">
-              {/* Solar panel grid icon — Solar Philippines */}
-              <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="1" /><line x1="2" y1="12" x2="22" y2="12" /><line x1="8" y1="6" x2="8" y2="18" /><line x1="16" y1="6" x2="16" y2="18" /></svg>
-              </div>
-              <div className="journey-card">
-                <h3 className="journey-role">Electrical & Solar Design Engineer</h3>
-                <time className="journey-date">Jul 2023 – Dec 2024</time>
-                <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="1" /><line x1="2" y1="12" x2="22" y2="12" /><line x1="8" y1="6" x2="8" y2="18" /><line x1="16" y1="6" x2="16" y2="18" /></svg>
-                  Solar Philippines
-                </div>
-                <p className="journey-body">Drafted array layout blueprints and utility connection grids for utility-scale parks up to 3,500 MWp and commercial systems.</p>
-                <ul className="journey-scope-list">
-                  <li className="journey-scope-item">Drafted wiring schematics, Single Line Diagrams, and collection layouts.</li>
-                  <li className="journey-scope-item">Executed shading computations and layout yield simulations.</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Entry 4 — RIGHT side */}
-            <div className="journey-milestone reveal" data-dir="right" data-delay="0.05s">
-              {/* Hard hat / construction icon — M. Verano */}
-              <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20h20" /><path d="M5 20V8.5A7 7 0 0 1 12 2a7 7 0 0 1 7 6.5V20" /><line x1="12" y1="2" x2="12" y2="8" /></svg>
-              </div>
-              <div className="journey-card">
-                <h3 className="journey-role">Electrical Engineer</h3>
-                <time className="journey-date">Aug 2022 – Jul 2023</time>
-                <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20h20" /><path d="M5 20V8.5A7 7 0 0 1 12 2a7 7 0 0 1 7 6.5V20" /><line x1="12" y1="2" x2="12" y2="8" /></svg>
-                  M. Verano Construction Corp.
-                </div>
-                <p className="journey-body">Managed site electrical deliverables, structural wiring pathways, and subcontractor compliance schedules.</p>
-                <ul className="journey-scope-list">
-                  <li className="journey-scope-item">Supervised on-site conduit system routing runs.</li>
-                  <li className="journey-scope-item">Reviewed document controls, RFIs, as-built changes, and bid estimates.</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Entry 5 — LEFT side */}
-            <div className="journey-milestone reveal" data-dir="left" data-delay="0.05s">
-              {/* High-rise building icon — DMCI */}
-              <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="1" /><line x1="9" y1="2" x2="9" y2="22" /><line x1="15" y1="2" x2="15" y2="22" /><line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="17" x2="20" y2="17" /></svg>
-              </div>
-              <div className="journey-card">
-                <h3 className="journey-role">Electrical Engineer</h3>
-                <time className="journey-date">Nov 2021 – Aug 2022</time>
-                <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="1" /><line x1="9" y1="2" x2="9" y2="22" /><line x1="15" y1="2" x2="15" y2="22" /><line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="17" x2="20" y2="17" /></svg>
-                  DMCI Homes Inc. (Prisma Residences Project)
-                </div>
-                <p className="journey-body">Coordinated high-rise MEPF subcontractors, reviewed riser layouts, panel schedules, and resolved conduit collisions.</p>
-              </div>
-            </div>
-
-            {/* Entry 6 — RIGHT side */}
-            <div className="journey-milestone reveal" data-dir="right" data-delay="0.05s">
-              {/* Network / cabling icon — Cornersteel */}
-              <div className="journey-node">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5" height="5" rx="1" /><rect x="17" y="2" width="5" height="5" rx="1" /><rect x="9.5" y="17" width="5" height="5" rx="1" /><line x1="7" y1="4.5" x2="17" y2="4.5" /><line x1="12" y1="7" x2="12" y2="17" /><line x1="4.5" y1="7" x2="11.5" y2="17" /><line x1="19.5" y1="7" x2="12.5" y2="17" /></svg>
-              </div>
-              <div className="journey-card">
-                <h3 className="journey-role">Electrical Design Engineer</h3>
-                <time className="journey-date">Jan 2020 – Jun 2021</time>
-                <div className="journey-company">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5" height="5" rx="1" /><rect x="17" y="2" width="5" height="5" rx="1" /><rect x="9.5" y="17" width="5" height="5" rx="1" /><line x1="7" y1="4.5" x2="17" y2="4.5" /><line x1="12" y1="7" x2="12" y2="17" /><line x1="4.5" y1="7" x2="11.5" y2="17" /><line x1="19.5" y1="7" x2="12.5" y2="17" /></svg>
-                  Cornersteel Systems Corp.
-                </div>
-                <p className="journey-body">Conducted office fit-out site surveys, electrical panel specifications, and structured cabling blueprints.</p>
-              </div>
-            </div>
-
-            {/* Entry 7 — Milestone / LEFT side */}
-            <div className="journey-milestone journey-milestone--gold reveal" data-dir="scale" data-delay="0.05s">
-              {/* Award / star icon — REE board exam milestone */}
-              <div className="journey-node journey-node--gold">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-              </div>
-              <div className="journey-card journey-card--gold">
-                <h3 className="journey-role" style={{ color: 'var(--gold)' }}>Registered Electrical Engineer</h3>
-                <time className="journey-date" style={{ color: 'var(--text-muted)' }}>2019 Milestone</time>
-                <p className="journey-body">Passed the PRC Electrical Engineering Licensure Examination — officially licensed to practice electrical engineering in the Philippines.</p>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -902,14 +580,16 @@ export default function Home() {
 
           {/* Projects News Feed List */}
           <div className="projects-feed" style={{ display: 'flex', flexDirection: 'column', gap: '3rem', marginTop: '3rem' }}>
-            {filteredProjects.map((project, idx) => (
-              <div key={project.id} className="news-project-card" style={{ background: '#ffffff', border: '1px solid var(--border)', padding: '2rem', boxShadow: 'var(--shadow-sm)', transition: 'var(--transition)', borderRadius: '15px', overflow: 'hidden' }}>
+            {filteredProjects.map((project) => {
+              const imageUrl = project.image ? urlFor(project.image).width(800).url() : null;
+              return (
+              <div key={project._id} className="news-project-card" style={{ background: '#ffffff', border: '1px solid var(--border)', padding: '2rem', boxShadow: 'var(--shadow-sm)', transition: 'var(--transition)', borderRadius: '15px', overflow: 'hidden' }}>
 
                 {/* Column 1: Project Image */}
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: '320px' }}>
-                  <div style={{ width: '100%', height: '100%', overflow: 'hidden', border: '1px solid var(--border-light)', borderRadius: '10px', position: 'relative', cursor: project.image ? 'zoom-in' : 'default' }} onClick={() => project.image && setPreviewImage(project.image)}>
-                    {project.image ? (
-                      <img src={project.image} alt={project.title} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.04)')} onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')} />
+                  <div style={{ width: '100%', height: '100%', overflow: 'hidden', border: '1px solid var(--border-light)', borderRadius: '10px', position: 'relative', cursor: imageUrl ? 'zoom-in' : 'default' }} onClick={() => imageUrl && setPreviewImage(imageUrl)}>
+                    {imageUrl ? (
+                      <img src={imageUrl} alt={project.title} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }} onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.04)')} onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')} />
                     ) : (
                       <div style={{ width: '100%', height: '100%', minHeight: '320px', background: 'linear-gradient(135deg, #f0f6ff, #e8f0fa)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(74,127,167,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -938,14 +618,14 @@ export default function Home() {
                     </div>
 
                     {/* Description */}
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem', lineHeight: '1.6' }}>{project.desc}</p>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem', lineHeight: '1.6' }}>{project.description}</p>
 
                     {/* Scope Bullets */}
                     <div style={{ marginBottom: '1.75rem' }}>
                       <h4 style={{ fontSize: '0.85rem', color: 'var(--text-primary)', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Scope of Work</h4>
                       <ul style={{ paddingLeft: '0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                        {project.scope.map((item, idx) => (
-                          <li key={idx} style={{ display: 'flex', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                        {project.scope.map((item) => (
+                          <li key={item} style={{ display: 'flex', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                             <span style={{ color: 'var(--gold)' }}>⚡</span>
                             <span>{item}</span>
                           </li>
@@ -967,19 +647,19 @@ export default function Home() {
                         </div>
                         <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.65rem' }}>
                           <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.15rem' }}>Capacity / Sizing</span>
-                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.capacity_yield}</strong>
+                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.capacityYield}</strong>
                         </div>
                         <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.65rem' }}>
                           <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.15rem' }}>Inverters / Aux</span>
-                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.inverter_rating}</strong>
+                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.inverterRating}</strong>
                         </div>
                         <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.65rem' }}>
                           <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.15rem' }}>Drawings</span>
-                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.design_drawings}</strong>
+                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.designDrawings}</strong>
                         </div>
                         <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '0.65rem' }}>
                           <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', marginBottom: '0.15rem' }}>Standards</span>
-                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.standards_code}</strong>
+                          <strong style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{project.standardsCode}</strong>
                         </div>
                       </div>
                     </div>
@@ -987,7 +667,8 @@ export default function Home() {
                 </div>
 
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -1004,87 +685,21 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Solar PV Design */}
-            <div className="pillars-v2-card reveal" data-delay="0.1s" style={{ background: 'var(--bg-darker)', borderColor: 'var(--border)', borderRadius: '15px' }}>
-              <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
-                {/* Solar panel array icon */}
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="5" width="9" height="7" rx="1" />
-                  <rect x="13" y="5" width="9" height="7" rx="1" />
-                  <line x1="6" y1="5" x2="6" y2="12" />
-                  <line x1="10" y1="5" x2="10" y2="12" />
-                  <line x1="17" y1="5" x2="17" y2="12" />
-                  <line x1="21" y1="5" x2="21" y2="12" />
-                  <line x1="8" y1="19" x2="8" y2="12" />
-                  <line x1="16" y1="19" x2="16" y2="12" />
-                  <line x1="5" y1="19" x2="19" y2="19" />
-                </svg>
+            {services.map((service, idx) => (
+              <div
+                key={service._id}
+                className="pillars-v2-card reveal"
+                data-dir={idx % 2 === 0 ? 'left' : 'right'}
+                data-delay={`${idx * 0.05}s`}
+                style={{ background: 'var(--bg-darker)', borderColor: 'var(--border)', borderRadius: '15px' }}
+              >
+                <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
+                  {SERVICE_ICONS[service.icon]}
+                </div>
+                <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>{service.title}</h3>
+                <p className="pillars-v2-card-desc" style={{ color: 'var(--text-secondary)' }}>{service.description}</p>
               </div>
-              <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>Solar PV Design</h3>
-              <p className="pillars-v2-card-desc" style={{ color: 'var(--text-secondary)' }}>Basic to complex PV designs including array layouts, shading analysis, PV-inverter sizing, PVSyst, PVCase and Helioscope simulations.</p>
-            </div>
-
-            {/* Electrical Planning */}
-            <div className="pillars-v2-card reveal" data-dir="right" data-delay="0.2s" style={{ background: 'var(--bg-darker)', borderColor: 'var(--border)', borderRadius: '15px' }}>
-              <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
-                {/* SLD / schematic diagram icon */}
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="6" height="6" rx="1" />
-                  <rect x="15" y="3" width="6" height="6" rx="1" />
-                  <rect x="9" y="15" width="6" height="6" rx="1" />
-                  <line x1="9" y1="6" x2="15" y2="6" />
-                  <line x1="12" y1="6" x2="12" y2="15" />
-                  <line x1="6" y1="9" x2="12" y2="15" />
-                  <line x1="18" y1="9" x2="12" y2="15" />
-                </svg>
-              </div>
-              <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>Electrical Planning</h3>
-              <p className="pillars-v2-card-desc" style={{ color: 'var(--text-secondary)' }}>Single Line Diagrams (SLD), DC/AC cable routing optimization, auxiliary cabling systems, and wiring diagrams for residential & commercial sites.</p>
-            </div>
-
-            {/* Site Assessment & Audit */}
-            <div className="pillars-v2-card reveal" data-dir="left" data-delay="0.05s" style={{ background: 'var(--bg-darker)', borderColor: 'var(--border)', borderRadius: '15px' }}>
-              <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
-                {/* Clipboard / audit checklist icon */}
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
-                  <rect x="9" y="3" width="6" height="4" rx="1" />
-                  <line x1="9" y1="12" x2="15" y2="12" />
-                  <line x1="9" y1="16" x2="13" y2="16" />
-                  <polyline points="9 9 10 10 12 8" />
-                </svg>
-              </div>
-              <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>Site Assessment & Audit</h3>
-              <p className="pillars-v2-card-desc" style={{ color: 'var(--text-secondary)' }}>On-site energy audits, load analysis, and technical inspection of existing electrical systems for compliance and optimization.</p>
-            </div>
-
-            {/* DOE Resource Policy */}
-            <div className="pillars-v2-card reveal" data-delay="0.15s" style={{ background: 'var(--bg-darker)', borderColor: 'var(--border)', borderRadius: '15px' }}>
-              <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
-                {/* Document / policy icon */}
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="8" y1="13" x2="16" y2="13" />
-                  <line x1="8" y1="17" x2="16" y2="17" />
-                  <line x1="8" y1="9" x2="10" y2="9" />
-                </svg>
-              </div>
-              <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>DOE Resource Policy</h3>
-              <p className="pillars-v2-card-desc" style={{ color: 'var(--text-secondary)' }}>Auditing developer books, formulating solar resource recommendations, and evaluating financial capabilities for solar RE contracts.</p>
-            </div>
-
-            {/* MEPF Supervision */}
-            <div className="pillars-v2-card reveal" data-dir="right" data-delay="0.25s" style={{ background: 'var(--bg-darker)', borderColor: 'var(--border)', borderRadius: '15px' }}>
-              <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
-                {/* Wrench & gear / tools icon */}
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-                </svg>
-              </div>
-              <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>MEPF Supervision</h3>
-              <p className="pillars-v2-card-desc" style={{ color: 'var(--text-secondary)' }}>Coordinating on-site MEPF subcontractor progress, reviewing as-built drawings, on-site assessments, and managing timelines.</p>
-            </div>
+            ))}
           </div>
 
           {/* Core Technical Skills — Hero-card style */}
@@ -1138,90 +753,21 @@ export default function Home() {
 
               <div className="tools-cards-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
 
-                {/* PVSyst */}
-                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>PVSyst</p>
-                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Industry-standard simulation software for PV system energy yield and performance ratio analysis.</p>
+                {tools.map((tool) => (
+                  <div key={tool._id} className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
+                    <div style={{ flex: 1 }}>
+                      <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>{tool.name}</p>
+                      <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>{tool.description}</p>
+                    </div>
+                    {tool.logo ? (
+                      <img src={urlFor(tool.logo).width(120).height(120).url()} alt={tool.name} loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
+                    ) : (
+                      <div style={{ width: '60px', height: '60px', borderRadius: '10px', background: 'linear-gradient(135deg, #e8f0fe, #d2e3fc)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        {TOOL_FALLBACK_ICONS[tool.name] ?? SERVICE_ICONS.tools}
+                      </div>
+                    )}
                   </div>
-                  <img src={pvsystLogo} alt="PVSyst" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
-                </div>
-
-                {/* PVCase */}
-                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>PVCase</p>
-                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Advanced PV layout and string design tool for optimizing utility-scale solar array configurations.</p>
-                  </div>
-                  <img src={pvcaseLogo} alt="PVCase" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
-                </div>
-
-                {/* Helioscope */}
-                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>Helioscope</p>
-                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Web-based solar design platform for detailed shading analysis and system performance modeling.</p>
-                  </div>
-                  <img src={helioscopeLogo} alt="Helioscope" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
-                </div>
-
-                {/* AutoCAD */}
-                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>AutoCAD</p>
-                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Industry-leading 2D/3D drafting tool used for precise electrical and structural engineering drawings.</p>
-                  </div>
-                  <img src={autocadLogo} alt="AutoCAD" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
-                </div>
-
-                {/* Revit MEP */}
-                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>Revit MEP</p>
-                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>BIM software for designing and coordinating mechanical, electrical, and plumbing building systems.</p>
-                  </div>
-                  <img src={revitLogo} alt="Revit MEP" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
-                </div>
-
-                {/* ETAP */}
-                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>ETAP</p>
-                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Power system analysis platform for load flow, short circuit, and protection coordination studies.</p>
-                  </div>
-                  <img src={etapLogo} alt="ETAP" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
-                </div>
-
-                {/* SKM Tools */}
-                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>SKM Tools</p>
-                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Electrical power system analysis suite used for fault studies, arc flash, and equipment sizing.</p>
-                  </div>
-                  <img src={skmLogo} alt="SKM Tools" loading="lazy" decoding="async" style={{ width: '60px', height: '60px', objectFit: 'contain', flexShrink: 0 }} />
-                </div>
-
-                {/* Planswift */}
-                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>Planswift</p>
-                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Digital takeoff and estimating software for accurate material quantity calculations from plans.</p>
-                  </div>
-                  <div style={{ width: '60px', height: '60px', borderRadius: '10px', background: 'linear-gradient(135deg, #e8f0fe, #d2e3fc)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" fill="#1A3D63"/><path d="M7 12h10M7 8h6M7 16h8" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                  </div>
-                </div>
-
-                {/* MS Office */}
-                <div className="skill-card" style={{ background: '#ffffff', borderRadius: '15px', padding: '1.1rem 1.2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', border: 'none', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#111111', margin: '0 0 0.3rem' }}>MS Office</p>
-                    <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>Proficient in Excel, Word, and PowerPoint for documentation, reporting, and project presentations.</p>
-                  </div>
-                  <div style={{ width: '60px', height: '60px', borderRadius: '10px', background: 'linear-gradient(135deg, #e8f5e9, #c8e6c9)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="9" height="9" rx="1.5" fill="#D83B01"/><rect x="13" y="2" width="9" height="9" rx="1.5" fill="#217346"/><rect x="2" y="13" width="9" height="9" rx="1.5" fill="#2B7CD3"/><rect x="13" y="13" width="9" height="9" rx="1.5" fill="#FFB900"/></svg>
-                  </div>
-                </div>
+                ))}
 
               </div>
             </div>
@@ -1286,41 +832,43 @@ export default function Home() {
                   width: '100%',
                 }}
               >
-                {EDUCATION_DATA.map((edu, idx) => (
-                  <div 
-                    key={edu.id} 
-                    className="reveal edu-achievement-card" 
-                    data-dir="up" 
-                    data-delay={`${idx * 0.08}s`} 
-                    style={{ 
-                      position: 'relative', 
-                      borderRadius: '16px', 
-                      overflow: 'hidden', 
-                      border: '1px solid var(--border)', 
+                {(profile?.academicBackground ?? []).map((edu, idx) => {
+                  const imgUrl = edu.image ? urlFor(edu.image).width(600).url() : null;
+                  return (
+                  <div
+                    key={edu._key}
+                    className="reveal edu-achievement-card"
+                    data-dir="up"
+                    data-delay={`${idx * 0.08}s`}
+                    style={{
+                      position: 'relative',
+                      borderRadius: '16px',
+                      overflow: 'hidden',
+                      border: '1px solid var(--border)',
                       minHeight: '160px',
-                      background: edu.type === 'none' ? 'linear-gradient(135deg, #1A3D63 0%, #2A5D8A 100%)' : 'transparent'
+                      background: edu.displayType === 'none' ? 'linear-gradient(135deg, #1A3D63 0%, #2A5D8A 100%)' : 'transparent'
                     }}
                   >
                     {/* Background image if type is cover */}
-                    {edu.type === 'cover' && edu.image && (
+                    {edu.displayType === 'cover' && imgUrl && (
                       <>
-                        <img src={edu.image} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
+                        <img src={imgUrl} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
                         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.85) 0%, rgba(74,127,167,0.75) 55%, rgba(74,127,167,0.35) 100%)' }} />
                       </>
                     )}
                     {/* Background if type is contain */}
-                    {edu.type === 'contain' && edu.image && (
+                    {edu.displayType === 'contain' && imgUrl && (
                       <>
                         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.85) 0%, rgba(74,127,167,0.75) 55%, rgba(74,127,167,0.35) 100%)' }} />
-                        <img src={edu.image} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', right: '-10px', bottom: 0, height: '85%', width: 'auto', objectFit: 'contain', objectPosition: 'right bottom' }} />
+                        <img src={imgUrl} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', right: '-10px', bottom: 0, height: '85%', width: 'auto', objectFit: 'contain', objectPosition: 'right bottom' }} />
                         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(26,61,99,0.95) 30%, rgba(26,61,99,0.5) 60%, transparent 100%)' }} />
                       </>
                     )}
                     {/* Dynamic background overlay for fallback 'none' */}
-                    {edu.type === 'none' && (
+                    {edu.displayType === 'none' && (
                       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.95) 0%, rgba(74,127,167,0.85) 100%)' }} />
                     )}
-                    
+
                     {/* Content */}
                     <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'flex-start', gap: '1.5rem', padding: '1.75rem 2rem' }}>
                       <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -1340,7 +888,8 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -1360,40 +909,42 @@ export default function Home() {
                   width: '100%',
                 }}
               >
-                {ACHIEVEMENTS_DATA.map((ach, idx) => (
-                  <div 
-                    key={ach.id} 
-                    className="reveal edu-achievement-card" 
-                    data-dir="up" 
-                    data-delay={`${idx * 0.08}s`} 
-                    style={{ 
-                      position: 'relative', 
-                      borderRadius: '16px', 
-                      overflow: 'hidden', 
-                      border: '1px solid var(--border)', 
-                      minHeight: '160px', 
-                      display: 'flex', 
+                {(profile?.achievements ?? []).map((ach, idx) => {
+                  const imgUrl = ach.image ? urlFor(ach.image).width(600).url() : null;
+                  return (
+                  <div
+                    key={ach._key}
+                    className="reveal edu-achievement-card"
+                    data-dir="up"
+                    data-delay={`${idx * 0.08}s`}
+                    style={{
+                      position: 'relative',
+                      borderRadius: '16px',
+                      overflow: 'hidden',
+                      border: '1px solid var(--border)',
+                      minHeight: '160px',
+                      display: 'flex',
                       alignItems: 'stretch',
-                      background: ach.type === 'none' ? 'linear-gradient(135deg, #1A3D63 0%, #2A5D8A 100%)' : 'transparent'
+                      background: ach.displayType === 'none' ? 'linear-gradient(135deg, #1A3D63 0%, #2A5D8A 100%)' : 'transparent'
                     }}
                   >
                     {/* Background image if type is cover */}
-                    {ach.type === 'cover' && ach.image && (
+                    {ach.displayType === 'cover' && imgUrl && (
                       <>
-                        <img src={ach.image} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
+                        <img src={imgUrl} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
                         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.85) 0%, rgba(74,127,167,0.75) 55%, rgba(74,127,167,0.35) 100%)' }} />
                       </>
                     )}
                     {/* Background image if type is contain (like Mercedes seal) */}
-                    {ach.type === 'contain' && ach.image && (
+                    {ach.displayType === 'contain' && imgUrl && (
                       <>
                         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.85) 0%, rgba(74,127,167,0.72) 55%, rgba(74,127,167,0.35) 100%)' }} />
-                        <img src={ach.image} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', right: '-10px', bottom: 0, height: '85%', width: 'auto', objectFit: 'contain', objectPosition: 'right bottom' }} />
+                        <img src={imgUrl} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ position: 'absolute', right: '-10px', bottom: 0, height: '85%', width: 'auto', objectFit: 'contain', objectPosition: 'right bottom' }} />
                         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(26,61,99,0.95) 30%, rgba(26,61,99,0.5) 60%, transparent 100%)' }} />
                       </>
                     )}
                     {/* Dynamic background overlay for fallback 'none' */}
-                    {ach.type === 'none' && (
+                    {ach.displayType === 'none' && (
                       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(105deg, rgba(26,61,99,0.95) 0%, rgba(74,127,167,0.85) 100%)' }} />
                     )}
 
@@ -1416,7 +967,8 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -1433,22 +985,12 @@ export default function Home() {
             <div className="section-divider" style={{ margin: '0' }}></div>
           </div>
           <div className="reveal" data-dir="up" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }}>
-            {[
-              { title: 'CS201: Huawei SmartLogger Configuration Procedure', org: 'Solar Philippines', date: 'February 2024' },
-              { title: 'PV117: Introduction to Net Metering Application', org: 'Solar Philippines', date: 'January 2024' },
-              { title: 'PV108: Basic Engineering Design for Commercial Rooftop Solar', org: 'Solar Philippines', date: 'January 2024' },
-              { title: 'SF101: Electrical Safety in the Workplace', org: 'Solar Philippines', date: 'March 2024' },
-              { title: 'RA 11285: Compliance Energy Audit Case Studies', org: 'IIEE Mini Conference, Worldbex', date: '2023' },
-              { title: 'Energy Efficiency & Conservation Act on Building Design', org: 'IIEE Mini Conference, Worldbex', date: '2023' },
-              { title: 'Energy Management & Energy Audit: Best Global Practice in PH', org: 'IIEE Mini Conference, Worldbex', date: '2023' },
-              { title: '2-Day Solar PV Installation & Training — Rooftop Solar PV Design', org: 'PHL Solar Industries, Quezon City', date: 'July 9–10, 2022' },
-              { title: 'Standard Electrical Installation & Simplified Fault Calculation', org: 'IIEE Metro South Chapter / IIEE-CSC Region V', date: 'Aug 2020 · Sep 2017' },
-            ].map((item, i) => (
-              <div key={i} style={{ background: 'var(--bg-card)', borderRadius: '14px', padding: '1.2rem 1.4rem', border: '1px solid var(--border)', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+            {trainings.map((item) => (
+              <div key={item._id} style={{ background: 'var(--bg-card)', borderRadius: '14px', padding: '1.2rem 1.4rem', border: '1px solid var(--border)', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                 <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', flexShrink: 0, marginTop: '5px' }}></div>
                 <div>
                   <p style={{ fontWeight: 600, fontSize: '0.85rem', color: 'var(--text-primary)', margin: '0 0 0.25rem', lineHeight: 1.4 }}>{item.title}</p>
-                  <p style={{ fontSize: '0.75rem', color: 'var(--gold)', fontWeight: 600, margin: '0 0 0.1rem' }}>{item.org}</p>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--gold)', fontWeight: 600, margin: '0 0 0.1rem' }}>{item.organizer}</p>
                   <p style={{ fontSize: '0.73rem', color: 'var(--text-muted)', margin: 0 }}>{item.date}</p>
                 </div>
               </div>
@@ -1468,16 +1010,17 @@ export default function Home() {
               </p>
 
               <div className="contact-socials" aria-label="Social links">
-                {/* LinkedIn */}
-                <a href="https://linkedin.com/in/jean-benazir" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </a>
+                {(profile?.socials ?? []).filter(s => s.platform === 'linkedin').map((social) => (
+                  <a key={social.url} href={social.url} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  </a>
+                ))}
                 {/* Email */}
-                <a href="mailto:jeanbenazirb@gmail.com" aria-label="Email">
+                <a href={`mailto:${profile?.email}`} aria-label="Email">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
                 </a>
                 {/* Phone */}
-                <a href="tel:+639973647886" aria-label="Phone">
+                <a href={`tel:${profile?.phone?.replace(/\s+/g, '')}`} aria-label="Phone">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                 </a>
               </div>
@@ -1492,7 +1035,7 @@ export default function Home() {
                   </div>
                   <div className="contact-text">
                     <h5 style={{ color: 'var(--text-primary)', margin: 0, fontSize: '0.9rem' }}>Office Coordinates</h5>
-                    <p style={{ color: 'var(--text-secondary)', margin: '0.1rem 0 0', fontSize: '0.8rem' }}>Las Piñas City, Metro Manila, Philippines</p>
+                    <p style={{ color: 'var(--text-secondary)', margin: '0.1rem 0 0', fontSize: '0.8rem' }}>{profile?.address}</p>
                   </div>
                 </div>
 
@@ -1504,7 +1047,7 @@ export default function Home() {
                   </div>
                   <div className="contact-text">
                     <h5 style={{ color: 'var(--text-primary)', margin: 0, fontSize: '0.9rem' }}>Direct Mobile Liaison</h5>
-                    <p style={{ color: 'var(--text-secondary)', margin: '0.1rem 0 0', fontSize: '0.8rem' }}>+63 997 364 7886</p>
+                    <p style={{ color: 'var(--text-secondary)', margin: '0.1rem 0 0', fontSize: '0.8rem' }}>{profile?.phone}</p>
                   </div>
                 </div>
 
@@ -1517,7 +1060,7 @@ export default function Home() {
                   </div>
                   <div className="contact-text">
                     <h5 style={{ color: 'var(--text-primary)', margin: 0, fontSize: '0.9rem' }}>Electronic Mail</h5>
-                    <p style={{ color: 'var(--text-secondary)', margin: '0.1rem 0 0', fontSize: '0.8rem' }}>jeanbenazirb@gmail.com</p>
+                    <p style={{ color: 'var(--text-secondary)', margin: '0.1rem 0 0', fontSize: '0.8rem' }}>{profile?.email}</p>
                   </div>
                 </div>
               </div>
@@ -1526,12 +1069,8 @@ export default function Home() {
               <div className="contact-references">
                 <h3 style={{ color: 'var(--gold)' }}>Professional References</h3>
                 <div className="contact-reference-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {[
-                    { name: 'Engr. Jennylene Baluyot', role: 'Plant Manager', org: 'BulacanSol · MGen Renewable Energy', contact: '0927 895 5849' },
-                    { name: 'Engr. Carlito Derije', role: 'EDD Manager', org: 'Cornersteel Systems Corp.', contact: '0998 557 8490' },
-                    { name: 'Engr. Marrion M. Marteja', role: 'Lead MEPF', org: 'DMCI Homes', contact: '0935 428 6844' },
-                  ].map((ref, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.9rem', borderLeft: '2px solid var(--gold)', paddingLeft: '1rem' }}>
+                  {(profile?.references ?? []).map((ref) => (
+                    <div key={ref.name} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.9rem', borderLeft: '2px solid var(--gold)', paddingLeft: '1rem' }}>
                       <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -1540,7 +1079,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h5 style={{ margin: '0 0 0.2rem', fontSize: '1rem', color: 'var(--text-primary)', fontWeight: 600 }}>{ref.name}</h5>
-                        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: '0 0 0.15rem' }}>{ref.role}, {ref.org}</p>
+                        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: '0 0 0.15rem' }}>{ref.role}, {ref.organization}</p>
                         <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', margin: 0 }}>Contact: {ref.contact}</p>
                       </div>
                     </div>

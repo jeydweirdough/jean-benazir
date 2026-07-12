@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useSanityQuery } from '../lib/useSanityQuery';
+import { PROFILE_QUERY, type Profile } from '../lib/queries';
 
 export default function Footer() {
+  const { data: profile } = useSanityQuery<Profile>(PROFILE_QUERY);
+  const linkedinUrl = profile?.socials.find((s) => s.platform === 'linkedin')?.url;
+
   return (
     <footer className="footer" style={{ background: '#0A1931', color: '#ffffff', padding: '4rem 0 2.5rem', borderTop: 'none' }}>
       <div className="container">
@@ -14,7 +19,7 @@ export default function Footer() {
             </p>
             <div className="social-links" style={{ display: 'flex', gap: '0.75rem' }}>
               <a 
-                href="https://linkedin.com/in/jean-benazir" 
+                href={linkedinUrl ?? '#'}
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="social-btn" 
@@ -50,7 +55,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a 
-                href="mailto:jeanbenazirb@gmail.com" 
+                href={`mailto:${profile?.email ?? ''}`}
                 className="social-btn" 
                 aria-label="Email"
                 style={{ 
@@ -142,17 +147,17 @@ export default function Footer() {
             <h4 style={{ color: '#ffffff', fontSize: '0.95rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1.2rem' }}>Contact Info</h4>
             <ul className="footer-links" style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
               <li style={{ color: '#a8cce8', fontSize: '0.82rem', lineHeight: 1.5 }}>
-                Las Piñas City, Metro Manila, Philippines
+                {profile?.address}
               </li>
               <li>
-                <a 
-                  href="mailto:jeanbenazirb@gmail.com" 
-                  className="footer-link" 
+                <a
+                  href={`mailto:${profile?.email ?? ''}`}
+                  className="footer-link"
                   style={{ textDecoration: 'none', color: '#a8cce8', fontSize: '0.82rem', transition: 'all 0.2s ease' }}
                   onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
                   onMouseLeave={e => e.currentTarget.style.color = '#a8cce8'}
                 >
-                  jeanbenazirb@gmail.com
+                  {profile?.email}
                 </a>
               </li>
             </ul>
@@ -188,8 +193,8 @@ export default function Footer() {
 
         {/* Footer bottom */}
         <div className="footer-bottom" style={{ borderTop: '1px solid rgba(168, 204, 232, 0.15)', paddingTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', color: '#a8cce8' }}>
-          <p style={{ margin: 0, fontSize: '0.8rem' }}>© {new Date().getFullYear()} Jean Benazir T. Buaya. All rights reserved.</p>
-          <p style={{ margin: 0, fontSize: '0.8rem' }}>Registered Electrical Engineer (REE — Board Passer 2019)</p>
+          <p style={{ margin: 0, fontSize: '0.8rem' }}>© {new Date().getFullYear()} {profile?.name}. All rights reserved.</p>
+          <p style={{ margin: 0, fontSize: '0.8rem' }}>{profile?.designation}</p>
         </div>
 
       </div>

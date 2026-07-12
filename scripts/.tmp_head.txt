@@ -1,0 +1,316 @@
+import { useState, useEffect, useRef } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
+import jeanPortrait from '../assets/jean_portrait_no_bg.png';
+import pvsystLogo from '../assets/logos/pvsyst.svg';
+import pvcaseLogo from '../assets/logos/pvcase.png';
+import helioscopeLogo from '../assets/logos/helioscope.svg';
+import autocadLogo from '../assets/logos/autocad.png';
+import revitLogo from '../assets/logos/revit.png';
+import etapLogo from '../assets/logos/etap.svg';
+import skmLogo from '../assets/logos/skm.png';
+import laptopMockup from '../assets/laptopmockup.png';
+import screenContent from '../assets/autocad.png';
+import collegeBg from '../assets/college.jpg';
+import scholarImg from '../assets/scholar.png';
+
+interface Project {
+  id: string;
+  title: string;
+  category: 'rooftop' | 'ground' | 'planning';
+  image: string;
+  desc: string;
+  year: string;
+  location: string;
+  role: string;
+  scope: string[];
+  inverter_rating: string;
+  design_drawings: string;
+  capacity_yield: string;
+  standards_code: string;
+  client: string;
+  result: string;
+}
+
+interface EducationItem {
+  id: string;
+  degree: string;
+  institution: string;
+  year: string;
+  badge?: string;
+  image?: string;
+  type: 'cover' | 'contain' | 'none';
+}
+
+interface AchievementItem {
+  id: string;
+  title: string;
+  organization: string;
+  criteria: string;
+  badge?: string;
+  image?: string;
+  type: 'cover' | 'contain' | 'none';
+}
+
+const EDUCATION_DATA: EducationItem[] = [
+  {
+    id: '1',
+    degree: 'Bachelor of Science in Electrical Engineering',
+    institution: 'Camarines Norte State College',
+    year: 'Graduated 2019',
+    badge: 'REE — Board Passer 2019',
+    image: collegeBg,
+    type: 'cover'
+  },
+];
+
+const ACHIEVEMENTS_DATA: AchievementItem[] = [
+  {
+    id: '1',
+    title: 'Iskolar ng Bayan Grantee',
+    organization: 'LGU Mercedes',
+    criteria: 'Academic Excellence',
+    badge: 'Scholarship Grantee',
+    image: scholarImg,
+    type: 'contain'
+  }
+];
+
+const PROJECTS_DATA: Project[] = [
+  {
+    id: '1',
+    title: 'Megaworld Festivewalk Mall',
+    category: 'rooftop',
+    image: 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=800&q=80',
+    desc: 'Preparation of preliminary project drawings based on site inspection, shading orientation analysis, and electrical design considerations for a 528kWp Rooftop Solar Project (RSP).',
+    year: '2024',
+    location: 'Iloilo City, PH',
+    role: 'Lead Design Engineer',
+    scope: [
+      'Prepared preliminary PV array layouts and inverter configuration for 528kWp.',
+      'Conducted detailed shading and yield performance assessments using PVSyst.',
+      'Developed DC/AC cable schedules and cable size calculations.',
+      'Created single line diagrams (SLD) in compliance with the Philippine Electrical Code.'
+    ],
+    inverter_rating: '400kWac Inverter Stack',
+    design_drawings: 'PV Layout, Cable Routing, SLD',
+    capacity_yield: '528kWp DC / 400kWac AC',
+    standards_code: 'Philippine Electrical Code (PEC)',
+    client: 'TotalEnergies',
+    result: 'Reduced cabling distribution losses by 2.4% and successfully passed Meralco Net Metering verification on the first inspection.'
+  },
+  {
+    id: '2',
+    title: 'Nueva Ecija 2 Solar Project',
+    category: 'ground',
+    image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80',
+    desc: 'Development of initial project drawings and electrical layout plans for a massive 3,500MWp ground-mounted solar utility project, coordinating master plans and centralized power layout designs.',
+    year: '2024',
+    location: 'Nueva Ecija, PH',
+    role: 'Lead Solar Design Engineer',
+    scope: [
+      'Created master plan block layouts and tracker configurations using PVCase.',
+      'Modeled terrain slopes and calculated shading layouts for utility-scale efficiency.',
+      'Conducted large-scale PVSyst meteorological yield estimations.',
+      'Coordinated layout sizing and spacing for central inverter stations.'
+    ],
+    inverter_rating: 'Central Inverter Blocks (3.125MW)',
+    design_drawings: 'Block Layout, SLD, Substation MV',
+    capacity_yield: '3,500MWp Utility Capacity',
+    standards_code: 'Grid Code Integration Standards',
+    client: 'Solar Philippines',
+    result: 'Optimized array block layouts to reduce DC cable quantities by 12% across Phase 1 development blocks.'
+  },
+  {
+    id: '3',
+    title: 'General Santos City SPP',
+    category: 'ground',
+    image: 'https://images.unsplash.com/photo-1548550022-c3bf507b9a5c?auto=format&fit=crop&w=800&q=80',
+    desc: 'Development of initial project drawings and layout optimization for a 475MWp Ground-Mounted Solar Power Project, conducting shading and yield simulations.',
+    year: '2023',
+    location: 'General Santos City, PH',
+    role: 'Solar Design Engineer',
+    scope: [
+      'Developed 475MWp utility solar array layouts and DC/AC routing plans.',
+      'Conducted PVSyst meteorological shading and performance ratio simulations.',
+      'Prepared detailed Single Line Diagrams (SLD) for inverter station cabinets.',
+      'Drafted MV collection grid routing schematic layouts.'
+    ],
+    inverter_rating: '1500V central / string mix',
+    design_drawings: 'Single Line Diagram, DC Cable Routing',
+    capacity_yield: '475MWp Utility Scale',
+    standards_code: 'PEC / IEC Standards Compliance',
+    client: 'Solar Philippines',
+    result: 'Yield simulations validated by the client technical committee for project financial close.'
+  },
+  {
+    id: '4',
+    title: 'Infinity Resort RSP',
+    category: 'rooftop',
+    image: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80',
+    desc: 'Preparation of preliminary project drawings, shading assessments, and PV-inverter sizing layouts for a 50kWp Net-Metered Rooftop Solar Project.',
+    year: '2024',
+    location: 'Puerto Galera, PH',
+    role: 'Design Engineer',
+    scope: [
+      'Designed 50kWp Net-Metered rooftop array layout and tile spacing.',
+      'Performed PV-inverter matching calculations.',
+      'Developed single line drawings (SLDs) and electrical panels layouts.',
+      'Prepared technical bill of materials (BOM) with cost analysis.'
+    ],
+    inverter_rating: '36kWac String Inverter',
+    design_drawings: 'DC/AC Cable Routing Plan & SLD',
+    capacity_yield: '50kWp DC / 36kWac AC',
+    standards_code: 'Net Metering Application Standards',
+    client: 'Infinity Resort',
+    result: 'Passed local utility net metering inspection, generating 72 MWh of annual clean energy.'
+  },
+  {
+    id: '5',
+    title: 'SM City Puerto Princesa',
+    category: 'rooftop',
+    image: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=800&q=80',
+    desc: 'Development of initial project drawings and electrical plans for SM City Puerto Princesa commercial solar rooftop project.',
+    year: '2024',
+    location: 'Palawan, PH',
+    role: 'Lead Design Engineer',
+    scope: [
+      'Evaluated structural design load constraints for solar panel racks.',
+      'Developed initial layouts and electrical wiring diagrams.',
+      'Performed cable sizing, DC combiners layout, and inverter stack optimization.'
+    ],
+    inverter_rating: '100kW String Inverters Stack',
+    design_drawings: 'Layout Drawings & Block Diagrams',
+    capacity_yield: '1.2MWp Commercial Rooftop',
+    standards_code: 'PEC / Utility Standards',
+    client: 'TotalEnergies',
+    result: 'Completed initial design packages for corporate engineering review and approval.'
+  },
+  {
+    id: '6',
+    title: 'Iba-Palauig SPP',
+    category: 'ground',
+    image: 'https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=800&q=80',
+    desc: 'Development of initial drawings and array layouts for 200MWp ground-mounted solar power plant.',
+    year: '2023',
+    location: 'Zambales, PH',
+    role: 'Design Engineer',
+    scope: [
+      'Developed initial drawings and layout configurations for a 200MWp ground system.',
+      'Drafted cable routing optimization diagrams to minimize voltage drops.',
+      'Assisted in array boundary calculations and tracker configurations.'
+    ],
+    inverter_rating: 'Central Inverter Blocks',
+    design_drawings: 'SLD & Collection Grid Layout',
+    capacity_yield: '200MWp Capacity Scale',
+    standards_code: 'Philippine Grid Code / PEC',
+    client: 'Solar Philippines',
+    result: 'Design drawings integrated into system impact studies (SIS) for grid interconnection.'
+  },
+  {
+    id: '7',
+    title: 'San Ildefonso SPP',
+    category: 'ground',
+    image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80',
+    desc: 'Drafted layout configurations and PV array layouts for 500MWp utility solar project.',
+    year: '2023',
+    location: 'Bulacan, PH',
+    role: 'Design Engineer',
+    scope: [
+      'Drafted array layouts and block structures for 500MWp utility system.',
+      'Assisted in PVSyst performance calculations and cable calculations.',
+      'Coordinated with site surveys to map shading factors from surrounding terrain.'
+    ],
+    inverter_rating: 'Central Inverter Blocks',
+    design_drawings: 'Master Block Plan & Wiring Layout',
+    capacity_yield: '500MWp Utility Capacity',
+    standards_code: 'IEEE 1547 / PEC Standards',
+    client: 'Solar Philippines',
+    result: 'Optimized layout configurations, increasing active collection area by 3% within property bounds.'
+  },
+  {
+    id: '8',
+    title: 'Prisma Residences MEPF',
+    category: 'planning',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+    desc: 'Supervision and management of construction activities, reviewing MEPF plans/drawings, revisions, and as-builts for DMCI high-rise residential project.',
+    year: '2022',
+    location: 'Pasig City, PH',
+    role: 'Electrical Engineer',
+    scope: [
+      'Supervised subcontractor electrical installations on-site.',
+      'Reviewed MEPF drawings, riser diagrams, panel schedules, and as-builts.',
+      'Evaluated subcontractor billings and variation orders.',
+      'Coordinated weekly site alignment meetings and resolved conduit collisions.'
+    ],
+    inverter_rating: '2x1500kVA Substation Sub',
+    design_drawings: 'Riser Diagrams & Panel Schedules',
+    capacity_yield: '3 High-Rise Residential Towers',
+    standards_code: 'PEC / National Building Code PH',
+    client: 'DMCI Homes Inc.',
+    result: 'Reduced project delay by 15% through preemptive collision checking between duct banks and structural beams.'
+  },
+  {
+    id: '9',
+    title: 'Cornersteel Structured Cabling',
+    category: 'planning',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
+    desc: 'Site survey and drafting single line diagrams for proposed electrical, structured voice/data, and auxiliary cabling systems.',
+    year: '2021',
+    location: 'Makati City, PH',
+    role: 'Electrical Design Engineer',
+    scope: [
+      'Conducted site surveys for corporate commercial fit-out projects.',
+      'Drafted power and lighting layout drawings, single line diagrams (SLDs).',
+      'Calculated load schedules and estimated materials for structured cabling (voice/data).'
+    ],
+    inverter_rating: '150kVA Connected Load',
+    design_drawings: 'Power/Lighting & Cabling Layout',
+    capacity_yield: '4,200 sq.m Corporate Fit-out',
+    standards_code: 'PEC / EIA/TIA 568',
+    client: 'Cornersteel Systems Corp.',
+    result: 'Completed drawings and BOM approved on first submission, enabling on-time site fit-out execution.'
+  },
+  {
+    id: '9',
+    title: 'Cornersteel Structured Cabling',
+    category: 'planning',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
+    desc: 'Site survey and drafting single line diagrams for proposed electrical, structured voice/data, and auxiliary cabling systems.',
+    year: '2021',
+    location: 'Makati City, PH',
+    role: 'Electrical Design Engineer',
+    scope: [
+      'Conducted site surveys for corporate commercial fit-out projects.',
+      'Drafted power and lighting layout drawings, single line diagrams (SLDs).',
+      'Calculated load schedules and estimated materials for structured cabling (voice/data).'
+    ],
+    inverter_rating: '150kVA Connected Load',
+    design_drawings: 'Power/Lighting & Cabling Layout',
+    capacity_yield: '4,200 sq.m Corporate Fit-out',
+    standards_code: 'PEC / EIA/TIA 568',
+    client: 'Cornersteel Systems Corp.',
+    result: 'Completed drawings and BOM approved on first submission, enabling on-time site fit-out execution.'
+  },
+  {
+    id: '9',
+    title: 'Cornersteel Structured Cabling',
+    category: 'planning',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
+    desc: 'Site survey and drafting single line diagrams for proposed electrical, structured voice/data, and auxiliary cabling systems.',
+    year: '2021',
+    location: 'Makati City, PH',
+    role: 'Electrical Design Engineer',
+    scope: [
+      'Conducted site surveys for corporate commercial fit-out projects.',
+      'Drafted power and lighting layout drawings, single line diagrams (SLDs).',
+      'Calculated load schedules and estimated materials for structured cabling (voice/data).'
+    ],
+    inverter_rating: '150kVA Connected Load',
+    design_drawings: 'Power/Lighting & Cabling Layout',
+    capacity_yield: '4,200 sq.m Corporate Fit-out',
+    standards_code: 'PEC / EIA/TIA 568',
+    client: 'Cornersteel Systems Corp.',
+    result: 'Completed drawings and BOM approved on first submission, enabling on-time site fit-out execution.'
+  }
+];
+
