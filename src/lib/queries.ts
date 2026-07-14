@@ -61,7 +61,6 @@ export interface JourneyEntry {
   scope: string[];
   icon: "sun" | "government" | "solar-grid" | "hardhat" | "building" | "cabling" | "award";
   milestone: boolean;
-  order: number;
 }
 
 export interface Project {
@@ -82,7 +81,6 @@ export interface Project {
   result: string;
   github?: string;
   liveDemo?: string;
-  order: number;
 }
 
 export interface Service {
@@ -90,7 +88,6 @@ export interface Service {
   title: string;
   description: string;
   icon: "solar-array" | "sld" | "audit" | "policy" | "tools";
-  order: number;
 }
 
 export interface Tool {
@@ -98,7 +95,6 @@ export interface Tool {
   name: string;
   description: string;
   logo?: Image;
-  order: number;
 }
 
 export interface Training {
@@ -107,7 +103,6 @@ export interface Training {
   organizer: string;
   date: string;
   certificate?: Image;
-  order: number;
 }
 
 export const PROFILE_QUERY = /* groq */ `*[_type == "profile"][0]{
@@ -125,26 +120,26 @@ export const PROFILE_QUERY = /* groq */ `*[_type == "profile"][0]{
   references
 }`;
 
-export const JOURNEY_QUERY = /* groq */ `*[_type == "journeyEntry"] | order(order asc){
-  _id, role, company, dateRange, body, scope, icon, milestone, order
+export const JOURNEY_QUERY = /* groq */ `*[_type == "journeyEntry"] | order(orderRank asc){
+  _id, role, company, dateRange, body, scope, icon, milestone
 }`;
 
-export const PROJECTS_QUERY = /* groq */ `*[_type == "project"] | order(order asc){
+export const PROJECTS_QUERY = /* groq */ `*[_type == "project"] | order(orderRank asc){
   _id, title, category, description, image, year, location, role, scope,
   inverterRating, designDrawings, capacityYield, standardsCode, client, result,
-  github, liveDemo, order
+  github, liveDemo
 }`;
 
-export const SERVICES_QUERY = /* groq */ `*[_type == "service"] | order(order asc){
-  _id, title, description, icon, order
+export const SERVICES_QUERY = /* groq */ `*[_type == "service"] | order(orderRank asc){
+  _id, title, description, icon
 }`;
 
-export const TOOLS_QUERY = /* groq */ `*[_type == "tool"] | order(order asc){
-  _id, name, description, logo, order
+export const TOOLS_QUERY = /* groq */ `*[_type == "tool"] | order(orderRank asc){
+  _id, name, description, logo
 }`;
 
-export const TRAININGS_QUERY = /* groq */ `*[_type == "training"] | order(order asc){
-  _id, title, organizer, date, certificate, order
+export const TRAININGS_QUERY = /* groq */ `*[_type == "training"] | order(orderRank asc){
+  _id, title, organizer, date, certificate
 }`;
 
 export interface PortfolioData {

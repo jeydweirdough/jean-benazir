@@ -4,10 +4,26 @@ import { createClient } from '@sanity/client';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { LexoRank } from 'lexorank';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const assetPath = (p) => path.join(root, 'src', 'assets', p);
+
+// Generates sequential lexorank strings compatible with @sanity/orderable-document-list's
+// native drag-to-reorder document lists, so seeded documents sort correctly out of the box.
+function ranker() {
+  let rank = LexoRank.min();
+  let first = true;
+  return () => {
+    if (first) {
+      first = false;
+    } else {
+      rank = rank.genNext();
+    }
+    return rank.toString();
+  };
+}
 
 const token = process.env.SANITY_API_TOKEN;
 if (!token) {
@@ -159,7 +175,6 @@ async function main() {
       ],
       icon: 'sun',
       milestone: false,
-      order: 1,
     },
     {
       role: 'Science Research Specialist II',
@@ -172,7 +187,6 @@ async function main() {
       ],
       icon: 'government',
       milestone: false,
-      order: 2,
     },
     {
       role: 'Electrical & Solar Design Engineer',
@@ -185,7 +199,6 @@ async function main() {
       ],
       icon: 'solar-grid',
       milestone: false,
-      order: 3,
     },
     {
       role: 'Electrical Engineer',
@@ -198,7 +211,6 @@ async function main() {
       ],
       icon: 'hardhat',
       milestone: false,
-      order: 4,
     },
     {
       role: 'Electrical Engineer',
@@ -208,7 +220,6 @@ async function main() {
       scope: [],
       icon: 'building',
       milestone: false,
-      order: 5,
     },
     {
       role: 'Electrical Design Engineer',
@@ -218,7 +229,6 @@ async function main() {
       scope: [],
       icon: 'cabling',
       milestone: false,
-      order: 6,
     },
     {
       role: 'Registered Electrical Engineer',
@@ -228,17 +238,18 @@ async function main() {
       scope: [],
       icon: 'award',
       milestone: true,
-      order: 7,
     },
   ];
-
+  const journeyRank = ranker();
   for (const [i, entry] of journeyEntries.entries()) {
     await client.createOrReplace({
       _id: `journey-${i + 1}`,
       _type: 'journeyEntry',
       ...entry,
+      orderRank: journeyRank(),
     });
   }
+
 
   console.log('Writing project entries...');
   const projects = [
@@ -428,7 +439,7 @@ async function main() {
       result: 'Completed drawings and BOM approved on first submission, enabling on-time site fit-out execution.',
     },
   ];
-
+  const projectRank = ranker();
   for (const [i, p] of projects.entries()) {
     const imageAsset = await uploadImageFromUrl(p.image);
     await client.createOrReplace({
@@ -448,9 +459,10 @@ async function main() {
       standardsCode: p.standardsCode,
       client: p.client,
       result: p.result,
-      order: i + 1,
+      orderRank: projectRank(),
     });
   }
+
 
   console.log('Writing service entries...');
   const services = [
@@ -485,7 +497,7 @@ async function main() {
       icon: 'tools',
     },
   ];
-
+  const serviceRank = ranker();
   for (const [i, s] of services.entries()) {
     await client.createOrReplace({
       _id: `service-${s.key}`,
@@ -493,9 +505,10 @@ async function main() {
       title: s.title,
       description: s.description,
       icon: s.icon,
-      order: i + 1,
+      orderRank: serviceRank(),
     });
   }
+
 
   console.log('Writing tool entries...');
   const tools = [
@@ -509,7 +522,7 @@ async function main() {
     { key: 'planswift', name: 'Planswift', description: 'Digital takeoff and estimating software for accurate material quantity calculations from plans.', asset: null },
     { key: 'ms-office', name: 'MS Office', description: 'Proficient in Excel, Word, and PowerPoint for documentation, reporting, and project presentations.', asset: null },
   ];
-
+  const toolRank = ranker();
   for (const [i, t] of tools.entries()) {
     await client.createOrReplace({
       _id: `tool-${t.key}`,
@@ -517,9 +530,10 @@ async function main() {
       name: t.name,
       description: t.description,
       ...(t.asset ? { logo: imageField(t.asset) } : {}),
-      order: i + 1,
+      orderRank: toolRank(),
     });
   }
+
 
   console.log('Writing training entries...');
   const trainings = [
@@ -533,7 +547,7 @@ async function main() {
     { title: '2-Day Solar PV Installation & Training — Rooftop Solar PV Design', organizer: 'PHL Solar Industries, Quezon City', date: 'July 9–10, 2022' },
     { title: 'Standard Electrical Installation & Simplified Fault Calculation', organizer: 'IIEE Metro South Chapter / IIEE-CSC Region V', date: 'Aug 2020 · Sep 2017' },
   ];
-
+  const trainingRank = ranker();
   for (const [i, tr] of trainings.entries()) {
     await client.createOrReplace({
       _id: `training-${i + 1}`,
@@ -541,9 +555,10 @@ async function main() {
       title: tr.title,
       organizer: tr.organizer,
       date: tr.date,
-      order: i + 1,
+      orderRank: trainingRank(),
     });
   }
+
 
   console.log('Seed complete.');
 }

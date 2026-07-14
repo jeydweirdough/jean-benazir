@@ -1,6 +1,7 @@
 import { createElement } from "react";
 import { defineField, defineType } from "sanity";
 import { Icon } from "@sanity/icons";
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 
 export default defineType({
   name: "tool",
@@ -31,20 +32,10 @@ export default defineType({
       },
     }),
 
-    defineField({
-      name: "order",
-      title: "Order",
-      type: "number",
-    }),
+    orderRankField({ type: "tool" }),
   ],
 
-  orderings: [
-    {
-      title: "Order",
-      name: "orderAsc",
-      by: [{ field: "order", direction: "asc" }],
-    },
-  ],
+  orderings: [orderRankOrdering],
 
   preview: {
     select: { title: "name", subtitle: "description", media: "logo" },
