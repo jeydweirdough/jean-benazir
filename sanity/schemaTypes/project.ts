@@ -12,13 +12,14 @@ export default defineType({
   fields: [
     defineField({
       name: "title",
-      title: "Title",
+      title: "Project Name",
       type: "string",
     }),
 
     defineField({
       name: "category",
       title: "Category",
+      description: "Which filter button this project appears under on the Projects page.",
       type: "string",
       options: {
         list: [
@@ -31,13 +32,15 @@ export default defineType({
 
     defineField({
       name: "description",
-      title: "Description",
+      title: "Summary",
+      description: "A short paragraph describing the project.",
       type: "text",
     }),
 
     defineField({
       name: "image",
-      title: "Image",
+      title: "Project Photo",
+      description: "The main photo for this project's card. If left blank, a placeholder is shown instead.",
       type: "image",
       options: {
         hotspot: true,
@@ -58,13 +61,15 @@ export default defineType({
 
     defineField({
       name: "role",
-      title: "Role",
+      title: "Your Role",
+      description: "Your title/role on this specific project, e.g. \"Lead Design Engineer\".",
       type: "string",
     }),
 
     defineField({
       name: "scope",
-      title: "Scope of Work",
+      title: "Scope of Work (optional)",
+      description: "A bullet list of what you did on this project. Click \"Add item\" for each bullet point.",
       type: "array",
       of: [{ type: "string" }],
     }),
@@ -72,24 +77,28 @@ export default defineType({
     defineField({
       name: "inverterRating",
       title: "Inverter Rating",
+      description: "Optional technical spec shown in the project details grid. Leave blank if not applicable.",
       type: "string",
     }),
 
     defineField({
       name: "designDrawings",
       title: "Design Drawings",
+      description: "Optional list of drawing types produced, e.g. \"PV Layout, Cable Routing, SLD\". Leave blank if not applicable.",
       type: "string",
     }),
 
     defineField({
       name: "capacityYield",
       title: "Capacity / Yield",
+      description: "Optional size/output spec, e.g. \"528kWp DC / 400kWac AC\". Leave blank if not applicable.",
       type: "string",
     }),
 
     defineField({
       name: "standardsCode",
       title: "Standards / Code",
+      description: "Optional — which code or standard the project follows. Leave blank if not applicable.",
       type: "string",
     }),
 
@@ -101,20 +110,9 @@ export default defineType({
 
     defineField({
       name: "result",
-      title: "Result",
+      title: "Outcome (optional)",
+      description: "The end result or impact of the project, e.g. \"Reduced losses by 2.4%...\".",
       type: "text",
-    }),
-
-    defineField({
-      name: "github",
-      title: "GitHub URL",
-      type: "url",
-    }),
-
-    defineField({
-      name: "liveDemo",
-      title: "Live Demo",
-      type: "url",
     }),
 
     orderRankField({ type: "project" }),

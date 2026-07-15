@@ -12,60 +12,66 @@ export default defineType({
   fields: [
     defineField({
       name: "role",
-      title: "Role",
+      title: "Job Title",
+      description: "Your position at the time, e.g. \"Senior Solar Design Engineer\".",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
 
     defineField({
       name: "company",
-      title: "Company",
+      title: "Company / Organization",
+      description: "Who you worked for. Leave blank for a personal milestone (like passing an exam) that isn't tied to an employer.",
       type: "string",
     }),
 
     defineField({
       name: "dateRange",
-      title: "Date Range",
+      title: "Dates",
+      description: "Free text, written however you like — e.g. \"Nov 2025 – Present\" or \"2019 Milestone\".",
       type: "string",
-      description: "e.g. \"Nov 2025 – Present\"",
     }),
 
     defineField({
       name: "body",
-      title: "Description",
+      title: "Summary",
+      description: "A short paragraph describing what you did in this role.",
       type: "text",
     }),
 
     defineField({
       name: "scope",
-      title: "Scope of Work",
+      title: "Key Responsibilities (optional)",
+      description: "A bullet list of specific tasks or achievements. Click \"Add item\" for each new bullet point. Fine to leave empty.",
       type: "array",
       of: [{ type: "string" }],
     }),
 
     defineField({
       name: "icon",
-      title: "Icon",
+      title: "Marker Icon",
+      description: "The small picture shown next to this entry on the timeline. Just pick whichever one feels closest — it's purely decorative, so there's no wrong answer. Choose \"General / Other\" if nothing quite fits.",
       type: "string",
-      description: "Icon key used to render the milestone marker (e.g. sun, government, solar-grid, hardhat, building, cabling, award)",
+      initialValue: "general",
       options: {
         list: [
-          "sun",
-          "government",
-          "solar-grid",
-          "hardhat",
-          "building",
-          "cabling",
-          "award",
+          { title: "☀️ Sun — solar / renewable energy company", value: "sun" },
+          { title: "🏛️ Government building — public sector / agency role", value: "government" },
+          { title: "🔲 Solar panel grid — solar installation / design company", value: "solar-grid" },
+          { title: "⛑️ Hard hat — construction / on-site engineering", value: "hardhat" },
+          { title: "🏢 Office building — corporate / real estate developer", value: "building" },
+          { title: "🔌 Cabling — electrical / structured cabling contractor", value: "cabling" },
+          { title: "🏆 Award ribbon — certification, exam pass, or achievement", value: "award" },
+          { title: "💼 General / Other — anything that doesn't fit above", value: "general" },
         ],
       },
     }),
 
     defineField({
       name: "milestone",
-      title: "Milestone",
+      title: "Highlight as Milestone?",
+      description: "Turn this on to make the entry stand out in gold, for major career moments (like a license exam or promotion).",
       type: "boolean",
-      description: "Highlight this entry as a career milestone (gold styling)",
       initialValue: false,
     }),
 

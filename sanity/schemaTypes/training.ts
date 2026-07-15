@@ -12,7 +12,7 @@ export default defineType({
   fields: [
     defineField({
       name: "title",
-      title: "Title",
+      title: "Training / Seminar Name",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -20,23 +20,15 @@ export default defineType({
     defineField({
       name: "organizer",
       title: "Organizer",
+      description: "Who ran the training, e.g. \"Solar Philippines\".",
       type: "string",
     }),
 
     defineField({
       name: "date",
       title: "Date",
+      description: "Written however you like, e.g. \"February 2024\" or \"Aug 2020 · Sep 2017\".",
       type: "string",
-      description: "Freeform date/period, e.g. \"February 2024\" or \"Aug 2020 · Sep 2017\"",
-    }),
-
-    defineField({
-      name: "certificate",
-      title: "Certificate Image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
     }),
 
     orderRankField({ type: "training" }),

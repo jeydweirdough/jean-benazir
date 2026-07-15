@@ -12,7 +12,8 @@ export default defineType({
   fields: [
     defineField({
       name: "name",
-      title: "Name",
+      title: "Tool / Software Name",
+      description: "e.g. \"AutoCAD\" or \"PVSyst\".",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -20,12 +21,14 @@ export default defineType({
     defineField({
       name: "description",
       title: "Description",
+      description: "1-2 sentences explaining what this tool is used for.",
       type: "text",
     }),
 
     defineField({
       name: "logo",
-      title: "Logo",
+      title: "Logo (optional)",
+      description: "The tool's logo image. If left blank, a generic icon is shown instead — nothing breaks either way.",
       type: "image",
       options: {
         hotspot: true,

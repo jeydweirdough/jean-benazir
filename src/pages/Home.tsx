@@ -29,7 +29,14 @@ const JOURNEY_ICONS: Record<string, React.ReactNode> = {
   award: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
   ),
+  // Fallback for the "General / Other" option, and for any icon value the Studio doesn't
+  // recognize yet — so a new or unmatched pick never renders as a blank/broken icon.
+  general: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
+  ),
 };
+
+const journeyIcon = (key: string) => JOURNEY_ICONS[key] ?? JOURNEY_ICONS.general;
 
 const SERVICE_ICONS: Record<string, React.ReactNode> = {
   'solar-array': (
@@ -79,7 +86,14 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
       <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
     </svg>
   ),
+  // Fallback for the "General / Other" option, and for any icon value the Studio doesn't
+  // recognize yet — so a new or unmatched pick never renders as a blank/broken icon.
+  general: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
+  ),
 };
+
+const serviceIcon = (key: string) => SERVICE_ICONS[key] ?? SERVICE_ICONS.general;
 
 // Tools with no CMS logo image fall back to one of these hand-drawn marks, keyed by name.
 const TOOL_FALLBACK_ICONS: Record<string, React.ReactNode> = {
@@ -124,9 +138,11 @@ export default function Home() {
 
   const showCursor = !typingDone;
 
-  // Intersection observer for animation triggers
+  // Intersection observer for animation triggers.
+  // Re-runs whenever fetched Sanity data changes, since sections like Journey/Projects/
+  // Services/Stats render `.reveal` elements only after their async fetch resolves — an
+  // observer wired up once on mount would miss them entirely and leave them at opacity: 0.
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>('.reveal');
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -147,9 +163,10 @@ export default function Home() {
       },
       { threshold: 0.12 }
     );
+    const els = document.querySelectorAll<HTMLElement>('.reveal');
     els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [data]);
 
   // Snake journey scroll tracker
   const journeyRef = useRef<HTMLDivElement>(null);
@@ -534,14 +551,14 @@ export default function Home() {
                   data-delay={`${Math.min(idx, 1) * 0.05}s`}
                 >
                   <div className={`journey-node${isMilestone ? ' journey-node--gold' : ''}`}>
-                    {JOURNEY_ICONS[entry.icon]}
+                    {journeyIcon(entry.icon)}
                   </div>
                   <div className={`journey-card${isMilestone ? ' journey-card--gold' : ''}`}>
                     <h3 className="journey-role" style={isMilestone ? { color: 'var(--gold)' } : undefined}>{entry.role}</h3>
                     <time className="journey-date" style={isMilestone ? { color: 'var(--text-muted)' } : undefined}>{entry.dateRange}</time>
                     {entry.company && (
                       <div className="journey-company">
-                        {JOURNEY_ICONS[entry.icon]}
+                        {journeyIcon(entry.icon)}
                         {entry.company}
                       </div>
                     )}
@@ -694,7 +711,7 @@ export default function Home() {
                 style={{ background: 'var(--bg-darker)', borderColor: 'var(--border)', borderRadius: '15px' }}
               >
                 <div className="pillars-v2-icon" style={{ background: 'linear-gradient(to right, #1A3D63, #4A7FA7)', color: '#ffffff' }}>
-                  {SERVICE_ICONS[service.icon]}
+                  {serviceIcon(service.icon)}
                 </div>
                 <h3 className="pillars-v2-card-title" style={{ color: 'var(--text-primary)' }}>{service.title}</h3>
                 <p className="pillars-v2-card-desc" style={{ color: 'var(--text-secondary)' }}>{service.description}</p>

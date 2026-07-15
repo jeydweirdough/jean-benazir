@@ -79,8 +79,6 @@ export interface Project {
   standardsCode: string;
   client: string;
   result: string;
-  github?: string;
-  liveDemo?: string;
 }
 
 export interface Service {
@@ -102,7 +100,6 @@ export interface Training {
   title: string;
   organizer: string;
   date: string;
-  certificate?: Image;
 }
 
 export const PROFILE_QUERY = /* groq */ `*[_type == "profile"][0]{
@@ -126,8 +123,7 @@ export const JOURNEY_QUERY = /* groq */ `*[_type == "journeyEntry"] | order(orde
 
 export const PROJECTS_QUERY = /* groq */ `*[_type == "project"] | order(orderRank asc){
   _id, title, category, description, image, year, location, role, scope,
-  inverterRating, designDrawings, capacityYield, standardsCode, client, result,
-  github, liveDemo
+  inverterRating, designDrawings, capacityYield, standardsCode, client, result
 }`;
 
 export const SERVICES_QUERY = /* groq */ `*[_type == "service"] | order(orderRank asc){
@@ -139,7 +135,7 @@ export const TOOLS_QUERY = /* groq */ `*[_type == "tool"] | order(orderRank asc)
 }`;
 
 export const TRAININGS_QUERY = /* groq */ `*[_type == "training"] | order(orderRank asc){
-  _id, title, organizer, date, certificate
+  _id, title, organizer, date
 }`;
 
 export interface PortfolioData {
