@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+# Jean Benazir Teopebuaya — Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal portfolio website for **Jean Benazir Teopebuaya**, showcasing professional experience, solar and electrical engineering projects, services, education, achievements, and training background.
 
-Currently, two official plugins are available:
+**Live site:** https://jeanbenazirteopebuaya.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## About This Site
 
-## React Compiler
+This site presents Jean's professional profile as a solar and electrical engineer, including:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Hero Introduction** — name, title, and a quick call-to-action to view projects
+- **Career Snapshot / Stats** — key numbers at a glance
+- **Professional Journey** — a timeline of career milestones and roles
+- **Project Logbook** — a filterable showcase of solar and electrical engineering projects, with details like location, client, capacity/yield, inverter rating, design drawings, and standards/codes followed
+- **Services** — the engineering services offered
+- **Tools** — the tools and software used in day-to-day work
+- **Education** — academic background
+- **Achievements** — awards and recognitions
+- **Trainings & Seminars** — professional development history
+- **Contact** — a way for visitors to get in touch
 
-## Expanding the ESLint configuration
+## Managing Content
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+All of the content shown on the site (profile info, projects, services, tools, education, trainings, etc.) is managed through a built-in content editor rather than by editing code directly.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- The content editor is available at **`/admin`** on the deployed site.
+- Updates made there (adding a new project, editing a bio, uploading a new photo, etc.) will reflect on the live site without needing a code change or a new deployment.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+This means day-to-day updates — new projects, updated achievements, fresh photos — can be made directly by the client without developer involvement.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure (High Level)
+
+```
+public/          → images and static assets used across the site
+src/pages/       → the main portfolio page
+src/components/  → shared UI pieces (navbar, footer, etc.)
+src/admin/       → the content editor (accessible at /admin)
+sanity/          → content structure definitions used by the editor
+scripts/         → one-time script used to seed initial content
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Running the Project Locally
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+For developers who need to run this project on their own machine:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+This starts a local development server. Open the URL shown in the terminal to view the site.
+
+To build a production-ready version of the site:
+
+```bash
+npm run build
+```
+
+## Deployment
+
+The site is deployed and hosted on **Vercel**, and updates to the codebase are automatically published when changes are pushed.
+
+## Ownership
+
+This project was developed as a custom portfolio site for the client, **Jean Benazir Teopebuaya**.
