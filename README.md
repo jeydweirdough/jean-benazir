@@ -1,6 +1,6 @@
 # Jean Benazir Teopebuaya — Portfolio Website
 
-A personal portfolio website for **Jean Benazir Teopebuaya**, showcasing professional experience, solar and electrical engineering projects, services, education, achievements, and training background.
+A personal portfolio website for **Ms. Jean Benazir Teopebuaya**, showcasing professional experience, solar and electrical engineering projects, services, education, achievements, and training background.
 
 **Live site:** https://jeanbenazirteopebuaya.vercel.app/
 
@@ -63,3 +63,7 @@ The site is deployed and hosted on **Vercel**, and updates to the codebase are a
 ## Ownership
 
 This project was developed as a custom portfolio site for the client, **Jean Benazir Teopebuaya**.
+
+## License
+
+This project is proprietary. All rights reserved — no copying, reuse, or distribution is permitted without written permission. See [LICENSE](./LICENSE) for details.
